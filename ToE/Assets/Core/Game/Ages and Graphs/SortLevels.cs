@@ -14,7 +14,7 @@ public class SortLevels {
 
     }
 
-    public List<LevelUI> StartSorting(List<LevelUI> temp)
+    public List<LevelObj> StartSorting(List<LevelObj> temp)
     {
 
         return temp;

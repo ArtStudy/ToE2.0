@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class AgeUI : MonoBehaviour
+public class AgeObj : MonoBehaviour
 {
     public Age Age;
     public List<GameObject> Levels;
