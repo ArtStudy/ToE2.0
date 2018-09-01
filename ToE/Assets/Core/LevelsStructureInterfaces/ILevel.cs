@@ -43,12 +43,16 @@ namespace Assets.Core.Levels
         /// <summary>
         /// Вопросы уровня
         /// </summary>
-        IQuestion[] QuestionsLevel { get; }
+        List<IQuestion> QuestionsLevel { get; }
         /// <summary>
         /// Статус уровня
         /// </summary>
         StateLevel StateLevel { get; }
 
+        /// <summary>
+        /// Родители уровня
+        /// </summary>
+        List<int> Parents { get; }
 
     }
     public enum StateLevel

@@ -25,9 +25,14 @@ namespace Assets.Core.Game.Ages_and_Graphs
         public IBossFight BossFight { get; }
 
         //Вопросы
-        public IQuestion[] QuestionsLevel { get; }
+        public List<IQuestion> QuestionsLevel { get; }
 
         //
         public StateLevel StateLevel { get; }
+
+        /// <summary>
+        /// Родители уровня
+        /// </summary>
+        public List<int> Parents { get; }
     }
 }
