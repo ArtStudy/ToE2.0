@@ -5,10 +5,6 @@
 -out:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Temp/Assembly-CSharp.dll"
 -nostdlib
 -unsafe
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.AIModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -71,6 +67,10 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.XRModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEditor.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/Unity.Locator.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
@@ -291,51 +291,14 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
-<<<<<<< HEAD
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Bosses/IBoss.cs
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Age.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Level.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/SortLevels.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Game.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IAges.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IBossFight.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IDynamicTest.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/ILevel.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IPassageLevel.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IWay.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Questions/IQuestion.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Serialization/Serializer.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/ToePac/Item.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/ToePac/PAC.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/Character.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/Look.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Body.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Eyes.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Hands.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Head.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Legs.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Mouth.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Nose.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Skin.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Tale.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Wings.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/User/User.cs
--i:D:/Projects/ToE2.0/ToE/Assets/Core/Volutes/Money.cs
-=======
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Bosses/IBoss.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Age.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeUI.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Level.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelUI.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/SortLevels.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayUI.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Game.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs"
@@ -362,5 +325,4 @@
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Wings.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/User.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Volutes/Money.cs"
->>>>>>> cbb700ecc7d329e18f9740a8a2e8c20af6c956bb
 -v:0
