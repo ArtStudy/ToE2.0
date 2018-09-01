@@ -35,5 +35,6 @@ sysinfo.txt
 *.apk
 *.unitypackage
 
-#Assembly
+#Assembly Logs
+Toe/Logs/
 *.rsp
