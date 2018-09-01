@@ -7,18 +7,19 @@ using UnityEngine;
 
 public class WayObj : MonoBehaviour {
 
-    public LevelObj Parent { get; }
-    public LevelObj Child { get; }
+    public LevelObj ParentLevel { get; set; }
+    public LevelObj ChildLevel { get; set; }
 
     // Use this for initialization
     void Start ()
     {
-        WayDrawer.DrawWay(this);
+        
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
-	}
+        WayDrawer.DrawWay(this);
+    }
+
 }

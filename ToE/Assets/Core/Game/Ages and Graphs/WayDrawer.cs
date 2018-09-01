@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Core.Game.Ages_and_Graphs
@@ -12,7 +13,8 @@ namespace Assets.Core.Game.Ages_and_Graphs
         public static void DrawWay(WayObj way)
             {
             LineRenderer lineRenderer = way.GetComponent<LineRenderer>();
-            lineRenderer.SetPositions(ArcCalculator.ArcPointsCalculation(way.Parent.transform.position, way.Child.transform.position));
+            lineRenderer.positionCount = ArcCalculator.countOfPoints;
+            lineRenderer.SetPositions(ArcCalculator.ArcPointsCalculation(way.ParentLevel.transform.position, way.ChildLevel.transform.position));            
             }
     }
 }

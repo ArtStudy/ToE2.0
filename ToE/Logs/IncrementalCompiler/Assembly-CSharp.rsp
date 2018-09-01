@@ -2,7 +2,7 @@
 -target:library
 -nowarn:0169
 -langversion:7
--out:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Temp/Assembly-CSharp.dll"
+-out:D:/Projects/ToE2.0/ToE/Temp/Assembly-CSharp.dll
 -nostdlib
 -unsafe
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
@@ -15,8 +15,6 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.BaselibModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClothModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CloudWebServicesModule.dll"
--r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClusterInputModule.dll"
--r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CoreModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CrashReportingModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.DirectorModule.dll"
@@ -38,6 +36,7 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ProfilerModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.StreamingModule.dll"
@@ -67,18 +66,18 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.XRModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEditor.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/Unity.Locator.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
+-r:D:/Projects/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll
+-r:D:/Projects/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+-r:D:/Projects/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+-r:D:/Projects/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityGoogleAudioSpatializer/RuntimeEditor/UnityEngine.GoogleAudioSpatializer.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll"
--r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
--r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
+-r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
+-r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.Core.dll"
@@ -207,12 +206,9 @@
 -d:UNITY_2018_2_5
 -d:UNITY_2018_2
 -d:UNITY_2018
--d:PLATFORM_ARCH_64
--d:UNITY_64
 -d:ENABLE_AUDIO
 -d:ENABLE_CACHING
 -d:ENABLE_CLOTH
--d:ENABLE_DUCK_TYPING
 -d:ENABLE_MICROPHONE
 -d:ENABLE_MULTIPLE_DISPLAYS
 -d:ENABLE_PHYSICS
@@ -251,33 +247,33 @@
 -d:INCLUDE_GI
 -d:ENABLE_MONO_BDWGC
 -d:PLATFORM_SUPPORTS_MONO
--d:RENDER_SOFTWARE_CURSOR
 -d:INCLUDE_PUBNUB
 -d:ENABLE_VIDEO
 -d:ENABLE_PACKMAN
 -d:ENABLE_CUSTOM_RENDER_TEXTURE
 -d:ENABLE_LOCALIZATION
--d:PLATFORM_STANDALONE_WIN
--d:PLATFORM_STANDALONE
--d:UNITY_STANDALONE_WIN
--d:UNITY_STANDALONE
+-d:PLATFORM_ANDROID
+-d:UNITY_ANDROID
+-d:UNITY_ANDROID_API
 -d:ENABLE_SUBSTANCE
--d:ENABLE_RUNTIME_GI
--d:ENABLE_MOVIES
+-d:ENABLE_EGL
 -d:ENABLE_NETWORK
+-d:ENABLE_RUNTIME_GI
 -d:ENABLE_CRUNCH_TEXTURE_COMPRESSION
 -d:ENABLE_UNITYWEBREQUEST
 -d:ENABLE_CLOUD_SERVICES
 -d:ENABLE_CLOUD_SERVICES_ANALYTICS
+-d:ENABLE_EVENT_QUEUE
 -d:ENABLE_CLOUD_SERVICES_PURCHASING
 -d:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
--d:ENABLE_OUT_OF_PROCESS_CRASH_HANDLER
--d:ENABLE_EVENT_QUEUE
--d:ENABLE_CLUSTER_SYNC
--d:ENABLE_CLUSTERINPUT
+-d:ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING
+-d:PLATFORM_SUPPORTS_ADS_ID
+-d:UNITY_CAN_SHOW_SPLASH_SCREEN
 -d:ENABLE_VR
 -d:ENABLE_AR
--d:ENABLE_WEBSOCKET_HOST
+-d:ENABLE_SPATIALTRACKING
+-d:ENABLE_UNITYADS_RUNTIME
+-d:UNITY_UNITYADS_API
 -d:ENABLE_MONO
 -d:NET_4_6
 -d:ENABLE_PROFILER
@@ -291,39 +287,42 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Bosses/IBoss.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Age.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/ArcCalculator.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Level.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/SortLevels.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Game.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IAges.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IBossFight.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IDynamicTest.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/ILevel.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IPassageLevel.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IWay.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Questions/IQuestion.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Serialization/Serializer.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/Character.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/Look.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Body.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Eyes.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Hands.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Head.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Legs.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Mouth.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Nose.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Skin.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Tale.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/LookParts/Wings.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/User/User.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Volutes/Money.cs"
+-d:UNITY_HAS_GOOGLEVR
+-d:UNITY_HAS_TANGO
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Bosses/IBoss.cs
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Age.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/ArcCalculator.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Level.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/SortLevels.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Game.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IAges.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IBossFight.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IDynamicTest.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/ILevel.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IPassageLevel.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IWay.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Menu/Menu.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Questions/IQuestion.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Serialization/Serializer.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/Character.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/Look.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Body.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Eyes.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Hands.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Head.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Legs.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Mouth.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Nose.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Skin.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Tale.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/LookParts/Wings.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/User/User.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Volutes/Money.cs
 -v:0

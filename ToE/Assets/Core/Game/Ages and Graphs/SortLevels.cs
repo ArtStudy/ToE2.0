@@ -4,23 +4,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SortLevels {
+public static class SortLevels {
 
-    public float levelSpeed = 10.0f; 
+    public static float levelSpeed = 10.0f; 
 
-
-    public SortLevels()
-    {
-
-    }
-
-    public List<LevelObj> StartSorting(List<LevelObj> temp)
+    public static List<LevelObj> StartSorting(List<LevelObj> temp)
     {
 
         return temp;
     }
 
-    public Vector3 randomFirstLevelPos(float r)
+    public static Vector3 randomFirstLevelPos(float r)
     {
         double x, y, z;
         x = UnityEngine.Random.Range(-r, r);
@@ -32,7 +26,7 @@ public class SortLevels {
         return  pos;
     }
     
-    public void Sorting()
+    public static void Sorting()
     {
 
     }
