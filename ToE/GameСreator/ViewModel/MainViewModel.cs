@@ -26,24 +26,30 @@ namespace GameСreator.ViewModel
     {
         string CurrentPage = string.Empty;
         FileStream currentFile;
-         public PAC ThisPac { get; private set; }
+        private ObservableCollection<BossV1> _bosses;
+        private ObservableCollection<LevelV1> _levels;
+
+        public PAC ThisPac { get; private set; }
         public ListResourse Items { get => ThisPac.Items; }
-        public ObservableCollection<BossV1> Bosses { get; set; }
+        public ObservableCollection<BossV1> Bosses { get => _bosses; set { _bosses = value; this.RaisePropertyChanged("Bosses"); }  }
+        public ObservableCollection<LevelV1> Levels { get => _levels; set { _levels = value; this.RaisePropertyChanged("Levels"); } }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
             Messenger.Default.Register<Item>(this, AddNewResourse);
-            Messenger.Default.Register< MessegeResourse<BossV1>>(this, AddNewBoss);
+            Messenger.Default.Register<MessegeResourse<BossV1>>(this, AddNewBoss);
+            Messenger.Default.Register<MessegeResourse<LevelV1>>(this, AddNewLevel);
 
             this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, CreateNewPackageCanEx);
             this.CreateNewBoss = new RelayCommand(CreateNewBossAction, CreateNewBossCanEx);
             this.OpenResources = new RelayCommand(OpenResourcesAction, OpenResourcesCanEx);
             this.OpenBosses = new RelayCommand(OpenBossesAction, OpenBossesCanEx);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
+            this.OpenLevels = new RelayCommand(OpenLevelsAction, OpenLevelsCanEx);
             this.CreateNewResourse = new RelayCommand(CreateNewResourseAction, CreateNewResourseCanEx);
-
+            this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, CreateNewLevelCanEx);
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             ////if (IsInDesignMode)
             ////{
@@ -55,13 +61,24 @@ namespace GameСreator.ViewModel
             ////}
         }
 
-        
+
+
+        /// <summary>
+        /// Сохранить пакет
+        /// </summary>
+        public ICommand CreateNewLevel { get; }
 
 
         /// <summary>
         /// Сохранить пакет
         /// </summary>
         public ICommand SavePackage { get; }
+        /// <summary>
+        /// Открыть уровни пакет
+        /// </summary>
+        public ICommand OpenLevels { get; }
+
+
         /// <summary>
         /// Открыть пакет
         /// </summary>
@@ -90,15 +107,15 @@ namespace GameСreator.ViewModel
         /// </summary>
         public ICommand CreateNewBoss { get; }
 
-        private  void CreateNewPackageAction()
+        private void CreateNewPackageAction()
         {
-           if(this.ThisPac == null)
+            if (this.ThisPac == null)
             {
                 this.ThisPac = new PAC();
             }
 
 
-          //  this.OpenResources.CanExecute(null);
+            //  this.OpenResources.CanExecute(null);
         }
         private bool CreateNewPackageCanEx() => true;
         /// <summary>
@@ -109,7 +126,7 @@ namespace GameСreator.ViewModel
             CurrentPage = "ResourcesPage";
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("ResourcesPage"));
 
-         //   Messenger.Default.Send<PAC>(this.ThisPac);
+            //   Messenger.Default.Send<PAC>(this.ThisPac);
 
         }
         private bool OpenResourcesCanEx() => this.ThisPac != null;
@@ -128,7 +145,7 @@ namespace GameСreator.ViewModel
             UpdateListBosses();
             CurrentPage = "BossesPage";
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossesPage"));
-           
+
         }
 
         private bool OpenBossesCanEx() => this.ThisPac != null;
@@ -167,8 +184,8 @@ namespace GameСreator.ViewModel
             }
             else
                 currentFile.Position = 0;
-                ThisPac.Serialization().WriteTo(currentFile);
-                 currentFile.Flush(true);
+            ThisPac.Serialization().WriteTo(currentFile);
+            currentFile.Flush(true);
 
         }
 
@@ -196,10 +213,11 @@ namespace GameСreator.ViewModel
                 currentFile?.Dispose();
                 currentFile = new FileStream(filename, FileMode.Open);
                 MemoryStream ms = new MemoryStream();
-              ///  currentFile.CopyTo(ms);
+                ///  currentFile.CopyTo(ms);
                 this.ThisPac = new PAC(currentFile);
             }
             UpdateListBosses();
+            UpdateListLevels();
         }
 
         private void AddNewBoss(MessegeResourse<BossV1> obj)
@@ -218,12 +236,50 @@ namespace GameСreator.ViewModel
             Items.Add(obj);
             this.RaisePropertyChanged("Items");
         }
+        private void AddNewLevel(MessegeResourse<LevelV1> obj)
+        {
+            switch (obj.Action)
+            {
+                case ActionItem.Add:
+                    ThisPac.Items.AddRange(obj.Value.ToListResourse());
+                    UpdateListLevels();
+                    break;
+            }
+        }
+
 
         private void UpdateListBosses()
         {
             Bosses = new ObservableCollection<BossV1>();
-           var listtemp =  ThisPac.Items.GetResourcesByType(FileTypes.Bosss);
+            var listtemp = ThisPac.Items.GetResourcesByType(FileTypes.Boss);
             listtemp.ForEach((item) => { Bosses.Add(new BossV1(item, ThisPac.Items)); });
         }
+
+        private bool OpenLevelsCanEx() => this.ThisPac != null;
+        private void OpenLevelsAction()
+        {
+            UpdateListLevels();
+            CurrentPage = "LevelPage";
+            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelPage"));
+        }
+
+
+        private void UpdateListLevels()
+        {
+            Levels = new ObservableCollection<LevelV1>();
+            var listtemp = ThisPac.Items.GetResourcesByType(FileTypes.Lavel);
+            listtemp.ForEach((item) => { Levels.Add(new LevelV1(item, ThisPac.Items)); });
+        }
+
+        private bool CreateNewLevelCanEx() => this.ThisPac != null && this.CurrentPage == "LevelPage";
+
+        private void CreateNewLevelAction()
+        {
+            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddLevelWindowOpen"));
+        }
+
+
+
+
     }
 }

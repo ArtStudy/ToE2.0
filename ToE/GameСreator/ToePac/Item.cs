@@ -131,6 +131,7 @@ namespace GameСreator.ToePac
     public enum FileTypes : long
     {
         Unknown = 0,
-        Bosss = 1
+        Boss = 1,
+        Lavel = 2
     }
 }

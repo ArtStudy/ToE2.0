@@ -60,7 +60,7 @@ namespace GameСreator.API.Boss
             ser.WriteObject(ms, tb);
 
             Item item = new Item();
-            item.FileType = FileTypes.Bosss;
+            item.FileType = FileTypes.Boss;
             item.Identifier = ("Json." + tb.Name).GetUInt64HashCode();
             item.Name = "Json." + tb.Name;
             item.Version = 1;
