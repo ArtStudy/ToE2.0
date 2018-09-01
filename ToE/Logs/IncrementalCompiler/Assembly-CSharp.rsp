@@ -293,11 +293,12 @@
 -d:ENABLE_VSTU
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Bosses/IBoss.cs
 -i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Age.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeUI.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
 -i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Level.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelUI.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
 -i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/SortLevels.cs"
--i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayUI.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
+-i:"D:/Projects/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Game.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs
