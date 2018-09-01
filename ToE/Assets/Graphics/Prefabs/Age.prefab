@@ -38,7 +38,7 @@ Transform:
   m_GameObject: {fileID: 1299423591856910}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -96,14 +96,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12f1d3568dbe2d4cb302c1a9b1c059c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levels:
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
+  Levels: []
+  prefabLevel: {fileID: 1945374915489782, guid: fb0bc36381edb5e4cb41223489fe03b6,
+    type: 2}
   levelPos: {x: 0, y: 0, z: 0}
+  renderCanvas: {fileID: 0}
 --- !u!135 &135815429954811200
 SphereCollider:
   m_ObjectHideFlags: 1
