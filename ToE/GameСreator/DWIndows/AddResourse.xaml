@@ -1,0 +1,22 @@
+﻿<Window x:Class="GameСreator.DWIndows.AddResourse"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameСreator.DWIndows"
+        xmlns:ToePac="clr-namespace:GameСreator.ToePac"
+        mc:Ignorable="d"
+        DataContext="{Binding   AddResourseViewModel, Source={StaticResource  Locator}}"
+        Title="AddResourse" Height="450" Width="800" WindowStyle="ToolWindow">
+    <Grid>
+        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,40,24" Command="{Binding SaveResources}" VerticalAlignment="Bottom" Width="75"/>
+        <Button Content="Отмена" HorizontalAlignment="Right" Margin="0,0,120,24" Command="{Binding  CancelСreation }" VerticalAlignment="Bottom" Width="75"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,35,0,0" TextWrapping="Wrap" Text="{Binding ThisItem.Name}" VerticalAlignment="Top" Width="276"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,63,0,0" TextWrapping="Wrap" Text="{Binding ThisItem.Identifier, Converter={StaticResource UInt64ToStringConverter}}" VerticalAlignment="Top" Width="276"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="31,40,0,0" VerticalAlignment="Top"/>
+        <Label Content="Identifier" HorizontalAlignment="Left" Margin="31,60,0,0" VerticalAlignment="Top"/>
+        <ComboBox HorizontalAlignment="Left" Margin="194,91,0,0" VerticalAlignment="Top"  SelectedItem="{Binding ThisItem.FileType}"  Width="120" ItemsSource="{Binding Mode=OneWay, Source={StaticResource FileTypes}}"/>
+        <Label Content="FileType" HorizontalAlignment="Left" Margin="31,86,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>
