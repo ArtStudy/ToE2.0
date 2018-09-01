@@ -28,6 +28,7 @@ namespace GameСreator
     {
         AddResourse AddResourseWindow;
         private AddBoss AddBossWindow;
+        private AddLevel AddLevelWindow;
 
         public MainWindow()
         {
@@ -102,6 +103,18 @@ namespace GameСreator
                     break;
                 case "BossesPage":
                     MainPage.Source = new Uri("Pages\\BossPage.xaml", UriKind.Relative);
+                    break;
+                case "LevelPage":
+                    MainPage.Source = new Uri("Pages\\LevelPage.xaml", UriKind.Relative);
+                    break;
+                case "AddLevelWindowOpen":
+                    AddLevelWindow?.Close();
+                    AddLevelWindow = new AddLevel();
+                    AddLevelWindow.ShowDialog();
+                    break;
+                case "AddLevelWindowClose":
+                    AddLevelWindow?.Close();
+                    AddLevelWindow = null;
                     break;
             }
         }

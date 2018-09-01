@@ -20,7 +20,9 @@
             </MenuItem>
             <MenuItem Header="Дейсвия">
                 <MenuItem Command="{Binding  CreateNewResourse}"  Header="Добавить ресурс"/>
+                <MenuItem Command="{Binding   CreateNewLevel}"  Header="Добавить увровень"/>
                 <MenuItem Command="{Binding   CreateNewBoss}"  Header="Добавить боса"/>
+             
             </MenuItem>
         </Menu>
         <Grid Margin="0,18,0,0">
@@ -36,6 +38,7 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem Header="Ресурсы" Command="{Binding OpenResources}"></MenuItem>
+                <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
                 <MenuItem Header="Боссы" Command="{Binding OpenBosses}"></MenuItem>
             </Menu>
 
