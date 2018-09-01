@@ -34,3 +34,7 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+#Assembly Logs
+Toe/Logs/
+*.rsp
