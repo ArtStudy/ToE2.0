@@ -9,12 +9,10 @@ namespace Assets.Core.Game.Ages_and_Graphs
 {
     static class WayDrawer
     {
-        public static void DrawWay(LevelObj parent, LevelObj child)
+        public static void DrawWay(WayObj way)
             {
-            Vector3 first, second;
-            first = parent.transform.position;
-            second = child.transform.position;
-
+            LineRenderer lineRenderer = way.GetComponent<LineRenderer>();
+            lineRenderer.SetPositions(ArcCalculator.ArcPointsCalculation(way.Parent.transform.position, way.Child.transform.position));
             }
     }
 }
