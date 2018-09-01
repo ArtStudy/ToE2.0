@@ -10,12 +10,14 @@ public class WayUI : MonoBehaviour, IWay {
     public ILevel Child { get; }
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
 		
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
 	}
 }

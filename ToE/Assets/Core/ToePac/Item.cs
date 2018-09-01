@@ -10,7 +10,7 @@ namespace GameСreator.ToePac
     public class Item
     {
     
-        UInt16 _FileType = 0;
+       // UInt16 _FileType = 0;
 
     
 
