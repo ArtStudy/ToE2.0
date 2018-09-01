@@ -64,7 +64,7 @@ namespace GameСreator.API.Boss
             item.Identifier = ("Json." + tb.Name).GetUInt64HashCode();
             item.Name = "Json." + tb.Name;
             item.Version = 1;
-            item.Data = ms;
+            item.Data = new MemoryStream( ms.ToArray());
 
             return new ListResourse() { item };
         }

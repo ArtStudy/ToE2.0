@@ -144,7 +144,7 @@ namespace GameСreator.ViewModel
 
         private void SavePackageAction()
         {
-            if(currentFile == null)
+            if (currentFile == null)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
                 dlg.FileName = "Document"; // Default file name
@@ -166,7 +166,9 @@ namespace GameСreator.ViewModel
                 }
             }
             else
+                currentFile.Position = 0;
                 ThisPac.Serialization().WriteTo(currentFile);
+                 currentFile.Flush(true);
 
         }
 

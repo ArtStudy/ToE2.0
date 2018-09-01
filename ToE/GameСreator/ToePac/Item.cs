@@ -55,12 +55,16 @@ namespace GameСreator.ToePac
             this.Position = st.Length;
             bw.Write(this.Position);
 
-            BinaryReader br = new BinaryReader(this.Data);
-
-            var b = br.ReadBytes((int)this.Data.Length);
-
             stream.Position = this.Position;
-            stream.Write(b, 0, b.Length);
+            stream.Write(this.Data.ToArray(), 0, (int) this.Data.Length);
+ 
+
+            /*   BinaryReader br = new BinaryReader(this.Data);
+
+               var b = br.ReadBytes((int)this.Data.Length);
+
+               stream.Position = this.Position;
+               stream.Write(b, 0, b.Length);*/
 
 
 
@@ -116,7 +120,7 @@ namespace GameСreator.ToePac
         /// <summary>
         /// Данные
         /// </summary>
-        public Stream Data { get; set; } = Stream.Null;
+        public MemoryStream Data { get; set; }
 
         /// <summary>
         /// Позиция файла
