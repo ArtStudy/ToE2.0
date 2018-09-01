@@ -46,7 +46,7 @@
             <Frame Name="MainPage"  NavigationUIVisibility="Hidden" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ></Frame>
      
             <GridSplitter  Width="5" Grid.Column="1"></GridSplitter>
-            <Frame  HorizontalAlignment="Right" Grid.Column="2"></Frame>
+            <Frame Name="SPage" Grid.Column="2"></Frame>
         </Grid>
     </Grid>
 </Window>

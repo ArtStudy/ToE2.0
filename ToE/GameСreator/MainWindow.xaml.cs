@@ -116,6 +116,9 @@ namespace GameСreator
                     AddLevelWindow?.Close();
                     AddLevelWindow = null;
                     break;
+                case "LevelEditPage":
+                    SPage.Source = new Uri("Pages\\EditLevelPage.xaml", UriKind.Relative);
+                    break;
             }
         }
 

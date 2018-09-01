@@ -28,11 +28,22 @@ namespace GameСreator.ViewModel
         FileStream currentFile;
         private ObservableCollection<BossV1> _bosses;
         private ObservableCollection<LevelV1> _levels;
+        private LevelV1 _currentLevel;
 
         public PAC ThisPac { get; private set; }
         public ListResourse Items { get => ThisPac.Items; }
-        public ObservableCollection<BossV1> Bosses { get => _bosses; set { _bosses = value; this.RaisePropertyChanged("Bosses"); }  }
+        public ObservableCollection<BossV1> Bosses { get => _bosses; set { _bosses = value; this.RaisePropertyChanged("Bosses"); } }
         public ObservableCollection<LevelV1> Levels { get => _levels; set { _levels = value; this.RaisePropertyChanged("Levels"); } }
+        public LevelV1 CurrentLevel { get => _currentLevel;
+
+            set
+            {
+                _currentLevel = value;
+                Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelEditPage"));
+                this.RaisePropertyChanged("CurrentLevel");
+
+            }
+        }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -51,6 +62,7 @@ namespace GameСreator.ViewModel
             this.CreateNewResourse = new RelayCommand(CreateNewResourseAction, CreateNewResourseCanEx);
             this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, CreateNewLevelCanEx);
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
+            this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -60,6 +72,8 @@ namespace GameСreator.ViewModel
             ////    // Code runs "for real"
             ////}
         }
+
+      
 
 
 
@@ -73,6 +87,8 @@ namespace GameСreator.ViewModel
         /// Сохранить пакет
         /// </summary>
         public ICommand SavePackage { get; }
+        public ICommand SaveValue { get;  set; }
+
         /// <summary>
         /// Открыть уровни пакет
         /// </summary>
@@ -277,7 +293,15 @@ namespace GameСreator.ViewModel
         {
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddLevelWindowOpen"));
         }
+        private bool SaveValueCanEx()
+        {
+            throw new NotImplementedException();
+        }
 
+        private void SaveValueAction()
+        {
+            throw new NotImplementedException();
+        }
 
 
 
