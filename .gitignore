@@ -40,3 +40,4 @@ Toe/Logs/
 *.rsp
 ToE/Logs/IncrementalCompiler/UnityEditor.StandardEvents.rsp
 ToE/Logs/IncrementalCompiler/Assembly-CSharp.rsp
+*.rsp
