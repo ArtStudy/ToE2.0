@@ -1,4 +1,5 @@
-﻿using GameСreator.ToePac;
+﻿using Assets.Core.ToePac;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

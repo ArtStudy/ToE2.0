@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameСreator.ToePac
+namespace Assets.Core.ToePac
 {
     public class PAC : INotifyPropertyChanged
     {

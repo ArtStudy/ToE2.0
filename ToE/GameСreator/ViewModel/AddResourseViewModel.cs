@@ -1,7 +1,8 @@
+using Assets.Core.ToePac;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using GameСreator.ToePac;
+
 using System;
 using System.ComponentModel;
 using System.Windows.Input;

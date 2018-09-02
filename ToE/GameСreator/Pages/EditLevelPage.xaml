@@ -10,11 +10,23 @@
       Title="EditLevelPage">
 
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,35,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.IDLevel}" VerticalAlignment="Top" Width="276"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="225,63,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.NameLavel}"  VerticalAlignment="Top" Width="245"/>
-        <Label Content="ID" HorizontalAlignment="Left" Margin="31,40,0,0" VerticalAlignment="Top"/>
+        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,40,23" Command="{Binding   SaveValue}" VerticalAlignment="Bottom" Width="75"/>
+        <Button Content="Отмена" HorizontalAlignment="Right" Margin="0,0,120,23" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,35,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.ID}" VerticalAlignment="Top" Width="276"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="225,63,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Name}"  VerticalAlignment="Top" Width="245"/>
+        <Label Content="ID" HorizontalAlignment="Left" Margin="31,35,0,0" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="31,63,0,0" VerticalAlignment="Top"/>
         <TextBlock Text="Level." HorizontalAlignment="Left" Margin="194,64,0,0" VerticalAlignment="Top" Width="29"/>
+        <Label Content="Parents" HorizontalAlignment="Left" Margin="31,91,0,0" VerticalAlignment="Top"/>
+        <DataGrid ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False" Margin="32,122,40,48">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding CurrentNewParentLevel}" Margin="194,95,0,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" Width="276"/>
+        <Button Content="+" HorizontalAlignment="Left" Margin="481,97,0,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" Width="27"/>
+        <Button Content="-" HorizontalAlignment="Right" Margin="0,97,40,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27"/>
 
     </Grid>
 </Page>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameСreator.ToePac
+namespace Assets.Core.ToePac
 {
     public class ListResourse : List<Item> , INotifyPropertyChanged
     {
@@ -25,6 +25,7 @@ namespace GameСreator.ToePac
 
         public List<Item> GetResourcesByType(FileTypes filetype) => this.FindAll((item) => item.FileType == filetype);
 
+        public Item GetResourceByTypeAndIdentifier(FileTypes filetype, UInt64 id) => this.Find((item) => item.FileType == filetype && item.Identifier == id);
 
 
 
@@ -66,6 +67,14 @@ namespace GameСreator.ToePac
 
         }
 
-
+        public override string ToString()
+        {
+            string[] valies = new string[this.Count];
+            for(int i = 0;  i< this.Count; i++)
+            {
+                valies[i] = this[i].ToString();
+            }
+            return String.Join(" \n", valies);
+        }
     }
 }

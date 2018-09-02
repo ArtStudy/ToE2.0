@@ -14,8 +14,8 @@
 
         <DataGrid CanUserAddRows="False"  SelectedItem="{Binding CurrentLevel}"  ItemsSource="{Binding  Levels, Mode=OneWay}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding IDLevel}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding NameLavel}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding Value.ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Value.Name}"></DataGridTextColumn>
                 
                
             </DataGrid.Columns>

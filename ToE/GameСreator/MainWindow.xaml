@@ -28,8 +28,8 @@
         <Grid Margin="0,18,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
-                <ColumnDefinition Width="220*"/>
-                <ColumnDefinition Width="300"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="4*"/>
             </Grid.ColumnDefinitions>
             <Menu Width="150"  >
                 <Menu.ItemsPanel>
@@ -46,7 +46,7 @@
             <Frame Name="MainPage"  NavigationUIVisibility="Hidden" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ></Frame>
      
             <GridSplitter  Width="5" Grid.Column="1"></GridSplitter>
-            <Frame Name="SPage" Grid.Column="2"></Frame>
+            <Frame Name="SPage"   NavigationUIVisibility="Hidden" Grid.Column="2"></Frame>
         </Grid>
     </Grid>
 </Window>
