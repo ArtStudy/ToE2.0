@@ -6,7 +6,9 @@ using UnityEngine;
 
 public static class SortLevels {
 
-    public static float levelSpeed = 10.0f; 
+    public static float levelSpeed = 10.0f;
+
+    public static List<Vector3> levelsPos;
 
     public static List<LevelObj> StartSorting(List<LevelObj> temp)
     {
@@ -26,8 +28,9 @@ public static class SortLevels {
         return  pos;
     }
     
-    public static void Sorting()
-    {
-
+    public static Vector3 Sort(Vector3 startPos)
+    {       
+        return levelsPos[levelsPos.Count - 1];
     }
+
 }

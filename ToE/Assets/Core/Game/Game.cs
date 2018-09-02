@@ -22,9 +22,6 @@ public class Game : MonoBehaviour
         GD1PAC.Items.ForEach((item) => Debug.Log(item.Name.ToString()));
         gameData = new GameData(GD1PAC);
         LoadAges();
-     
-      
-
     }
 
     // Update is called once per frame
@@ -36,7 +33,7 @@ public class Game : MonoBehaviour
 
     void LoadAges()
     {
-        for (int i = 0; i < Ages.Count; i++) 
+        for (int i = 0; i < Ages.Count; i++)
         {
             Ages[i] = Instantiate(Ages[i]);
         }
