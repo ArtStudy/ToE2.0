@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameСreator.ToePac
+namespace Assets.Core.ToePac
 {
     public class Item : INotifyPropertyChanged
     {
@@ -94,6 +94,11 @@ namespace GameСreator.ToePac
 
 
             return null;
+        }
+
+        public override string ToString()
+        {
+            return this.Name + "_" + String.Format("0x{0:X}", this.Identifier) + "_" + this.FileType + "_" + this.Version + ".res";
         }
 
 

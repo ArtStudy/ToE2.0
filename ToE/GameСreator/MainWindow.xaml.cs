@@ -1,7 +1,8 @@
-﻿using GalaSoft.MvvmLight.Messaging;
+﻿using Assets.Core.ToePac;
+using GalaSoft.MvvmLight.Messaging;
 using GameСreator.DWIndows;
 using GameСreator.Pages;
-using GameСreator.ToePac;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -28,7 +29,6 @@ namespace GameСreator
     {
         AddResourse AddResourseWindow;
         private AddBoss AddBossWindow;
-        private AddLevel AddLevelWindow;
 
         public MainWindow()
         {
@@ -107,17 +107,12 @@ namespace GameСreator
                 case "LevelPage":
                     MainPage.Source = new Uri("Pages\\LevelPage.xaml", UriKind.Relative);
                     break;
-                case "AddLevelWindowOpen":
-                    AddLevelWindow?.Close();
-                    AddLevelWindow = new AddLevel();
-                    AddLevelWindow.ShowDialog();
-                    break;
-                case "AddLevelWindowClose":
-                    AddLevelWindow?.Close();
-                    AddLevelWindow = null;
-                    break;
+              
                 case "LevelEditPage":
                     SPage.Source = new Uri("Pages\\EditLevelPage.xaml", UriKind.Relative);
+                    break;
+                case "NotEditPage":
+                    SPage.Source = null;
                     break;
             }
         }

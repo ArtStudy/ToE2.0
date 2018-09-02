@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameСreator.DWIndows"
-        xmlns:ToePac="clr-namespace:GameСreator.ToePac"
+
         mc:Ignorable="d"
         DataContext="{Binding   AddResourseViewModel, Source={StaticResource  Locator}}"
         Title="AddResourse" Height="450" Width="800" WindowStyle="ToolWindow">

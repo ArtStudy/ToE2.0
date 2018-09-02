@@ -36,7 +36,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1299423591856910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.31567568, z: 0, w: 0.94886714}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 200, y: 200, z: 200}
   m_Children: []
@@ -96,15 +96,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e12f1d3568dbe2d4cb302c1a9b1c059c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Levels:
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  - {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3, type: 2}
-  Ways:
-  - {fileID: 1806045702991634, guid: 6dacc35ce92877e4eaca499e635c49d5, type: 2}
+  LevelPrefab: {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3,
+    type: 2}
+  WayPrefab: {fileID: 1806045702991634, guid: 6dacc35ce92877e4eaca499e635c49d5, type: 2}
 --- !u!135 &135815429954811200
 SphereCollider:
   m_ObjectHideFlags: 1

@@ -46,7 +46,7 @@ namespace GameСreator.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<AddResourseViewModel>();
             SimpleIoc.Default.Register<AddBossViewModel>();
-            SimpleIoc.Default.Register<AddLevelViewModel>();
+  
         }
 
         public MainViewModel Main
@@ -70,13 +70,7 @@ namespace GameСreator.ViewModel
                 return ServiceLocator.Current.GetInstance<AddBossViewModel>(System.Guid.NewGuid().ToString());
             }
         }
-        public AddLevelViewModel AddLevelViewModel
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddLevelViewModel>(System.Guid.NewGuid().ToString());
-            }
-        }
+
 
         public static void Cleanup()
         {

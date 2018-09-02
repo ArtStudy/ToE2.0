@@ -1,11 +1,15 @@
+using Assets.Core.Game.Ages_and_Graphs;
+using Assets.Core.Game.Data;
+using Assets.Core.ToePac;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using GameСreator.API.Boss;
-using GameСreator.ToePac;
+
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Windows.Input;
 
 namespace GameСreator.ViewModel
@@ -25,21 +29,40 @@ namespace GameСreator.ViewModel
     public class MainViewModel : ViewModelBase
     {
         string CurrentPage = string.Empty;
+        string Current2Page = string.Empty;
         FileStream currentFile;
-        private ObservableCollection<BossV1> _bosses;
-        private ObservableCollection<LevelV1> _levels;
-        private LevelV1 _currentLevel;
+
+        private DataItem<Level> _currentLevel;
 
         public PAC ThisPac { get; private set; }
+        public GameData GD { get; set; }
         public ListResourse Items { get => ThisPac.Items; }
-        public ObservableCollection<BossV1> Bosses { get => _bosses; set { _bosses = value; this.RaisePropertyChanged("Bosses"); } }
-        public ObservableCollection<LevelV1> Levels { get => _levels; set { _levels = value; this.RaisePropertyChanged("Levels"); } }
-        public LevelV1 CurrentLevel { get => _currentLevel;
+        public ListData<Level> Levels { get; private set; }
+        public DataItem<Level> CurrentNewParentLevel { get; set; }
+        public Level CurrentParentLevel { get; set; }
+
+        public DataItem<Level> CurrentLevel { get => _currentLevel;
 
             set
             {
+
+              
+                if (value != null)
+                {
+                    if(_currentLevel != null)
+                    {
+                        GD.ReLoadLevel(_currentLevel);
+                    }
+                    Current2Page = "LevelEditPage";
+                   
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelEditPage"));
+                }
+                else
+                {
+                    Current2Page = string.Empty;
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
+                }
                 _currentLevel = value;
-                Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelEditPage"));
                 this.RaisePropertyChanged("CurrentLevel");
 
             }
@@ -50,9 +73,7 @@ namespace GameСreator.ViewModel
         public MainViewModel()
         {
             Messenger.Default.Register<Item>(this, AddNewResourse);
-            Messenger.Default.Register<MessegeResourse<BossV1>>(this, AddNewBoss);
-            Messenger.Default.Register<MessegeResourse<LevelV1>>(this, AddNewLevel);
-
+       
             this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, CreateNewPackageCanEx);
             this.CreateNewBoss = new RelayCommand(CreateNewBossAction, CreateNewBossCanEx);
             this.OpenResources = new RelayCommand(OpenResourcesAction, OpenResourcesCanEx);
@@ -63,6 +84,10 @@ namespace GameСreator.ViewModel
             this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, CreateNewLevelCanEx);
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
+            this.CancelValue = new RelayCommand(CancelValueAction, CancelValueCanEx);
+            this.AddParentToLevel = new RelayCommand(AddParentToLevelAction, AddParentToLevelCanEx);
+            this.RermoveParentToLevel = new RelayCommand(RermoveParentToLevelAction, RermoveParentToLevelCanEx);
+
             ////if (IsInDesignMode)
             ////{
             ////    // Code runs in Blend --> create design time data.
@@ -73,21 +98,52 @@ namespace GameСreator.ViewModel
             ////}
         }
 
-      
+        private bool RermoveParentToLevelCanEx() => CurrentParentLevel != null;
+        private void RermoveParentToLevelAction()
+        {
+            CurrentLevel.Value.Parents.Remove(CurrentParentLevel);
+            var temp = this.CurrentLevel;
+            this.CurrentLevel = null;
+            this.CurrentLevel = temp;
+        }
 
+        private bool AddParentToLevelCanEx() => CurrentNewParentLevel != null;
+        private void AddParentToLevelAction()
+        {
+            if(CurrentLevel != CurrentNewParentLevel)
+            {
+                if(!CurrentNewParentLevel.Value.Parents.Contains(CurrentLevel.Value))
+                if (!CurrentLevel.Value.Parents.Contains(CurrentNewParentLevel.Value))
+                {
+                    CurrentLevel.Value.Parents.Add(CurrentNewParentLevel.Value);
+                }
+               
+            }
+            var temp = this.CurrentLevel;
+            this.CurrentLevel = null;
+            this.CurrentLevel = temp;
 
-
+        }
+        /// <summary>
+        /// Добавить родителя уровня
+        /// </summary>
+        public ICommand RermoveParentToLevel { get; }
+        /// <summary>
+        /// Добавить родителя уровня
+        /// </summary>
+        public ICommand AddParentToLevel { get; }
         /// <summary>
         /// Сохранить пакет
         /// </summary>
         public ICommand CreateNewLevel { get; }
 
+        public ICommand CancelValue { get; }
 
         /// <summary>
         /// Сохранить пакет
         /// </summary>
         public ICommand SavePackage { get; }
-        public ICommand SaveValue { get;  set; }
+        public ICommand SaveValue { get; }
 
         /// <summary>
         /// Открыть уровни пакет
@@ -128,6 +184,7 @@ namespace GameСreator.ViewModel
             if (this.ThisPac == null)
             {
                 this.ThisPac = new PAC();
+                this.GD = new GameData(this.ThisPac);
             }
 
 
@@ -158,7 +215,7 @@ namespace GameСreator.ViewModel
 
         private void OpenBossesAction()
         {
-            UpdateListBosses();
+    
             CurrentPage = "BossesPage";
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossesPage"));
 
@@ -177,6 +234,8 @@ namespace GameСreator.ViewModel
 
         private void SavePackageAction()
         {
+           this.ThisPac =  GD.SaveToPAC();
+            GD = new GameData(this.ThisPac);
             if (currentFile == null)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -231,45 +290,21 @@ namespace GameСreator.ViewModel
                 MemoryStream ms = new MemoryStream();
                 ///  currentFile.CopyTo(ms);
                 this.ThisPac = new PAC(currentFile);
+                this.GD = new GameData(this.ThisPac); 
             }
-            UpdateListBosses();
+        
             UpdateListLevels();
         }
 
-        private void AddNewBoss(MessegeResourse<BossV1> obj)
-        {
-            switch (obj.Action)
-            {
-                case ActionItem.Add:
-                    ThisPac.Items.AddRange(obj.Value.ToListResourse());
-                    UpdateListBosses();
-                    break;
-            }
-        }
 
         private void AddNewResourse(Item obj)
         {
             Items.Add(obj);
             this.RaisePropertyChanged("Items");
         }
-        private void AddNewLevel(MessegeResourse<LevelV1> obj)
-        {
-            switch (obj.Action)
-            {
-                case ActionItem.Add:
-                    ThisPac.Items.AddRange(obj.Value.ToListResourse());
-                    UpdateListLevels();
-                    break;
-            }
-        }
 
 
-        private void UpdateListBosses()
-        {
-            Bosses = new ObservableCollection<BossV1>();
-            var listtemp = ThisPac.Items.GetResourcesByType(FileTypes.Boss);
-            listtemp.ForEach((item) => { Bosses.Add(new BossV1(item, ThisPac.Items)); });
-        }
+
 
         private bool OpenLevelsCanEx() => this.ThisPac != null;
         private void OpenLevelsAction()
@@ -282,26 +317,58 @@ namespace GameСreator.ViewModel
 
         private void UpdateListLevels()
         {
-            Levels = new ObservableCollection<LevelV1>();
-            var listtemp = ThisPac.Items.GetResourcesByType(FileTypes.Lavel);
-            listtemp.ForEach((item) => { Levels.Add(new LevelV1(item, ThisPac.Items)); });
+
+            this.Levels = null;
+            this.RaisePropertyChanged("Levels");
+            this.Levels = GD.Levels;
+            this.RaisePropertyChanged("Levels");
+            //listtemp.ForEach((item) => { Levels.Add(new Level(item, ThisPac.Items)); });
         }
 
         private bool CreateNewLevelCanEx() => this.ThisPac != null && this.CurrentPage == "LevelPage";
 
         private void CreateNewLevelAction()
         {
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddLevelWindowOpen"));
+            // Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddLevelWindowOpen"));
+            this.CurrentLevel = new DataItem<Level>();
+            this.CurrentLevel.Value = new Level();
         }
         private bool SaveValueCanEx()
         {
-            throw new NotImplementedException();
+            if(Current2Page == "LevelEditPage")
+            {
+                return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0;
+            }
+            return false;
         }
 
         private void SaveValueAction()
         {
-            throw new NotImplementedException();
+            if (Current2Page == "LevelEditPage")
+            {
+                if (!this.GD.Levels.Contains(this.CurrentLevel))
+                    this.GD.Levels.Add(this.CurrentLevel);
+                this.GD.SaveLevel(this.CurrentLevel);
+                UpdateListLevels();
+            }
+    
         }
+   
+
+        private bool CancelValueCanEx() => true;
+
+        private void CancelValueAction()
+        {
+            if (Current2Page == "LevelEditPage")
+            {
+                if(this.GD.Levels.Contains(CurrentLevel))
+                    this.GD.ReLoadLevel(CurrentLevel);
+                CurrentLevel = null;
+            }
+        }
+
+
+
 
 
 

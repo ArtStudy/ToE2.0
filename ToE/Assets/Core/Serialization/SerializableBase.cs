@@ -5,23 +5,22 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameСreator.API.Boss
+namespace Assets.Core.Serialization
 {
     [DataContract]
-    public class TypeLevel
+    public class SerializableBase
     {
+
         [DataMember]
         /// <summary>
         /// Номер босса
         /// </summary>
-        public int IDLevel { get; set; }
+        public int ID{ get; set; }
 
         [DataMember]
         /// <summary>
         /// Имя босса
         /// </summary>
-        public string NameLavel { get; set; }
-
-      
+        public string Name { get; set; }
     }
 }
