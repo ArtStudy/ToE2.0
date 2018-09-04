@@ -1,5 +1,6 @@
 ﻿using Assets.Core.Levels;
 using Assets.Core.Levels.Questions;
+using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Volutes;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Assets.Core.Serialization
         [DataMember]
         public IPassageLevel PassageLevel { get; set; }
         [DataMember]
-        public IBossFight BossFight { get; set; }
+        public int Boss { get; set; }
 
         //Вопросы
         [DataMember]

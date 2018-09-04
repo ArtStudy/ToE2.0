@@ -1,21 +1,14 @@
-﻿using System;
+﻿using Assets.Core.LevelsStructureInterfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Core.Levels.Bosses
+namespace Assets.Core.LevelsStructureInterfaces
 {
-    public interface IBoss
+    public interface IBoss : IBase
     {
-        /// <summary>
-        /// Номер босса
-        /// </summary>
-        int IDLevel { get; }
-        /// <summary>
-        /// Имя босса
-        /// </summary>
-        string NameLavel { get; }
-
+       
         /// <summary>
         /// Здоровье
         /// </summary>

@@ -33,28 +33,35 @@ namespace GameСreator.ViewModel
         FileStream currentFile;
 
         private DataItem<Level> _currentLevel;
+        private DataItem<Boss> _currentBoss;
+        private ListDataLevel _levels;
+        private ListDataBoss _bosses;
 
         public PAC ThisPac { get; private set; }
-        public GameData GD { get; set; }
+        public static GameData GDStatic { get; set; }
+        public GameData GD { get => GDStatic; set => GDStatic = value; }
         public ListResourse Items { get => ThisPac.Items; }
-        public ListData<Level> Levels { get; private set; }
+        public ListDataLevel Levels { get => _levels; private set => this.Set("Levels", ref _levels, value, true); }
+        public ListDataBoss Bosses { get => _bosses; private set => this.Set("Bosses", ref _bosses, value, true); }
         public DataItem<Level> CurrentNewParentLevel { get; set; }
         public Level CurrentParentLevel { get; set; }
 
-        public DataItem<Level> CurrentLevel { get => _currentLevel;
+        public DataItem<Level> CurrentLevel
+        {
+            get => _currentLevel;
 
             set
             {
 
-              
+
                 if (value != null)
                 {
-                    if(_currentLevel != null)
+                    if (_currentLevel != null)
                     {
-                        GD.ReLoadLevel(_currentLevel);
+                        GD.Levels.ReLoad(_currentLevel, GD.Bosses);
                     }
                     Current2Page = "LevelEditPage";
-                   
+
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelEditPage"));
                 }
                 else
@@ -67,13 +74,41 @@ namespace GameСreator.ViewModel
 
             }
         }
+        public DataItem<Boss> CurrentBoss
+        {
+            get => _currentBoss;
+
+            set
+            {
+
+
+                if (value != null)
+                {
+                    if (_currentLevel != null)
+                    {
+                        GD.Levels.ReLoad(_currentLevel, GD.Bosses);
+                    }
+                    Current2Page = "BossEditPage";
+
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossEditPage"));
+                }
+                else
+                {
+                    Current2Page = string.Empty;
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
+                }
+                _currentBoss = value;
+                this.RaisePropertyChanged("CurrentBoss");
+
+            }
+        }
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
         public MainViewModel()
         {
             Messenger.Default.Register<Item>(this, AddNewResourse);
-       
+
             this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, CreateNewPackageCanEx);
             this.CreateNewBoss = new RelayCommand(CreateNewBossAction, CreateNewBossCanEx);
             this.OpenResources = new RelayCommand(OpenResourcesAction, OpenResourcesCanEx);
@@ -110,14 +145,14 @@ namespace GameСreator.ViewModel
         private bool AddParentToLevelCanEx() => CurrentNewParentLevel != null;
         private void AddParentToLevelAction()
         {
-            if(CurrentLevel != CurrentNewParentLevel)
+            if (CurrentLevel != CurrentNewParentLevel)
             {
-                if(!CurrentNewParentLevel.Value.Parents.Contains(CurrentLevel.Value))
-                if (!CurrentLevel.Value.Parents.Contains(CurrentNewParentLevel.Value))
-                {
-                    CurrentLevel.Value.Parents.Add(CurrentNewParentLevel.Value);
-                }
-               
+                if (!CurrentNewParentLevel.Value.Parents.Contains(CurrentLevel.Value))
+                    if (!CurrentLevel.Value.Parents.Contains(CurrentNewParentLevel.Value))
+                    {
+                        CurrentLevel.Value.Parents.Add(CurrentNewParentLevel.Value);
+                    }
+
             }
             var temp = this.CurrentLevel;
             this.CurrentLevel = null;
@@ -215,7 +250,7 @@ namespace GameСreator.ViewModel
 
         private void OpenBossesAction()
         {
-    
+            UpdateListBosses();
             CurrentPage = "BossesPage";
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossesPage"));
 
@@ -228,13 +263,14 @@ namespace GameСreator.ViewModel
 
         private void CreateNewBossAction()
         {
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddBossWindowOpen"));
+            this.CurrentBoss = new DataItem<Boss>();
+            this.CurrentBoss.Value = new Boss();
         }
 
 
         private void SavePackageAction()
         {
-           this.ThisPac =  GD.SaveToPAC();
+            this.ThisPac = GD.SaveToPAC();
             GD = new GameData(this.ThisPac);
             if (currentFile == null)
             {
@@ -290,9 +326,9 @@ namespace GameСreator.ViewModel
                 MemoryStream ms = new MemoryStream();
                 ///  currentFile.CopyTo(ms);
                 this.ThisPac = new PAC(currentFile);
-                this.GD = new GameData(this.ThisPac); 
+                this.GD = new GameData(this.ThisPac);
             }
-        
+
             UpdateListLevels();
         }
 
@@ -318,11 +354,21 @@ namespace GameСreator.ViewModel
         private void UpdateListLevels()
         {
 
-            this.Levels = null;
-            this.RaisePropertyChanged("Levels");
+          this.Levels = null;
+         //   this.RaisePropertyChanged("Levels");
             this.Levels = GD.Levels;
-            this.RaisePropertyChanged("Levels");
-            //listtemp.ForEach((item) => { Levels.Add(new Level(item, ThisPac.Items)); });
+//this.RaisePropertyChanged("Levels");
+
+        }
+        private void UpdateListBosses()
+        {
+
+            //    this.Bosses = null;
+            //    this.RaisePropertyChanged("Bosses");
+            this.Bosses = null;
+            this.Bosses = GD.Bosses;
+        //    this.RaisePropertyChanged("Bosses");
+
         }
 
         private bool CreateNewLevelCanEx() => this.ThisPac != null && this.CurrentPage == "LevelPage";
@@ -335,9 +381,13 @@ namespace GameСreator.ViewModel
         }
         private bool SaveValueCanEx()
         {
-            if(Current2Page == "LevelEditPage")
+            if (Current2Page == "LevelEditPage")
             {
-                return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0;
+                return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0 && CurrentLevel.Value.Boss != null ;
+            }
+            if (Current2Page == "BossEditPage")
+            {
+                return CurrentBoss.Value.Name?.Length > 0 && CurrentBoss.Value.ID > 0 ;
             }
             return false;
         }
@@ -348,12 +398,19 @@ namespace GameСreator.ViewModel
             {
                 if (!this.GD.Levels.Contains(this.CurrentLevel))
                     this.GD.Levels.Add(this.CurrentLevel);
-                this.GD.SaveLevel(this.CurrentLevel);
+                this.GD.Levels.Save(this.CurrentLevel);
                 UpdateListLevels();
             }
-    
+            else if (Current2Page == "BossEditPage")
+            {
+                if (!this.GD.Bosses.Contains(this.CurrentBoss))
+                    this.GD.Bosses.Add(this.CurrentBoss);
+                this.GD.Bosses.Save(this.CurrentBoss);
+                UpdateListBosses();
+            }
+
         }
-   
+
 
         private bool CancelValueCanEx() => true;
 
@@ -361,8 +418,14 @@ namespace GameСreator.ViewModel
         {
             if (Current2Page == "LevelEditPage")
             {
-                if(this.GD.Levels.Contains(CurrentLevel))
-                    this.GD.ReLoadLevel(CurrentLevel);
+                if (this.GD.Levels.Contains(CurrentLevel))
+                    this.GD.Levels.ReLoad(CurrentLevel, GD.Bosses);
+                CurrentLevel = null;
+            }
+            else if (Current2Page == "BossEditPage")
+            {
+                if (!this.GD.Bosses.Contains(this.CurrentBoss))
+                    this.GD.Bosses.ReLoad(this.CurrentBoss);
                 CurrentLevel = null;
             }
         }
