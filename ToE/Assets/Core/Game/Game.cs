@@ -6,6 +6,7 @@ using UnityEngine;
 using Assets.Core.ToePac;
 using Assets.Core.Game.Data;
 using Assets.Core.Levels;
+using Assets.Core.Game.Sorting;
 
 public class Game : MonoBehaviour
 {
@@ -30,18 +31,7 @@ public class Game : MonoBehaviour
         int k1 = 0;
         int CurrentLatitude = 0;
         List<ILevel> AddLevels = new List<ILevel>();
-      /*  for (int i = 0; i < templevel.Count; i++)
-        {
-            if (templevel[i].Parents.Count == 0)
-            {
-                LevelGrid[0].Add(templevel[i]);
-                AddLevels.Add(templevel[i]);
-                templevel.Remove(templevel[i]);
-              
-                i--;
-            }
-            k++;
-        }*/
+
         CurrentLatitude = 0;
         LevelGrid[CurrentLatitude] = new List<Level>();
         List<ILevel> AddLevels2 = new List<ILevel>();
@@ -83,8 +73,22 @@ public class Game : MonoBehaviour
    
             k++;
         }
-
-
+        Debug.Log(k);
+        Debug.Log(k1);
+   
+        Debug.Log("");
+        templevel = gameData.Levels.ConvertAll((item) => item.Value);
+        k = 0;
+        Web web = new Web();
+        for (int i = 0; i < templevel.Count; i++)
+        {
+            web.AddLevel(templevel[i]);
+            k++;
+        }
+        Debug.Log(k);
+        Debug.Log(web.k);
+        Debug.Log(web.k1);
+        Debug.Log(web.k2);
         LoadAges();
     }
 

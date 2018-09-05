@@ -32,7 +32,7 @@ public class AgeObj : MonoBehaviour
 
     void LoadLevels()
     {
-        ListData<Level> levels = Game.gameData.Levels;
+        var levels = Game.gameData.Levels;
         for (int i = 0; i < levels.Count; i++) 
         {
 
