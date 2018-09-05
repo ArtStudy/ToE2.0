@@ -22,7 +22,9 @@
                 <MenuItem Command="{Binding  CreateNewResourse}"  Header="Добавить ресурс"/>
                 <MenuItem Command="{Binding   CreateNewLevel}"  Header="Добавить увровень"/>
                 <MenuItem Command="{Binding   CreateNewBoss}"  Header="Добавить боса"/>
-             
+                <Separator></Separator>
+                <MenuItem Command="{Binding   CreateNewLanguagePack}"  Header="Добавить языковой пакет"/>
+
             </MenuItem>
         </Menu>
         <Grid Margin="0,18,0,0">
@@ -40,13 +42,16 @@
                 <MenuItem Header="Ресурсы" Command="{Binding OpenResources}"></MenuItem>
                 <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
                 <MenuItem Header="Боссы" Command="{Binding OpenBosses}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Локализация" Command="{Binding OpenLanguagePacks}"></MenuItem>
             </Menu>
 
 
-            <Frame Name="MainPage"  NavigationUIVisibility="Hidden" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ></Frame>
+            <Frame Name="MainPage"  NavigationUIVisibility="Hidden" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,35,0,0" ></Frame>
      
             <GridSplitter  Width="5" Grid.Column="1"></GridSplitter>
             <Frame Name="SPage"   NavigationUIVisibility="Hidden" Grid.Column="2"></Frame>
+            <Button Content="-" HorizontalAlignment="Right" Margin="0,10,10,0" Command="{Binding RermoveItem}"  VerticalAlignment="Top" Width="27" Grid.Column="1"/>
         </Grid>
     </Grid>
 </Window>

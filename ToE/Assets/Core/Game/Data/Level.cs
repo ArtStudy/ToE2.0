@@ -15,11 +15,23 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
 {
-   public  class Level : ILevel 
+    public class Level : ILevel
     {
+        private string _name;
+
         // Идентификатор
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string Name
+        {
+            get => _name; set
+            {
+                _name = value;
+                if (String.IsNullOrWhiteSpace(TranslationIdentifier))
+                {
+                    TranslationIdentifier = "Level." + value;
+                }
+            }
+        }
 
         // Цены
         public Money Price { get; set; }
@@ -43,8 +55,10 @@ namespace Assets.Core.Game.Data
         /// </summary>
         public List<ILevel> Parents { get; set; } = new List<ILevel>();
 
+        public string TranslationIdentifier { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
-    
-   
+
+
     }
 }

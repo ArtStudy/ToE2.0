@@ -2,7 +2,7 @@
 -target:library
 -nowarn:0169
 -langversion:7
--out:D:/Projects/ToE2.0/ToE/Temp/Unity.TextMeshPro.dll
+-out:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Temp/Unity.TextMeshPro.dll"
 -nostdlib
 -unsafe
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
@@ -15,6 +15,8 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.BaselibModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClothModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CloudWebServicesModule.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClusterInputModule.dll"
+-r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ClusterRendererModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CoreModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.CrashReportingModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.DirectorModule.dll"
@@ -36,7 +38,6 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ProfilerModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ScreenCaptureModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SharedInternalsModule.dll"
--r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpatialTrackingModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteMaskModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.SpriteShapeModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.StreamingModule.dll"
@@ -82,14 +83,12 @@
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/Editor/UnityEditor.VR.dll"
 -r:"C:/Program Files/Unity/Editor/Data/Managed/UnityEditor.Graphs.dll"
 -r:"C:/Program Files/Unity/Editor/Data/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll"
--r:"C:/Program Files/Unity/Editor/Data/PlaybackEngines/MetroSupport/UnityEditor.WSA.Extensions.dll"
--r:"C:/Program Files/Unity/Editor/Data/PlaybackEngines/LinuxStandaloneSupport/UnityEditor.LinuxStandalone.Extensions.dll"
 -r:"C:/Program Files/Unity/Editor/Data/PlaybackEngines/windowsstandalonesupport/UnityEditor.WindowsStandalone.Extensions.dll"
--r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll
--r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
--r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll
--r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll
--r:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
+-r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.ads@2.0.8/Editor/UnityEditor.Advertisements.dll
+-r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll
+-r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/Editor/UnityEditor.Analytics.dll
+-r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll
+-r:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.standardevents@1.0.13/UnityEngine.StandardEvents.dll
 -r:"C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/15.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll"
 -r:"C:\Program Files\Unity\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.dll"
@@ -219,9 +218,12 @@
 -d:UNITY_2018_2_5
 -d:UNITY_2018_2
 -d:UNITY_2018
+-d:PLATFORM_ARCH_64
+-d:UNITY_64
 -d:ENABLE_AUDIO
 -d:ENABLE_CACHING
 -d:ENABLE_CLOTH
+-d:ENABLE_DUCK_TYPING
 -d:ENABLE_MICROPHONE
 -d:ENABLE_MULTIPLE_DISPLAYS
 -d:ENABLE_PHYSICS
@@ -260,33 +262,33 @@
 -d:INCLUDE_GI
 -d:ENABLE_MONO_BDWGC
 -d:PLATFORM_SUPPORTS_MONO
+-d:RENDER_SOFTWARE_CURSOR
 -d:INCLUDE_PUBNUB
 -d:ENABLE_VIDEO
 -d:ENABLE_PACKMAN
 -d:ENABLE_CUSTOM_RENDER_TEXTURE
 -d:ENABLE_LOCALIZATION
--d:PLATFORM_ANDROID
--d:UNITY_ANDROID
--d:UNITY_ANDROID_API
+-d:PLATFORM_STANDALONE_WIN
+-d:PLATFORM_STANDALONE
+-d:UNITY_STANDALONE_WIN
+-d:UNITY_STANDALONE
 -d:ENABLE_SUBSTANCE
--d:ENABLE_EGL
--d:ENABLE_NETWORK
 -d:ENABLE_RUNTIME_GI
+-d:ENABLE_MOVIES
+-d:ENABLE_NETWORK
 -d:ENABLE_CRUNCH_TEXTURE_COMPRESSION
 -d:ENABLE_UNITYWEBREQUEST
 -d:ENABLE_CLOUD_SERVICES
 -d:ENABLE_CLOUD_SERVICES_ANALYTICS
--d:ENABLE_EVENT_QUEUE
 -d:ENABLE_CLOUD_SERVICES_PURCHASING
 -d:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
--d:ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING
--d:PLATFORM_SUPPORTS_ADS_ID
--d:UNITY_CAN_SHOW_SPLASH_SCREEN
+-d:ENABLE_OUT_OF_PROCESS_CRASH_HANDLER
+-d:ENABLE_EVENT_QUEUE
+-d:ENABLE_CLUSTER_SYNC
+-d:ENABLE_CLUSTERINPUT
 -d:ENABLE_VR
 -d:ENABLE_AR
--d:ENABLE_SPATIALTRACKING
--d:ENABLE_UNITYADS_RUNTIME
--d:UNITY_UNITYADS_API
+-d:ENABLE_WEBSOCKET_HOST
 -d:ENABLE_MONO
 -d:NET_4_6
 -d:ENABLE_PROFILER
@@ -300,51 +302,49 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
--d:UNITY_HAS_GOOGLEVR
--d:UNITY_HAS_TANGO
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/FastAction.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/MaterialReferenceManager.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/PackageResourceImporterWindow.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextContainer.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextMeshPro.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextMeshProUGUI.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Asset.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ColorGradient.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Compatibility.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_CoroutineTween.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_DefaultControls.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Dropdown.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_FontAsset.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_InputField.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_InputValidator.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_LineInfo.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ListPool.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_MaterialManager.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_MeshInfo.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ObjectPool.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ScrollbarEventHandler.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SelectionCaret.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Settings.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Sprite.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAnimator.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAsset.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAssetImportFormats.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Style.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_StyleSheet.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SubMesh.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SubMeshUI.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Text.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextElement.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextInfo.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextUtilities.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_UpdateManager.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_UpdateRegistery.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_XmlTagStack.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_EventManager.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_ExtensionMethods.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_FontUtilities.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_MeshUtilities.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_Private.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_ShaderUtilities.cs
--i:C:/Users/xomyake/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_UGUI_Private.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/FastAction.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/MaterialReferenceManager.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/PackageResourceImporterWindow.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextContainer.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextMeshPro.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TextMeshProUGUI.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Asset.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ColorGradient.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Compatibility.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_CoroutineTween.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_DefaultControls.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Dropdown.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_FontAsset.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_InputField.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_InputValidator.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_LineInfo.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ListPool.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_MaterialManager.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_MeshInfo.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ObjectPool.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_ScrollbarEventHandler.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SelectionCaret.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Settings.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Sprite.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAnimator.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAsset.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SpriteAssetImportFormats.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Style.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_StyleSheet.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SubMesh.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_SubMeshUI.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_Text.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextElement.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextInfo.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_TextUtilities.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_UpdateManager.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_UpdateRegistery.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMP_XmlTagStack.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_EventManager.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_ExtensionMethods.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_FontUtilities.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_MeshUtilities.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_Private.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_ShaderUtilities.cs
+-i:C:/Users/Dmitr/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.textmeshpro@1.2.4/Scripts/Runtime/TMPro_UGUI_Private.cs
 -v:0

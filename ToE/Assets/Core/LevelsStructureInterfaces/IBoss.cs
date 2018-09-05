@@ -6,7 +6,7 @@ using System.Text;
 
 namespace Assets.Core.LevelsStructureInterfaces
 {
-    public interface IBoss : IBase
+    public interface IBoss : IBase, IMulticulturalData
     {
        
         /// <summary>

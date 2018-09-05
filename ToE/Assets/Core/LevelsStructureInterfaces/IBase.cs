@@ -18,5 +18,7 @@ namespace Assets.Core.LevelsStructureInterfaces
         /// </summary>
         string Name { get; set; }
 
+   
+
     }
 }

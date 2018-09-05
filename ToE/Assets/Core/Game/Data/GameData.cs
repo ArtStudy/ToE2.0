@@ -13,11 +13,14 @@ namespace Assets.Core.Game.Data
 {
     public class GameData
     {
+        public ListDataLanguagePack LanguagePacks { get; }
         public ListDataLevel Levels { get; }
         public ListDataBoss Bosses { get; }
 
         public GameData(PAC pac)
         {
+            LanguagePacks = new ListDataLanguagePack(pac);
+
             Bosses = new ListDataBoss(pac);
             Levels = new ListDataLevel(pac, Bosses);
 
@@ -31,14 +34,15 @@ namespace Assets.Core.Game.Data
 
 
 
-
-                pac.Items.AddRange(this.Bosses.GetListResourse());
-                pac.Items.AddRange(this.Levels.GetListResourse());
+            pac.Items.AddRange(this.LanguagePacks.GetListResourse());
+            pac.Items.AddRange(this.Bosses.GetListResourse());
+            pac.Items.AddRange(this.Levels.GetListResourse());
 
 
             return pac;
 
 
         }
+
     }
 }

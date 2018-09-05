@@ -12,6 +12,8 @@ namespace Assets.Core.Game.Data
 {
     public class ListDataBoss : ListDataBase<Boss>
     {
+        public override string StringNameData => "Boss.";
+
         public override void ReLoad(DataItem<Boss> obj)
         {
        
@@ -21,35 +23,38 @@ namespace Assets.Core.Game.Data
 
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerializableBoss));
                 bosssresourse[i].Data.Position = 0;
-                SerializableBoss sBoss = (SerializableBoss)ser.ReadObject(bosssresourse[i].Data);
+                SerializableBoss s = (SerializableBoss)ser.ReadObject(bosssresourse[i].Data);
 
-                obj.Value.ID = sBoss.ID;
-                obj.Value.Name = sBoss.Name.Replace("Boss.", "");
-                obj.Value.Damage = sBoss.Damage;
-                obj.Value.Health = sBoss.Health;
+                obj.Value.ID = s.ID;
+                obj.Value.Name = s.Name.Replace(StringNameData, "");
+                obj.Value.Damage = s.Damage;
+                obj.Value.Health = s.Health;
+                obj.Value.TranslationIdentifier = s.TranslationIdentifier;
             }
         }
 
         public override void Save(DataItem<Boss> obj)
         {
-            SerializableBoss sb = new SerializableBoss();
-            sb.ID = obj.Value.ID;
-            sb.Name = "Boss." + obj.Value.Name;
-            sb.Damage = obj.Value.Damage;
-            sb.Health = obj.Value.Health;
+            SerializableBoss s = new SerializableBoss();
+            s.ID = obj.Value.ID;
+            s.Name = StringNameData + obj.Value.Name;
+            s.Damage = obj.Value.Damage;
+            s.Health = obj.Value.Health;
+            s.TranslationIdentifier = obj.Value.TranslationIdentifier;
 
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerializableBoss));
             MemoryStream ms = new MemoryStream();
-            ser.WriteObject(ms, sb);
+            ser.WriteObject(ms, s);
 
             var dataitem = obj.ListResourse.Find((item) => item.FileType == FileTypes.Boss);
             if (dataitem == null)
             {
                 Item item = new Item();
                 item.FileType = FileTypes.Boss;
-                item.Identifier = ("Json." + sb.Name).GetUInt64HashCode();
-                item.Name = "Json." + sb.Name;
+                item.Identifier = ("Json." + s.Name).GetUInt64HashCode();
+                item.Name = "Json." + s.Name;
                 item.Version = 1;
+                
                 item.Data = new MemoryStream(ms.ToArray());
                 obj.ListResourse.Add(item);
             }
@@ -62,20 +67,20 @@ namespace Assets.Core.Game.Data
             public ListDataBoss(PAC pac)
         {
             var levelsresourse = pac.Items.GetResourcesByType(FileTypes.Boss);
-            Dictionary<DataItem<Level>, int[]> parentdata = new Dictionary<DataItem<Level>, int[]>();
             for (int i = 0; i < levelsresourse.Count; i++)
             {
                 DataItem<Boss> dataItem = new DataItem<Boss>();
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerializableBoss));
                 levelsresourse[i].Data.Position = 0;
-                SerializableBoss sBoss = (SerializableBoss)ser.ReadObject(levelsresourse[i].Data);
+                SerializableBoss s = (SerializableBoss)ser.ReadObject(levelsresourse[i].Data);
                 dataItem.Value = new Boss();
-                dataItem.Value.ID = sBoss.ID;
-                dataItem.Value.Name = sBoss.Name.Replace("Boss.", "");
-                dataItem.Value.Health = sBoss.Health;
-                dataItem.Value.Damage = sBoss.Damage;
+                dataItem.Value.ID = s.ID;
+                dataItem.Value.Name = s.Name.Replace(StringNameData, "");
+                dataItem.Value.Health = s.Health;
+                dataItem.Value.Damage = s.Damage;
+                dataItem.Value.TranslationIdentifier = s.TranslationIdentifier;
 
-                dataItem.ListResourse.Add(levelsresourse[i]);
+               dataItem.ListResourse.Add(levelsresourse[i]);
                 this.Add(dataItem);
             }
   

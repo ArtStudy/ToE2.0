@@ -8,6 +8,7 @@ using GameСreator.API.Boss;
 
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -32,10 +33,14 @@ namespace GameСreator.ViewModel
         string Current2Page = string.Empty;
         FileStream currentFile;
 
+        public CultureInfo[] Cultures => CultureInfo.GetCultures(CultureTypes.AllCultures);
+
         private DataItem<Level> _currentLevel;
         private DataItem<Boss> _currentBoss;
         private ListDataLevel _levels;
         private ListDataBoss _bosses;
+        private ListDataLanguagePack _languagePacks;
+        private DataItem<LanguagePack> _currentLanguagePack;
 
         public PAC ThisPac { get; private set; }
         public static GameData GDStatic { get; set; }
@@ -43,6 +48,7 @@ namespace GameСreator.ViewModel
         public ListResourse Items { get => ThisPac.Items; }
         public ListDataLevel Levels { get => _levels; private set => this.Set("Levels", ref _levels, value, true); }
         public ListDataBoss Bosses { get => _bosses; private set => this.Set("Bosses", ref _bosses, value, true); }
+        public ListDataLanguagePack LanguagePacks { get => _languagePacks; private set => this.Set("LanguagePacks", ref _languagePacks, value, true); }
         public DataItem<Level> CurrentNewParentLevel { get; set; }
         public Level CurrentParentLevel { get; set; }
 
@@ -84,9 +90,9 @@ namespace GameСreator.ViewModel
 
                 if (value != null)
                 {
-                    if (_currentLevel != null)
+                    if (_currentBoss != null)
                     {
-                        GD.Levels.ReLoad(_currentLevel, GD.Bosses);
+                        GD.Bosses.ReLoad(_currentBoss);
                     }
                     Current2Page = "BossEditPage";
 
@@ -99,6 +105,34 @@ namespace GameСreator.ViewModel
                 }
                 _currentBoss = value;
                 this.RaisePropertyChanged("CurrentBoss");
+
+            }
+        }
+        public DataItem<LanguagePack> CurrentLanguagePack
+        {
+            get => _currentLanguagePack;
+
+            set
+            {
+
+
+                if (value != null)
+                {
+                    if (_currentLanguagePack != null)
+                    {
+                        GD.LanguagePacks.ReLoad(_currentLanguagePack);
+                    }
+                    Current2Page = "LanguagePackEditPage";
+
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LanguagePackEditPage"));
+                }
+                else
+                {
+                    Current2Page = string.Empty;
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
+                }
+                _currentLanguagePack = value;
+                this.RaisePropertyChanged("CurrentLanguagePack");
 
             }
         }
@@ -115,13 +149,16 @@ namespace GameСreator.ViewModel
             this.OpenBosses = new RelayCommand(OpenBossesAction, OpenBossesCanEx);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
             this.OpenLevels = new RelayCommand(OpenLevelsAction, OpenLevelsCanEx);
+            this.OpenLanguagePacks = new RelayCommand(OpenLanguagePacksAction, OpenLanguagePacksCanEx);
             this.CreateNewResourse = new RelayCommand(CreateNewResourseAction, CreateNewResourseCanEx);
             this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, CreateNewLevelCanEx);
+            this.CreateNewLanguagePack = new RelayCommand(CreateNewLanguagePacks, CreateNewLanguagePacksCanEx);
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
             this.CancelValue = new RelayCommand(CancelValueAction, CancelValueCanEx);
             this.AddParentToLevel = new RelayCommand(AddParentToLevelAction, AddParentToLevelCanEx);
             this.RermoveParentToLevel = new RelayCommand(RermoveParentToLevelAction, RermoveParentToLevelCanEx);
+            this.RermoveItem = new RelayCommand(RermoveItemAction, RermoveItemCanEx);
 
             ////if (IsInDesignMode)
             ////{
@@ -131,6 +168,42 @@ namespace GameСreator.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private bool RermoveItemCanEx => !string.IsNullOrWhiteSpace(CurrentPage);
+        private void RermoveItemAction()
+        {
+            if (CurrentPage == "LanguagePacksPage")
+            {
+                this.GD.LanguagePacks.Remove(this.CurrentLanguagePack);
+                UpdateListLanguagePacks();
+            }
+            else if (CurrentPage == "LevelPage")
+            {
+                this.GD.Levels.Remove(this.CurrentLevel);
+                UpdateListLevels();
+            }
+            else if (CurrentPage == "BossesPage")
+            {
+                this.GD.Bosses.Remove(this.CurrentBoss);
+                UpdateListBosses();
+            }
+        }
+
+        private bool CreateNewLanguagePacksCanEx() => CurrentPage == "LanguagePacksPage";
+
+        private void CreateNewLanguagePacks()
+        {
+            this.CurrentLanguagePack = new DataItem<LanguagePack>();
+            this.CurrentLanguagePack.Value = new  LanguagePack();
+        }
+
+        private bool OpenLanguagePacksCanEx() => this.ThisPac != null;
+        private void OpenLanguagePacksAction()
+        {
+            UpdateListLanguagePacks();
+            CurrentPage = "LanguagePacksPage";
+            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LanguagePacksPage"));
         }
 
         private bool RermoveParentToLevelCanEx() => CurrentParentLevel != null;
@@ -167,6 +240,7 @@ namespace GameСreator.ViewModel
         /// Добавить родителя уровня
         /// </summary>
         public ICommand AddParentToLevel { get; }
+        public ICommand CreateNewLanguagePack { get; }
         /// <summary>
         /// Сохранить пакет
         /// </summary>
@@ -197,9 +271,14 @@ namespace GameСreator.ViewModel
         public ICommand OpenResources { get; }
 
         /// <summary>
-        /// Открыть поле русурсов 
+        /// Открыть список босов
         /// </summary>
         public ICommand OpenBosses { get; }
+        public ICommand RermoveItem { get; }
+        /// <summary>
+        /// Открыть список языковой пакет
+        /// </summary>
+        public ICommand OpenLanguagePacks { get; }
 
         /// <summary>
         /// Создать новый паке
@@ -370,6 +449,16 @@ namespace GameСreator.ViewModel
         //    this.RaisePropertyChanged("Bosses");
 
         }
+        private void UpdateListLanguagePacks()
+        {
+
+            //    this.Bosses = null;
+            //    this.RaisePropertyChanged("Bosses");
+            this.LanguagePacks = null;
+            this.LanguagePacks = GD.LanguagePacks;
+            //    this.RaisePropertyChanged("Bosses");
+
+        }
 
         private bool CreateNewLevelCanEx() => this.ThisPac != null && this.CurrentPage == "LevelPage";
 
@@ -385,9 +474,13 @@ namespace GameСreator.ViewModel
             {
                 return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0 && CurrentLevel.Value.Boss != null ;
             }
-            if (Current2Page == "BossEditPage")
+           else if (Current2Page == "BossEditPage")
             {
                 return CurrentBoss.Value.Name?.Length > 0 && CurrentBoss.Value.ID > 0 ;
+            }
+            else if (Current2Page == "LanguagePackEditPage")
+            {
+                return CurrentLanguagePack.Value.Culture != null;
             }
             return false;
         }
@@ -408,6 +501,13 @@ namespace GameСreator.ViewModel
                 this.GD.Bosses.Save(this.CurrentBoss);
                 UpdateListBosses();
             }
+            else if (Current2Page == "LanguagePackEditPage")
+            {
+                if (!this.GD.LanguagePacks.Contains(this.CurrentLanguagePack))
+                    this.GD.LanguagePacks.Add(this.CurrentLanguagePack);
+                this.GD.LanguagePacks.Save(this.CurrentLanguagePack);
+                UpdateListLanguagePacks();
+            }
 
         }
 
@@ -426,6 +526,11 @@ namespace GameСreator.ViewModel
             {
                 if (!this.GD.Bosses.Contains(this.CurrentBoss))
                     this.GD.Bosses.ReLoad(this.CurrentBoss);
+                CurrentLevel = null;
+            } else if (Current2Page == "LanguagePackEditPage")
+            {
+                if (!this.GD.LanguagePacks.Contains(this.CurrentLanguagePack))
+                    this.GD.LanguagePacks.ReLoad(this.CurrentLanguagePack);
                 CurrentLevel = null;
             }
         }

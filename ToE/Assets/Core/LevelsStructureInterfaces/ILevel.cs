@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Assets.Core.Levels
 {
-    public interface ILevel : IBase
+    public interface ILevel : IBase, IMulticulturalData
     {
        
         /// <summary>

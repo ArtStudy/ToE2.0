@@ -10,7 +10,7 @@ namespace Assets.Core.Game.Data
 {
     public abstract class ListDataBase<T> : List<DataItem<T>> where T : IBase
     {
-   
+
         public ListDataBase() : base() { }
         public ListDataBase(IEnumerable<DataItem<T>> collection) : base(collection) { }
         public ListDataBase(int capacity) : base(capacity) { }
@@ -25,6 +25,10 @@ namespace Assets.Core.Game.Data
         /// </summary>
         /// <param name="obj"></param>
         public abstract void Save(DataItem<T> obj);
+        /// <summary>
+        /// Перезагрузка элемента
+        /// </summary>
+        public  abstract string StringNameData { get; }
         /// <summary>
         /// Сохранить все
         /// </summary>
@@ -55,5 +59,10 @@ namespace Assets.Core.Game.Data
                 return default(T);
             return this.Find((item) => item.Value.ID == id).Value;
         }
+
+      /*  public void Remove(DataItem<T> current)
+        {
+
+        }*/
     }
 }

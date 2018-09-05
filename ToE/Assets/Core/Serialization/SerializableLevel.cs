@@ -43,6 +43,8 @@ namespace Assets.Core.Serialization
         /// </summary>
             [DataMember]
         public int[] Parents { get; set; }
+        [DataMember]
+        public string TranslationIdentifier { get; set; }
 
     }
 }

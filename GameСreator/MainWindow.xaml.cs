@@ -64,10 +64,18 @@ namespace GameСreator
                 case "LevelPage":
                     MainPage.Source = new Uri("Pages\\LevelPage.xaml", UriKind.Relative);
                     break;
-              
+                case "LanguagePacksPage":
+                    MainPage.Source = new Uri("Pages\\LanguagePacksPage.xaml", UriKind.Relative);
+                    break;
+
                 case "LevelEditPage":
                     SPage.Source = new Uri("Pages\\EditLevelPage.xaml", UriKind.Relative);
                     break;
+
+                    case "LanguagePackEditPage":
+                    SPage.Source = new Uri("Pages\\EditLanguagePackPage.xaml", UriKind.Relative);
+                    break;
+
                 case "NotEditPage":
                     SPage.Source = null;
                     break;

@@ -137,6 +137,8 @@ namespace Assets.Core.ToePac
     {
         Unknown = 0,
         Boss = 1,
-        Level = 2
+        Level = 2,
+        Language = 3
+
     }
 }

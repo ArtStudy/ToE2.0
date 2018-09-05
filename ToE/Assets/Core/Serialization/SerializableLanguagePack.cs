@@ -1,5 +1,6 @@
 ﻿using Assets.Core.Levels;
 using Assets.Core.Levels.Questions;
+using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Volutes;
 using System;
 using System.Collections.Generic;
@@ -11,17 +12,9 @@ using System.Threading.Tasks;
 namespace Assets.Core.Serialization
 {
     [DataContract]
-    public class SerializableBoss : SerializableBase
+    public class SerializableLanguagePack : SerializableBase
     {
-
-        [DataMember]
-        public int Health { get; set; }
-        [DataMember]
-        public int Damage { get; set; }
-        [DataMember]
-        public string TranslationIdentifier { get; set; }
-
-
-
+         [DataMember]
+        public Dictionary<string, string> LanguageData { get; set; }
     }
 }
