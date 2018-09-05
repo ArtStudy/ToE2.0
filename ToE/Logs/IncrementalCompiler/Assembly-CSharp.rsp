@@ -305,6 +305,10 @@
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Data/ListData.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Game.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/SimpleGameobjects/Edge.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Sorting/Cell.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Sorting/Group.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Sorting/Sorting.cs
+-i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Sorting/Web.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IAges.cs
 -i:D:/Projects/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IBase.cs

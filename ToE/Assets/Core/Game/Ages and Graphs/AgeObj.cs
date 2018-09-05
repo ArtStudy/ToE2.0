@@ -20,7 +20,6 @@ public class AgeObj : MonoBehaviour
 
     void Start ()
     {
-        //SortLevels.Sorting();
         LoadLevels();
        // TestWay();
     }
@@ -74,12 +73,4 @@ public class AgeObj : MonoBehaviour
         WayObj testWay = Ways[0].GetComponent<WayObj>();        
     }
 
-    /*void LoadLevels()
-    {
-        ListData<Level> levels = Game.gameData.Levels;
-        for (int i = 0; i < levels.Count; i++)
-        {
-            
-        }
-    }*/
 }
