@@ -86,9 +86,6 @@ public class Game : MonoBehaviour
 
 
         LoadAges();
-     
-      
-
     }
 
     // Update is called once per frame
@@ -100,7 +97,7 @@ public class Game : MonoBehaviour
 
     void LoadAges()
     {
-        for (int i = 0; i < Ages.Count; i++) 
+        for (int i = 0; i < Ages.Count; i++)
         {
             Ages[i] = Instantiate(Ages[i]);
         }
