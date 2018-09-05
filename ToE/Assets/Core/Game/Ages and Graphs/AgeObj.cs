@@ -12,7 +12,6 @@ using Assets.Core.Game.Sorting;
 public class AgeObj : MonoBehaviour
 {
     public Age Age;
-    private Web web;
     public GameObject LevelPrefab;
     public GameObject WayPrefab;
     private Save save;

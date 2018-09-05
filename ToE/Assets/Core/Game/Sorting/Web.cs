@@ -43,10 +43,5 @@ namespace Assets.Core.Game.Sorting
         {
 
         }
-
-        public void FindChilds(Cell cell)
-        {
-
-        }
     }
 }
