@@ -137,6 +137,6 @@ namespace Assets.Core.ToePac
     {
         Unknown = 0,
         Boss = 1,
-        Lavel = 2
+        Level = 2
     }
 }

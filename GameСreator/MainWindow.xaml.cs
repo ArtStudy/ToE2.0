@@ -28,7 +28,7 @@ namespace GameСreator
     public partial class MainWindow : Window
     {
         AddResourse AddResourseWindow;
-        private AddBoss AddBossWindow;
+  
 
         public MainWindow()
         {
@@ -37,44 +37,7 @@ namespace GameСreator
             Messenger.Default.Register<NavigatorPageMessege>(this, NavigatorPageAction);
 
 
-            var data = new PAC();
-        /*    data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 123 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345678 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 123 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345678 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 123 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.Unknown, Name = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111", Identifier = 12345678 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.Unknown, Name = "1234", Identifier = 12345678 });
 
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345678 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 123 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345678 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 123 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.txt, Identifier = 12345 });
-            data.Items.Add(new Item() { Data = "ТЕКСТ".GenerateStreamFromString(), FileType = FileTypes.Unknown,  Name = "11111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111",  Identifier = 12345678 });
-            var str = data.Serialization();
-            var r =  new PAC(str);
-
-            using (FileStream fs = new FileStream("1.txt", FileMode.OpenOrCreate))
-            {
-               ((MemoryStream) str).WriteTo(fs);
-               // fs.CopyTo(str);
-            }
-              
-        
-
-            foreach (var item in r.Items)
-            {
-                StreamReader reader = new StreamReader( item.Data);
-                string text = reader.ReadToEnd();
-                Debug.WriteLine(item.FileType + " " +item.Identifier  + " " +text + " " + item.Name);
-            }
-           
-           */
         }
         private void NavigatorPageAction(NavigatorPageMessege obj)
         {
@@ -92,14 +55,8 @@ namespace GameСreator
                     AddResourseWindow?.Close();
                     AddResourseWindow = null;
                     break;
-                case "AddBossWindowOpen":
-                    AddBossWindow?.Close();
-                    AddBossWindow = new AddBoss();
-                    AddBossWindow.ShowDialog();
-                    break;
-                case "AddBossWindowClose":
-                    AddBossWindow?.Close();
-                    AddBossWindow = null;
+                case "BossEditPage":
+                    SPage.Source = new Uri("Pages\\EditBossPage.xaml", UriKind.Relative);
                     break;
                 case "BossesPage":
                     MainPage.Source = new Uri("Pages\\BossPage.xaml", UriKind.Relative);

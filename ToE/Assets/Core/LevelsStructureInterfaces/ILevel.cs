@@ -30,9 +30,9 @@ namespace Assets.Core.Levels
         /// </summary>
         IPassageLevel PassageLevel { get; set; }
         /// <summary>
-        /// Борьба с боссом
+        /// Босс
         /// </summary>
-        IBossFight BossFight { get; set; }
+        IBoss Boss { get; set; }
 
         /// <summary>
         /// Вопросы уровня

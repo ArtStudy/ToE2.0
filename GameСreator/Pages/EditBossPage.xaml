@@ -6,18 +6,21 @@
       xmlns:local="clr-namespace:GameСreator.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{Binding  Main, Source={StaticResource  Locator}}"
       Title="EditBoss">
 
     <Grid>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,35,0,0" TextWrapping="Wrap" Text="{Binding  Boss.ID}" VerticalAlignment="Top" Width="276"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="222,63,0,0" TextWrapping="Wrap" Text="{ Binding Boss.Name}"  VerticalAlignment="Top" Width="248"/>
+        <TextBox Height="23" Margin="194,35,40,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.ID}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="222,63,40,0" TextWrapping="Wrap" Text="{ Binding  CurrentBoss.Value.Name}"  VerticalAlignment="Top"/>
         <Label Content="ID" HorizontalAlignment="Left" Margin="31,40,0,0" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="31,63,0,0" VerticalAlignment="Top"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,91,0,0" TextWrapping="Wrap" Text="{Binding Boss.Health}" VerticalAlignment="Top" Width="276"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,119,0,0" TextWrapping="Wrap" Text="{Binding Boss.Damage}"  VerticalAlignment="Top" Width="276"/>
+        <TextBox Height="23" Margin="194,91,40,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.Health}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="194,119,40,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.Damage}"  VerticalAlignment="Top"/>
         <Label Content="Health" HorizontalAlignment="Left" Margin="31,88,0,0" VerticalAlignment="Top"/>
         <Label Content="Damage" HorizontalAlignment="Left" Margin="31,116,0,0" VerticalAlignment="Top"/>
         <TextBlock Text="Boss." HorizontalAlignment="Left" Margin="194,64,0,0" VerticalAlignment="Top" Width="28"/>
+        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,40,23" Command="{Binding SaveValue}" VerticalAlignment="Bottom" Width="75"/>
+        <Button Content="Отмена" HorizontalAlignment="Right" Margin="0,0,120,23" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75"/>
 
     </Grid>
 </Page>
