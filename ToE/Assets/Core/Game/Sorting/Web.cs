@@ -13,7 +13,7 @@ namespace Assets.Core.Game.Sorting
 
         public void AddLevel(ILevel level)
         {
-            int groupNumber = 0;
+            int groupNumber = -1;
             Cell cell = new Cell(level);
             for (int groupCounter = 0; groupCounter < groups.Count; groupCounter++ )
             {
@@ -35,7 +35,7 @@ namespace Assets.Core.Game.Sorting
             }
             //Заносим уровень в соответствующую группу
             groups[groupNumber + 1].AddLevel(cell);
-
+             
 
         }
 

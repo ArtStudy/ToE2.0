@@ -7,10 +7,12 @@ using Assets.Core.ToePac;
 using Assets.Core.Game.Data;
 using Assets.Core.Levels;
 using Assets.Core.Save;
+using Assets.Core.Game.Sorting;
 
 public class AgeObj : MonoBehaviour
 {
     public Age Age;
+    private Web web;
     public GameObject LevelPrefab;
     public GameObject WayPrefab;
     private Save save;

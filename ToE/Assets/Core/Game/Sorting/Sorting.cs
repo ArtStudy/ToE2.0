@@ -34,7 +34,7 @@ namespace Assets.Core.Game.Sorting
                 {
                     for (int j = 0; j < groups.Count; j++)
                     {
-                        if(gro)
+                        
                     }
                     group = (int) groups[levelObj.level.Parents[0].ID].x + 1;
                     groups[i] = new Vector2(group,levelObj.level.ID);
@@ -51,8 +51,7 @@ namespace Assets.Core.Game.Sorting
                         {
                             k++;
                         }
-                        if (group < (int)groups[k].x)
-                            group == (int) groups[k].x + 1;
+                        
                     }
                 groups[i] = new Vector2(group, levelObj.level.ID);
             }
