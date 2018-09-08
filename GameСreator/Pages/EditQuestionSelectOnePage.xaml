@@ -1,0 +1,28 @@
+﻿<Page x:Class="GameСreator.Pages.EditQuestionSelectOnePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:GameСreator.Pages"
+      mc:Ignorable="d" 
+             MinHeight="200"
+      MinWidth="500"
+       DataContext="{Binding  Main, Source={StaticResource  Locator}}"
+     
+      Title="EditLevelPage">
+
+
+    <Grid Margin="40">
+        <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding CurrentQuestion .Value.ID}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="139,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentQuestion.Value.Name}"  VerticalAlignment="Top"/>
+        <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top"/>
+        <TextBlock Text="Quest." HorizontalAlignment="Left" Margin="100,33,0,0" VerticalAlignment="Top" Width="34"/>
+        <Label Content="RightAnswer" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top"/>
+        <Label Content="NumberAnswer" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.442,0.218"/>
+        <TextBox Height="23" Margin="100,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentQuestion.Value.NumberAnswer}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="100,84,0,0" TextWrapping="Wrap" Text="{Binding CurrentQuestion.Value.RightAnswer}" VerticalAlignment="Top"/>
+
+    </Grid>
+
+</Page>

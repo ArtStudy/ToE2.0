@@ -1,5 +1,9 @@
+using Assets.Core.Data.Question;
 using Assets.Core.Game.Ages_and_Graphs;
 using Assets.Core.Game.Data;
+using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Game.Data.Question;
+using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.ToePac;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
@@ -8,9 +12,11 @@ using GameСreator.API.Boss;
 
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace GameСreator.ViewModel
@@ -31,26 +37,73 @@ namespace GameСreator.ViewModel
     {
         string CurrentPage = string.Empty;
         string Current2Page = string.Empty;
-        FileStream currentFile;
+
 
         public CultureInfo[] Cultures => CultureInfo.GetCultures(CultureTypes.AllCultures);
 
         private DataItem<Level> _currentLevel;
         private DataItem<Boss> _currentBoss;
+        private DataItem<IQuestion> _currentQuestion;
         private ListDataLevel _levels;
         private ListDataBoss _bosses;
+        private ListDataQuestion _questions;
         private ListDataLanguagePack _languagePacks;
         private DataItem<LanguagePack> _currentLanguagePack;
+        private IMulticulturalData _currentMulticulturalData;
+        private DataItem<LanguagePack> _currentObjectLanguagePack;
+        private FileStream _currentFile;
+   //     private ListDataBase<IBase> _baseList;
 
         public PAC ThisPac { get; private set; }
         public static GameData GDStatic { get; set; }
-        public GameData GD { get => GDStatic; set => GDStatic = value; }
+        public GameData GD
+        {
+            get => GDStatic; set
+            {
+                GDStatic = value;
+                this.RaisePropertyChanged("GD");
+                this.RaisePropertyChanged("GDStatic");
+            }
+        }
+     //   public ListDataBase<IBase> CurrentBaseList { get => _baseList; set  => Set("BaseList", ref _baseList,  value); }
+        public FileStream CurrentFile { get => _currentFile; set => Set("CurrentFile", ref _currentFile, value); }
         public ListResourse Items { get => ThisPac.Items; }
         public ListDataLevel Levels { get => _levels; private set => this.Set("Levels", ref _levels, value, true); }
         public ListDataBoss Bosses { get => _bosses; private set => this.Set("Bosses", ref _bosses, value, true); }
+        public ListDataQuestion Questions { get => _questions; private set => this.Set("Questions", ref _questions, value, true); }
         public ListDataLanguagePack LanguagePacks { get => _languagePacks; private set => this.Set("LanguagePacks", ref _languagePacks, value, true); }
         public DataItem<Level> CurrentNewParentLevel { get; set; }
         public Level CurrentParentLevel { get; set; }
+        public IMulticulturalData CurrentMulticulturalData { get => _currentMulticulturalData; set => Set("CurrentMulticulturalData", ref _currentMulticulturalData, value); }
+
+
+        public DataItem<LanguagePack> CurrentObjectLanguagePack
+        {
+            get => _currentObjectLanguagePack; set
+            {
+
+                if (_currentObjectLanguagePack != null)
+                    this.GD.LanguagePacks.Save(_currentObjectLanguagePack);
+
+                if (value != null)
+                {
+                    for (int i = 0; i < CurrentMulticulturalData.BasicLocalizationFields.Length; i++)
+                    {
+                        string strvalue = $"{CurrentMulticulturalData.TranslationIdentifier}.{ CurrentMulticulturalData.BasicLocalizationFields[i]}";
+                        if (value.Value.LanguageData.Find((item) => item.Key == strvalue) == null)
+                        {
+                            value.Value.LanguageData[strvalue] = string.Empty;
+                        }
+                    }
+
+                }
+
+
+                Set("CurrentObjectLanguagePack", ref _currentObjectLanguagePack, value);
+
+
+            }
+        }
 
         public DataItem<Level> CurrentLevel
         {
@@ -69,14 +122,18 @@ namespace GameСreator.ViewModel
                     Current2Page = "LevelEditPage";
 
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelEditPage"));
+                    CurrentMulticulturalData = value.Value;
                 }
                 else
                 {
+                    CurrentMulticulturalData = null;
                     Current2Page = string.Empty;
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
                 }
-                _currentLevel = value;
-                this.RaisePropertyChanged("CurrentLevel");
+                this.Set("CurrentLevel", ref _currentLevel, value);
+                CurrentObjectLanguagePack = null;
+
+
 
             }
         }
@@ -97,13 +154,16 @@ namespace GameСreator.ViewModel
                     Current2Page = "BossEditPage";
 
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossEditPage"));
+                    CurrentMulticulturalData = value.Value;
                 }
                 else
                 {
+                    CurrentMulticulturalData = null;
                     Current2Page = string.Empty;
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
                 }
                 _currentBoss = value;
+
                 this.RaisePropertyChanged("CurrentBoss");
 
             }
@@ -131,8 +191,44 @@ namespace GameСreator.ViewModel
                     Current2Page = string.Empty;
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
                 }
+                CurrentMulticulturalData = null;
                 _currentLanguagePack = value;
                 this.RaisePropertyChanged("CurrentLanguagePack");
+
+            }
+        }
+
+        public DataItem<IQuestion> CurrentQuestion
+        {
+            get => _currentQuestion;
+
+            set
+            {
+
+
+                if (value != null)
+                {
+                    if (_currentQuestion != null)
+                    {
+                        GD.Questions.ReLoad(_currentQuestion);
+                    }
+                    if (value.Value.TypeQuestion == TypeQuestionEnum.SelectOne)
+                    {
+                        Current2Page = "EditQuestionSelectOnePage";
+                    }
+
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege(Current2Page));
+                    CurrentMulticulturalData = value.Value;
+                }
+                else
+                {
+                    CurrentMulticulturalData = null;
+                    Current2Page = string.Empty;
+                    Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
+                }
+                _currentQuestion = value;
+
+                this.RaisePropertyChanged("CurrentQuestion");
 
             }
         }
@@ -141,24 +237,35 @@ namespace GameСreator.ViewModel
         /// </summary>
         public MainViewModel()
         {
-            Messenger.Default.Register<Item>(this, AddNewResourse);
+  
 
-            this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, CreateNewPackageCanEx);
-            this.CreateNewBoss = new RelayCommand(CreateNewBossAction, CreateNewBossCanEx);
-            this.OpenResources = new RelayCommand(OpenResourcesAction, OpenResourcesCanEx);
-            this.OpenBosses = new RelayCommand(OpenBossesAction, OpenBossesCanEx);
+            this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, () => true);
+            this.CreateNewBoss = new RelayCommand(CreateNewBossAction,                                () => this.ThisPac != null && this.CurrentPage == "BossesPage");
+            this.CreateNewLevel = new RelayCommand(CreateNewLevelAction,                              () => this.ThisPac != null && this.CurrentPage == "LevelPage");
+            this.CreateNewLanguagePack = new RelayCommand(CreateNewLanguagePacks,                     () => this.ThisPac != null && this.CurrentPage == "LanguagePacksPage");
+            this.CreateNewQuestionSelectOne = new RelayCommand(CreateNewQuestionSelectOnePacks,       () => this.ThisPac != null && this.CurrentPage == "QuestionsPage");
+
+
+            this.OpenResources = new RelayCommand(()=> OpenPageOne("ResourcesPage", null), ()=> this.ThisPac != null);
+            this.OpenBosses = new RelayCommand(()=> OpenPageOne("BossesPage", UpdateAll), () => this.ThisPac != null);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
-            this.OpenLevels = new RelayCommand(OpenLevelsAction, OpenLevelsCanEx);
-            this.OpenLanguagePacks = new RelayCommand(OpenLanguagePacksAction, OpenLanguagePacksCanEx);
+            this.OpenLevels = new RelayCommand(()=> OpenPageOne("LevelPage", UpdateAll), () => this.ThisPac != null);
+            this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", UpdateAll), () => this.ThisPac != null);
+
+            this.OpenQuestions = new RelayCommand(() => OpenPageOne("QuestionsPage", UpdateAll), () => this.ThisPac != null);
+
+
             this.CreateNewResourse = new RelayCommand(CreateNewResourseAction, CreateNewResourseCanEx);
-            this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, CreateNewLevelCanEx);
-            this.CreateNewLanguagePack = new RelayCommand(CreateNewLanguagePacks, CreateNewLanguagePacksCanEx);
+          
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
             this.CancelValue = new RelayCommand(CancelValueAction, CancelValueCanEx);
             this.AddParentToLevel = new RelayCommand(AddParentToLevelAction, AddParentToLevelCanEx);
             this.RermoveParentToLevel = new RelayCommand(RermoveParentToLevelAction, RermoveParentToLevelCanEx);
             this.RermoveItem = new RelayCommand(RermoveItemAction, RermoveItemCanEx);
+            this.SortingByID = new RelayCommand(SortingByIDAction, SortingByIDCanEx);
+            //   this.AddLocalizationString = new RelayCommand(AddLocalizationStringAction, AddLocalizationStringCanEx);
+            //     this.RemoveLocalizationString = new RelayCommand(RemoveLocalizationStringAction, RemoveLocalizationStringCanEx);
 
             ////if (IsInDesignMode)
             ////{
@@ -170,41 +277,67 @@ namespace GameСreator.ViewModel
             ////}
         }
 
+        private void CreateNewQuestionSelectOnePacks()
+        {
+            this.CurrentQuestion = new DataItem<IQuestion>() { Value = new QuestionSelectOne() { ID = this.Questions.GenNewID() } };
+
+        
+        }
+
+        private bool SortingByIDCanEx() => !string.IsNullOrWhiteSpace(CurrentPage);
+
+        private void SortingByIDAction()
+        {
+            if (CurrentPage == "LanguagePacksPage")
+            {
+                this.GD.LanguagePacks.SortingByID();
+
+            }
+            else if (CurrentPage == "LevelPage")
+            {
+
+                this.GD.Levels.SortingByID();
+
+            }
+            else if (CurrentPage == "BossesPage")
+            {
+
+                this.GD.Bosses.SortingByID();
+
+            }
+            UpdateAll();
+        }
+
         private bool RermoveItemCanEx => !string.IsNullOrWhiteSpace(CurrentPage);
         private void RermoveItemAction()
         {
             if (CurrentPage == "LanguagePacksPage")
             {
                 this.GD.LanguagePacks.Remove(this.CurrentLanguagePack);
-                UpdateListLanguagePacks();
+
             }
             else if (CurrentPage == "LevelPage")
             {
                 this.GD.Levels.Remove(this.CurrentLevel);
-                UpdateListLevels();
+
             }
             else if (CurrentPage == "BossesPage")
             {
                 this.GD.Bosses.Remove(this.CurrentBoss);
-                UpdateListBosses();
+
             }
+            UpdateAll();
         }
 
-        private bool CreateNewLanguagePacksCanEx() => CurrentPage == "LanguagePacksPage";
-
+ 
         private void CreateNewLanguagePacks()
         {
             this.CurrentLanguagePack = new DataItem<LanguagePack>();
-            this.CurrentLanguagePack.Value = new  LanguagePack();
+            this.CurrentLanguagePack.Value = new LanguagePack();
         }
 
-        private bool OpenLanguagePacksCanEx() => this.ThisPac != null;
-        private void OpenLanguagePacksAction()
-        {
-            UpdateListLanguagePacks();
-            CurrentPage = "LanguagePacksPage";
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LanguagePacksPage"));
-        }
+ 
+
 
         private bool RermoveParentToLevelCanEx() => CurrentParentLevel != null;
         private void RermoveParentToLevelAction()
@@ -232,6 +365,10 @@ namespace GameСreator.ViewModel
             this.CurrentLevel = temp;
 
         }
+        /// <summary>
+        /// Добавить родителя уровня
+        /// </summary>
+        public ICommand SortingByID { get; }
         /// <summary>
         /// Добавить родителя уровня
         /// </summary>
@@ -263,7 +400,11 @@ namespace GameСreator.ViewModel
         /// <summary>
         /// Открыть пакет
         /// </summary>
-        public ICommand OpenPackage { get; }
+        public ICommand OpenPackage { get; }   
+        /// <summary>
+        /// Открыть пакет
+        /// </summary>
+        public ICommand OpenQuestions { get; }
 
         /// <summary>
         /// Открыть поле русурсов 
@@ -292,6 +433,18 @@ namespace GameСreator.ViewModel
         /// Создать новый ресурс
         /// </summary>
         public ICommand CreateNewBoss { get; }
+        /// <summary>
+        /// Создать новый ресурс
+        /// </summary>
+        public ICommand CreateNewQuestionSelectOne { get; }
+        /// <summary>
+        /// Добавить новую стоку локализации
+        /// </summary>
+        public ICommand AddLocalizationString { get; }
+        /// <summary>
+        /// Удалить строку локализации
+        /// </summary>
+        public ICommand RemoveLocalizationString { get; }
 
         private void CreateNewPackageAction()
         {
@@ -304,19 +457,7 @@ namespace GameСreator.ViewModel
 
             //  this.OpenResources.CanExecute(null);
         }
-        private bool CreateNewPackageCanEx() => true;
-        /// <summary>
-        /// Открыть поле русурсов действие
-        /// </summary>
-        private void OpenResourcesAction()
-        {
-            CurrentPage = "ResourcesPage";
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("ResourcesPage"));
 
-            //   Messenger.Default.Send<PAC>(this.ThisPac);
-
-        }
-        private bool OpenResourcesCanEx() => this.ThisPac != null;
 
 
 
@@ -327,23 +468,19 @@ namespace GameСreator.ViewModel
         }
 
 
-        private void OpenBossesAction()
+        private void OpenPageOne(string NamePage, Action ac)
         {
-            UpdateListBosses();
-            CurrentPage = "BossesPage";
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("BossesPage"));
-
+            CurrentPage = NamePage;
+            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege(NamePage));
+            ac?.Invoke();
         }
 
-        private bool OpenBossesCanEx() => this.ThisPac != null;
-
-
-        private bool CreateNewBossCanEx() => this.ThisPac != null && this.CurrentPage == "BossesPage";
 
         private void CreateNewBossAction()
         {
             this.CurrentBoss = new DataItem<Boss>();
             this.CurrentBoss.Value = new Boss();
+            this.CurrentBoss.Value.ID = this.Bosses.GenNewID();
         }
 
 
@@ -351,7 +488,7 @@ namespace GameСreator.ViewModel
         {
             this.ThisPac = GD.SaveToPAC();
             GD = new GameData(this.ThisPac);
-            if (currentFile == null)
+            if (CurrentFile == null)
             {
                 Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
                 dlg.FileName = "Document"; // Default file name
@@ -366,16 +503,16 @@ namespace GameСreator.ViewModel
                 {
                     // Save document
                     string filename = dlg.FileName;
-                    currentFile = new FileStream(filename, FileMode.Create);
-                    ThisPac.Serialization().WriteTo(currentFile);
-                    currentFile.Flush(true);
+                    CurrentFile = new FileStream(filename, FileMode.Create);
+                    ThisPac.Serialization().WriteTo(CurrentFile);
+                    CurrentFile.Flush(true);
 
                 }
             }
             else
-                currentFile.Position = 0;
-            ThisPac.Serialization().WriteTo(currentFile);
-            currentFile.Flush(true);
+                CurrentFile.Position = 0;
+            ThisPac.Serialization().WriteTo(CurrentFile);
+            CurrentFile.Flush(true);
 
         }
 
@@ -400,87 +537,66 @@ namespace GameСreator.ViewModel
             {
                 // Save document
                 string filename = dlg.FileName;
-                currentFile?.Dispose();
-                currentFile = new FileStream(filename, FileMode.Open);
+                CurrentFile?.Dispose();
+                CurrentFile = new FileStream(filename, FileMode.Open);
                 MemoryStream ms = new MemoryStream();
                 ///  currentFile.CopyTo(ms);
-                this.ThisPac = new PAC(currentFile);
+                this.ThisPac = new PAC(CurrentFile);
                 this.GD = new GameData(this.ThisPac);
+
             }
-
-            UpdateListLevels();
-        }
-
-
-        private void AddNewResourse(Item obj)
-        {
-            Items.Add(obj);
-            this.RaisePropertyChanged("Items");
+            UpdateAll();
         }
 
 
 
 
-        private bool OpenLevelsCanEx() => this.ThisPac != null;
-        private void OpenLevelsAction()
-        {
-            UpdateListLevels();
-            CurrentPage = "LevelPage";
-            Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("LevelPage"));
-        }
 
-
-        private void UpdateListLevels()
+        
+        private void UpdateAll()
         {
 
-          this.Levels = null;
-         //   this.RaisePropertyChanged("Levels");
+            this.Levels = null;
             this.Levels = GD.Levels;
-//this.RaisePropertyChanged("Levels");
 
-        }
-        private void UpdateListBosses()
-        {
-
-            //    this.Bosses = null;
-            //    this.RaisePropertyChanged("Bosses");
             this.Bosses = null;
             this.Bosses = GD.Bosses;
-        //    this.RaisePropertyChanged("Bosses");
 
-        }
-        private void UpdateListLanguagePacks()
-        {
 
-            //    this.Bosses = null;
-            //    this.RaisePropertyChanged("Bosses");
             this.LanguagePacks = null;
             this.LanguagePacks = GD.LanguagePacks;
-            //    this.RaisePropertyChanged("Bosses");
+
+            this.Questions = null;
+            this.Questions = GD.Questions;
 
         }
 
-        private bool CreateNewLevelCanEx() => this.ThisPac != null && this.CurrentPage == "LevelPage";
 
         private void CreateNewLevelAction()
         {
-            // Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddLevelWindowOpen"));
+        
             this.CurrentLevel = new DataItem<Level>();
             this.CurrentLevel.Value = new Level();
+            this.CurrentLevel.Value.ID = this.Levels.GenNewID();
         }
         private bool SaveValueCanEx()
         {
             if (Current2Page == "LevelEditPage")
             {
-                return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0 && CurrentLevel.Value.Boss != null ;
+                return CurrentLevel.Value.Name?.Length > 0 && CurrentLevel.Value.ID > 0 && CurrentLevel.Value.Boss != null;
             }
-           else if (Current2Page == "BossEditPage")
+            else if (Current2Page == "BossEditPage")
             {
-                return CurrentBoss.Value.Name?.Length > 0 && CurrentBoss.Value.ID > 0 ;
+                return CurrentBoss.Value.Name?.Length > 0 && CurrentBoss.Value.ID > 0;
             }
             else if (Current2Page == "LanguagePackEditPage")
             {
                 return CurrentLanguagePack.Value.Culture != null;
+            }
+            else if (Current2Page == "EditQuestionSelectOnePage")
+            {
+                var currentQuestion = (QuestionSelectOne)CurrentQuestion.Value;
+                return currentQuestion.Name?.Length > 0 && currentQuestion.ID > 0 && currentQuestion.NumberAnswer > 1 && currentQuestion.RightAnswer > 0;
             }
             return false;
         }
@@ -492,23 +608,30 @@ namespace GameСreator.ViewModel
                 if (!this.GD.Levels.Contains(this.CurrentLevel))
                     this.GD.Levels.Add(this.CurrentLevel);
                 this.GD.Levels.Save(this.CurrentLevel);
-                UpdateListLevels();
+                this.CurrentLevel = null;
             }
             else if (Current2Page == "BossEditPage")
             {
                 if (!this.GD.Bosses.Contains(this.CurrentBoss))
                     this.GD.Bosses.Add(this.CurrentBoss);
                 this.GD.Bosses.Save(this.CurrentBoss);
-                UpdateListBosses();
+                this.CurrentBoss = null;
             }
             else if (Current2Page == "LanguagePackEditPage")
             {
                 if (!this.GD.LanguagePacks.Contains(this.CurrentLanguagePack))
                     this.GD.LanguagePacks.Add(this.CurrentLanguagePack);
                 this.GD.LanguagePacks.Save(this.CurrentLanguagePack);
-                UpdateListLanguagePacks();
+                this.CurrentLanguagePack = null;
             }
-
+            else if (Current2Page == "EditQuestionSelectOnePage")
+            {
+                if (!this.GD.Questions.Contains(this.CurrentQuestion))
+                    this.GD.Questions.Add(this.CurrentQuestion);
+                this.GD.Questions.Save(this.CurrentQuestion);
+                this.CurrentQuestion = null;
+            }
+            UpdateAll();
         }
 
 
@@ -520,18 +643,25 @@ namespace GameСreator.ViewModel
             {
                 if (this.GD.Levels.Contains(CurrentLevel))
                     this.GD.Levels.ReLoad(CurrentLevel, GD.Bosses);
-                CurrentLevel = null;
+                this.CurrentLevel = null;
             }
             else if (Current2Page == "BossEditPage")
             {
                 if (!this.GD.Bosses.Contains(this.CurrentBoss))
                     this.GD.Bosses.ReLoad(this.CurrentBoss);
-                CurrentLevel = null;
-            } else if (Current2Page == "LanguagePackEditPage")
+                this.CurrentBoss = null;
+            }
+            else if (Current2Page == "LanguagePackEditPage")
             {
                 if (!this.GD.LanguagePacks.Contains(this.CurrentLanguagePack))
                     this.GD.LanguagePacks.ReLoad(this.CurrentLanguagePack);
-                CurrentLevel = null;
+                this.CurrentLanguagePack = null;
+            }
+            else if (Current2Page == "EditQuestionSelectOnePage")
+            {
+                if (!this.GD.Questions.Contains(this.CurrentQuestion))
+                    this.GD.Questions.ReLoad(this.CurrentQuestion);
+                this.CurrentQuestion = null;
             }
         }
 

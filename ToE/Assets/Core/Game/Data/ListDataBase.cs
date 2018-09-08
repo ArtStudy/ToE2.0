@@ -59,10 +59,30 @@ namespace Assets.Core.Game.Data
                 return default(T);
             return this.Find((item) => item.Value.ID == id).Value;
         }
+        public int GenNewID()=> this.Count > 0 ? (this.Max((item) => item.Value.ID))+1 : 1;
 
-      /*  public void Remove(DataItem<T> current)
+
+
+
+
+        public void SortingByID()
         {
+            this.Sort(SortingComp);
+        }
 
-        }*/
+        private int SortingComp(DataItem<T> x, DataItem<T> y)
+        {
+          return  x.Value.ID.CompareTo(y.Value.ID);
+        }
+
+
+
+
+
+
+        /*  public void Remove(DataItem<T> current)
+{
+
+}*/
     }
 }

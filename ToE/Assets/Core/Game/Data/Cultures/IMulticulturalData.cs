@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.LevelsStructureInterfaces
+namespace Assets.Core.Game.Data.Cultures
 {
     public interface IMulticulturalData
     {
         string TranslationIdentifier { get; set; }
+        string[] BasicLocalizationFields { get; }
     }
 }

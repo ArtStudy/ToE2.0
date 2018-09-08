@@ -13,12 +13,6 @@ namespace Assets.Core.Game.Data
         public T Value { get; set; } 
         public ListResourse ListResourse { get; set; } = new ListResourse();
 
-        public override bool Equals(object obj)
-        {
-            var item = obj as DataItem<T>;
-            return item != null &&
-                   item.Value.ID == Value.ID;
-        }
 
        
         public override string ToString()

@@ -33,6 +33,8 @@ namespace Assets.Core.Game.Data
 
         public string TranslationIdentifier { get; set; }
 
+        public string[] BasicLocalizationFields => new string[] { "Name", "Description" };
+
         public event PropertyChangedEventHandler PropertyChanged;
     }
 }

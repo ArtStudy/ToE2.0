@@ -17,7 +17,7 @@
                 <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding Value.ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Value.Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Culture" MinWidth="200" Binding="{Binding  Value.Culture.DisplayName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Count item" MinWidth="200" Binding="{Binding  Value.LanguageData.Keys.Count}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Count item" MinWidth="200" Binding="{Binding  Value.LanguageData.Count}"></DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

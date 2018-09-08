@@ -22,5 +22,8 @@ namespace Assets.Core.Serialization
         /// Имя босса
         /// </summary>
         public string Name { get; set; }
+
+
+      
     }
 }

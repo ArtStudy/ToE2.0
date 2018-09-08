@@ -1,5 +1,6 @@
-﻿using Assets.Core.Levels;
-using Assets.Core.Levels.Questions;
+﻿using Assets.Core.Data.Question;
+using Assets.Core.Levels;
+
 using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Serialization;
 using Assets.Core.ToePac;
@@ -56,6 +57,8 @@ namespace Assets.Core.Game.Data
         public List<ILevel> Parents { get; set; } = new List<ILevel>();
 
         public string TranslationIdentifier { get; set; }
+
+        public string[] BasicLocalizationFields => new string[] { "Name", "Description" };
 
         public event PropertyChangedEventHandler PropertyChanged;
 

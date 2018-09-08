@@ -71,7 +71,11 @@ namespace Assets.Core.Game.Data
                 obj.Value.Parents.Clear();
                 for (int j = 0; j < s.Parents.Length; j++)
                 {
-                    obj.Value.Parents.Add(this.Find((item) => item.Value.ID == s.Parents[j]).Value);
+                   var r=  this.Find((item) => item.Value.ID == s.Parents[j]);
+                    if (r != null)
+                    {
+                        obj.Value.Parents.Add(r.Value);
+                    }
 
                 }
             }

@@ -1,6 +1,9 @@
-﻿using Assets.Core.Levels;
-using Assets.Core.Levels.Questions;
+﻿
+using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Levels;
+
 using Assets.Core.LevelsStructureInterfaces;
+
 using Assets.Core.Volutes;
 using System;
 using System.Collections.Generic;
@@ -15,6 +18,6 @@ namespace Assets.Core.Serialization
     public class SerializableLanguagePack : SerializableBase
     {
          [DataMember]
-        public Dictionary<string, string> LanguageData { get; set; }
+        public LocalizationDictionary LanguageData { get; set; }
     }
 }

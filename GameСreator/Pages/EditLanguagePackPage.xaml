@@ -5,23 +5,27 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GameСreator.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+          MinHeight="300"
+      MinWidth="500"
+
       DataContext="{Binding  Main, Source={StaticResource  Locator}}"
       Title="EditBoss">
 
-    <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                <GradientStop Color="#FFE6DCFF" Offset="1"/>
-                <GradientStop Color="White" Offset="0.647"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <Label Content="Culture" HorizontalAlignment="Left" Margin="31,40,0,0" VerticalAlignment="Top"/>
-        <Label Content="{Binding CurrentLanguagePack.Value.Culture.DisplayName}" Margin="31,71,10,0" VerticalAlignment="Top"/>
+    <Grid Margin="40">
+       
+        <Label Content="Culture" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
+        <ComboBox Margin="100,0,0,0" IsEditable="True" ItemsSource="{Binding Cultures}"   SelectedValue="{Binding CurrentLanguagePack.Value.Culture}" VerticalAlignment="Top">
 
-        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,40,23" Command="{Binding SaveValue}" VerticalAlignment="Bottom" Width="75"/>
-        <Button Content="Отмена" HorizontalAlignment="Right" Margin="0,0,120,23" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75"/>
-        <ComboBox Margin="205,40,40,0" IsEditable="True" ItemsSource="{Binding Cultures}"   SelectedValue="{Binding CurrentLanguagePack.Value.Culture}" VerticalAlignment="Top"/>
+        </ComboBox>
+        <DataGrid AutoGenerateColumns="False"   ItemsSource="{Binding  CurrentLanguagePack.Value.LanguageData}" Margin="0,52,0,0" >
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Key" MinWidth="200" Binding="{Binding Key}" />
+                <DataGridTextColumn Header="Value"  MinWidth="200" Binding="{Binding Value}" />
+            </DataGrid.Columns>
+
+        </DataGrid>
+        <Label Content="Data" HorizontalAlignment="Left"   Margin="0,26,0,0" VerticalAlignment="Top"/>
 
 
     </Grid>

@@ -1,4 +1,7 @@
-﻿using System;
+﻿
+
+using Assets.Core.Game.Data.Cultures;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -10,6 +13,6 @@ namespace Assets.Core.LevelsStructureInterfaces
     interface ILanguagePack : IBase
     {
         CultureInfo Culture { get; }
-        Dictionary<string, string> LanguageData { get;  }
+        LocalizationDictionary LanguageData { get;  }
     }
 }

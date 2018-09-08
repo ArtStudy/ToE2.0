@@ -1,4 +1,7 @@
-﻿using Assets.Core.LevelsStructureInterfaces;
+﻿
+using Assets.Core.Game.Data.Cultures;
+using Assets.Core.LevelsStructureInterfaces;
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +16,7 @@ namespace Assets.Core.Game.Data
     {
         public CultureInfo Culture { get; set; }
 
-        public Dictionary<string, string> LanguageData { get; set; } =new Dictionary<string, string>();
+        public LocalizationDictionary LanguageData { get; set; } =new LocalizationDictionary();
       
         public int ID { get => Culture.LCID; set => Culture = new CultureInfo(value); }
         public string Name { get => Culture.Name; set => Culture = new CultureInfo(value); }

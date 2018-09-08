@@ -5,30 +5,48 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:GameСreator.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+               MinHeight="500"
+      MinWidth="500"
        DataContext="{Binding  Main, Source={StaticResource  Locator}}"
+     
       Title="EditLevelPage">
 
-    <Grid>
-        <Button Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,40,23" Command="{Binding   SaveValue}" VerticalAlignment="Bottom" Width="75"/>
-        <Button Content="Отмена" HorizontalAlignment="Right" Margin="0,0,120,23" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="194,35,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.ID}" VerticalAlignment="Top" Width="566"/>
-        <TextBox HorizontalAlignment="Left" Height="23" Margin="225,63,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Name}"  VerticalAlignment="Top" Width="535"/>
-        <Label Content="ID" HorizontalAlignment="Left" Margin="31,35,0,0" VerticalAlignment="Top"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="31,63,0,0" VerticalAlignment="Top"/>
-        <TextBlock Text="Level." HorizontalAlignment="Left" Margin="194,64,0,0" VerticalAlignment="Top" Width="29"/>
-        <Label Content="Parents" HorizontalAlignment="Left" Margin="30,127,0,0" VerticalAlignment="Top"/>
-        <DataGrid ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False" Margin="32,158,40,48">
+
+    <Grid Margin="40">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="110"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="32"/>
+            <RowDefinition Height="1*"/>
+        </Grid.RowDefinitions>
+        <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.ID}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="134,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Name}"  VerticalAlignment="Top"/>
+        <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="22"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Height="26" Width="42"/>
+        <TextBlock Text="Level." HorizontalAlignment="Left" Margin="100,35,0,0" VerticalAlignment="Top" Width="29" Height="16"/>
+        <Label  IsEnabled="False"  Content="Questions" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="63" Margin="0,83,0,0"/>
+        <DataGrid ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False"  Grid.Row="3">
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding CurrentNewParentLevel}" Margin="193,131,0,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" Width="276" IsEditable="True"/>
-        <Button Content="+" HorizontalAlignment="Left" Margin="480,133,0,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" Width="27"/>
-        <Button Content="-" HorizontalAlignment="Right" Margin="0,133,40,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27"/>
-        <Label Content="Boss" HorizontalAlignment="Left" Margin="32,89,0,0" VerticalAlignment="Top"/>
-        <ComboBox HorizontalAlignment="Left" SelectedItem="{Binding  CurrentLevel.Value.Boss, Converter={StaticResource DataItemToValueConverter}}" Margin="193,91,0,0"   ItemsSource="{Binding GD.Bosses}" VerticalAlignment="Top" Width="567" IsEditable="True"/>
+        <ComboBox IsEnabled="False"  SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,83,64,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" IsEditable="True" Height="22"/>
+        <Button IsEnabled="False"  Content="+" Margin="0,85,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27"  Height="20"/>
+        <Button IsEnabled="False"   Content="-" HorizontalAlignment="Right" Margin="0,85,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Height="20"/>
+        <Label Content="Boss" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Height="26" Width="34"/>
+        <ComboBox SelectedItem="{Binding  CurrentLevel.Value.Boss, Converter={StaticResource DataItemToValueConverter}}" Margin="100,56,0,0"   ItemsSource="{Binding GD.Bosses}" IsEditable="True" Height="22" VerticalAlignment="Top"/>
+        <Label Content="Parents" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="49"/>
+        <ComboBox SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,5,64,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" IsEditable="True" Grid.Row="2" Height="22"/>
+        <Button Content="+" Margin="0,5,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27" Grid.Row="2" Height="20"/>
+        <Button Content="-" HorizontalAlignment="Right" Margin="0,6,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Grid.Row="2" Height="20"/>
+        <DataGrid IsEnabled="False" ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False" Margin="0,0,0,0" Grid.Row="1">
+            <DataGrid.Columns>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"/>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding Name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
     </Grid>
+
 </Page>

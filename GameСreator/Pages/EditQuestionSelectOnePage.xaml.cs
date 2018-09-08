@@ -20,9 +20,9 @@ namespace GameСreator.Pages
     /// <summary>
     /// Логика взаимодействия для EditLevelPage.xaml
     /// </summary>
-    public partial class EditLevelPage : Page
+    public partial class EditQuestionSelectOnePage: Page
     {
-        public EditLevelPage()
+        public EditQuestionSelectOnePage()
         {
             InitializeComponent();
         }

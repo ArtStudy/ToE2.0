@@ -6,7 +6,12 @@
         xmlns:local="clr-namespace:GameСreator"
         mc:Ignorable="d"
         DataContext="{Binding  Main, Source={StaticResource  Locator}}"
-        Title="MainWindow" Height="450" Width="800">
+        Title="{Binding CurrentFile.Name, TargetNullValue='Game Сreator', FallbackValue='Game Сreator'}" Height="600" Width="1000">
+    <Window.Resources>
+        <CollectionViewSource x:Key="cvsTasks" Filter="CollectionViewSource_Filter" Source="{Binding CurrentObjectLanguagePack.Value.LanguageData, Mode=OneWay}" 
+                     >
+        </CollectionViewSource>
+    </Window.Resources>
     <Grid>
         <Menu  VerticalAlignment="Top">
             <MenuItem Header="Файл">
@@ -22,9 +27,15 @@
                 <MenuItem Command="{Binding  CreateNewResourse}"  Header="Добавить ресурс"/>
                 <MenuItem Command="{Binding   CreateNewLevel}"  Header="Добавить увровень"/>
                 <MenuItem Command="{Binding   CreateNewBoss}"  Header="Добавить боса"/>
+                <MenuItem  Header="Добавить вопрос">
+                    <MenuItem Command="{Binding   CreateNewQuestionSelectOne}"  Header="Добавить вопрос с одним вариантом ответа"/>
+                </MenuItem>
                 <Separator></Separator>
                 <MenuItem Command="{Binding   CreateNewLanguagePack}"  Header="Добавить языковой пакет"/>
 
+            </MenuItem>
+            <MenuItem Header="Утилиты">
+                <MenuItem Command="{Binding  SortingByID}"  Header="Сортировать по Base.ID"/>
             </MenuItem>
         </Menu>
         <Grid Margin="0,18,0,0">
@@ -40,17 +51,60 @@
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
                 <MenuItem Header="Ресурсы" Command="{Binding OpenResources}"></MenuItem>
-                <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
+                <Separator></Separator>
+                <MenuItem Header="Вопросы" Command="{Binding  OpenQuestions}"></MenuItem>
                 <MenuItem Header="Боссы" Command="{Binding OpenBosses}"></MenuItem>
+                <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Локализация" Command="{Binding OpenLanguagePacks}"></MenuItem>
             </Menu>
 
 
             <Frame Name="MainPage"  NavigationUIVisibility="Hidden" Grid.Column="1" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Margin="0,35,0,0" ></Frame>
-     
+
             <GridSplitter  Width="5" Grid.Column="1"></GridSplitter>
-            <Frame Name="SPage"   NavigationUIVisibility="Hidden" Grid.Column="2"></Frame>
+            <TabControl Grid.Column="2">
+                <TabItem x:Name="Main">
+                    <TabItem.Header>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="3">Main</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,30" >
+                        <Frame Name="SPage"   NavigationUIVisibility="Hidden" ></Frame>
+                            </ScrollViewer>
+                            <Button Content="Сохранить" HorizontalAlignment="Right" Command="{Binding SaveValue}" VerticalAlignment="Bottom" Width="75" Margin="0,0,10,5"/>
+                            <Button Content="Отмена" HorizontalAlignment="Right" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75" Margin="0,0,90,5"/>
+
+                        </Grid>
+                   
+                    </TabItem.Content>
+                </TabItem>
+                <TabItem IsEnabled="{Binding  CurrentMulticulturalData, Converter={StaticResource NullToBooleanConverter}}" >
+                    <TabItem.Header >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="3">Cultures</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+                            <Label Content="Culture" HorizontalAlignment="Left" Margin="31,35,0,0" VerticalAlignment="Top"/>
+                            <DataGrid   Name="Datag"  ItemsSource="{Binding Source={StaticResource cvsTasks}}" AutoGenerateColumns="False" Margin="32,66,40,48">
+
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Key" MinWidth="200" Binding="{Binding Key}" />
+                                    <DataGridTextColumn Header="Value"  MinWidth="200" Binding="{Binding Value}" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <ComboBox SelectedItem="{Binding  CurrentObjectLanguagePack}" Margin="193,35,40,0"  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding GD.LanguagePacks}" VerticalAlignment="Top" IsEditable="True"/>
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
+             
+            </TabControl>
             <Button Content="-" HorizontalAlignment="Right" Margin="0,10,10,0" Command="{Binding RermoveItem}"  VerticalAlignment="Top" Width="27" Grid.Column="1"/>
         </Grid>
     </Grid>

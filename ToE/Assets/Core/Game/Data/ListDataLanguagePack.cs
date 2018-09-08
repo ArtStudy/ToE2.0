@@ -34,7 +34,7 @@ namespace Assets.Core.Game.Data
             SerializableLanguagePack s = new SerializableLanguagePack();
             s.ID = obj.Value.ID;
             s.Name = StringNameData + obj.Value.Name;
-            s.LanguageData = s.LanguageData;
+            s.LanguageData = obj.Value.LanguageData ;
 
              DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(SerializableLanguagePack));
             MemoryStream ms = new MemoryStream();
@@ -67,7 +67,7 @@ namespace Assets.Core.Game.Data
                 SerializableLanguagePack s = (SerializableLanguagePack)ser.ReadObject(levelsresourse[i].Data);
                 dataItem.Value = new LanguagePack();
                 dataItem.Value.Name = s.Name.Replace(StringNameData, "");
-                dataItem.Value.LanguageData = s.LanguageData;
+                dataItem.Value.LanguageData =  s.LanguageData;
 
                 dataItem.ListResourse.Add(levelsresourse[i]);
                 this.Add(dataItem);

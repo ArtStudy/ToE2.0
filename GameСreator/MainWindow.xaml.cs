@@ -1,8 +1,9 @@
-﻿using Assets.Core.ToePac;
+﻿using Assets.Core.Game.Data.Cultures;
+using Assets.Core.ToePac;
 using GalaSoft.MvvmLight.Messaging;
 using GameСreator.DWIndows;
 using GameСreator.Pages;
-
+using GameСreator.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -67,7 +68,9 @@ namespace GameСreator
                 case "LanguagePacksPage":
                     MainPage.Source = new Uri("Pages\\LanguagePacksPage.xaml", UriKind.Relative);
                     break;
-
+                case "QuestionsPage":
+                    MainPage.Source = new Uri("Pages\\QuestionPage.xaml", UriKind.Relative);
+                    break;
                 case "LevelEditPage":
                     SPage.Source = new Uri("Pages\\EditLevelPage.xaml", UriKind.Relative);
                     break;
@@ -75,11 +78,28 @@ namespace GameСreator
                     case "LanguagePackEditPage":
                     SPage.Source = new Uri("Pages\\EditLanguagePackPage.xaml", UriKind.Relative);
                     break;
-
+        case "EditQuestionSelectOnePage":
+                    SPage.Source = new Uri("Pages\\EditQuestionSelectOnePage.xaml", UriKind.Relative);
+                    break;
                 case "NotEditPage":
                     SPage.Source = null;
                     break;
             }
+        }
+        private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
+        {
+            LocalizationKeyValuePair item = (LocalizationKeyValuePair)e.Item;
+            MainViewModel VM = this.DataContext as MainViewModel;
+            if (item.Key != null)
+                e.Accepted = item.Key.StartsWith(VM.CurrentMulticulturalData.TranslationIdentifier);
+            else
+                e.Accepted = false;
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (this.Datag.ItemsSource != null)
+                CollectionViewSource.GetDefaultView(this.Datag.ItemsSource).Refresh();
         }
 
 

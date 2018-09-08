@@ -9,6 +9,7 @@
             <Converters:UInt64ToStringConverter x:Key="UInt64ToStringConverter"  />
             <Converters:DataItemToValueConverter x:Key="DataItemToValueConverter"  />
             <Converters:ListntToStringConverter x:Key="ListntToStringConverter"  />
+            <Converters:NullToBooleanConverter x:Key="NullToBooleanConverter"  />
             <Core:EnumItemsSource x:Key="FileTypes" Type="{x:Type Items:FileTypes}" />
 
         </ResourceDictionary>
