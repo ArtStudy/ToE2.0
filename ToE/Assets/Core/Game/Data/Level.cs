@@ -35,8 +35,8 @@ namespace Assets.Core.Game.Data
         }
 
         // Цены
-        public Money Price { get; set; }
-        public Money Remuneration { get; set; }
+        public Money Price { get; set; } = new Money(0, 0);
+        public Money Remuneration { get; set; } = new Money(0, 0);
 
         // Этапы
         public IEntranceTest EntranceTest { get; set; }
@@ -44,7 +44,7 @@ namespace Assets.Core.Game.Data
         public IBoss Boss { get; set; }
 
         //Вопросы
-        public List<IQuestion> QuestionsLevel { get; set; }
+        public List<IQuestion> QuestionsLevel { get; set; } = new List<IQuestion>();
 
         //
         public StateLevel StateLevel { get; set; }

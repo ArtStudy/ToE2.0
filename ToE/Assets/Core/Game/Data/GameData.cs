@@ -24,7 +24,7 @@ namespace Assets.Core.Game.Data
             LanguagePacks = new ListDataLanguagePack(pac);
             Questions = new ListDataQuestion(pac);
             Bosses = new ListDataBoss(pac);
-            Levels = new ListDataLevel(pac, Bosses);
+            Levels = new ListDataLevel(pac, Bosses, Questions);
 
 
         }

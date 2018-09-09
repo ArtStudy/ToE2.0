@@ -74,6 +74,8 @@ namespace GameСreator.ViewModel
         public ListDataLanguagePack LanguagePacks { get => _languagePacks; private set => this.Set("LanguagePacks", ref _languagePacks, value, true); }
         public DataItem<Level> CurrentNewParentLevel { get; set; }
         public Level CurrentParentLevel { get; set; }
+        public DataItem<IQuestion> CurrentNewQuestionLevel { get; set; }
+        public IQuestion CurrentQuestionLevel { get; set; }
         public IMulticulturalData CurrentMulticulturalData { get => _currentMulticulturalData; set => Set("CurrentMulticulturalData", ref _currentMulticulturalData, value); }
 
 
@@ -117,7 +119,7 @@ namespace GameСreator.ViewModel
                 {
                     if (_currentLevel != null)
                     {
-                        GD.Levels.ReLoad(_currentLevel, GD.Bosses);
+                        GD.Levels.ReLoad(_currentLevel, GD.Bosses, GD.Questions);
                     }
                     Current2Page = "LevelEditPage";
 
@@ -264,6 +266,10 @@ namespace GameСreator.ViewModel
             this.RermoveParentToLevel = new RelayCommand(RermoveParentToLevelAction, RermoveParentToLevelCanEx);
             this.RermoveItem = new RelayCommand(RermoveItemAction, RermoveItemCanEx);
             this.SortingByID = new RelayCommand(SortingByIDAction, SortingByIDCanEx);
+
+            this.AddQuestionToLevel = new RelayCommand(AddQuestionToLevelAction, AddQuestionToLevelCanEx);
+            this.RermoveQuestionToLevel = new RelayCommand(RemoveParentToLevelAction, RemoveParentToLevelCanEx);
+
             //   this.AddLocalizationString = new RelayCommand(AddLocalizationStringAction, AddLocalizationStringCanEx);
             //     this.RemoveLocalizationString = new RelayCommand(RemoveLocalizationStringAction, RemoveLocalizationStringCanEx);
 
@@ -275,6 +281,32 @@ namespace GameСreator.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private bool RemoveParentToLevelCanEx() => CurrentQuestionLevel != null;
+
+        private void RemoveParentToLevelAction()
+        {
+            CurrentLevel.Value.QuestionsLevel.Remove(CurrentQuestionLevel);
+            var temp = this.CurrentLevel;
+            this.CurrentLevel = null;
+            this.CurrentLevel = temp;
+        }
+
+        private bool AddQuestionToLevelCanEx() => CurrentNewQuestionLevel != null;
+        private void AddQuestionToLevelAction()
+        {
+
+            if(!this.CurrentLevel.Value.QuestionsLevel.Contains(this.CurrentNewQuestionLevel.Value))
+            {
+                CurrentLevel.Value.QuestionsLevel.Add(CurrentNewQuestionLevel.Value);
+            }
+
+            var temp = this.CurrentLevel;
+            this.CurrentLevel = null;
+            this.CurrentLevel = temp;
+
+
         }
 
         private void CreateNewQuestionSelectOnePacks()
@@ -377,6 +409,17 @@ namespace GameСreator.ViewModel
         /// Добавить родителя уровня
         /// </summary>
         public ICommand AddParentToLevel { get; }
+
+        /// <summary>
+        /// Добавить родителя уровня
+        /// </summary>
+        public ICommand RermoveQuestionToLevel { get; }
+        /// <summary>
+        /// Добавить родителя уровня
+        /// </summary>
+        public ICommand AddQuestionToLevel { get; }
+
+
         public ICommand CreateNewLanguagePack { get; }
         /// <summary>
         /// Сохранить пакет
@@ -642,7 +685,7 @@ namespace GameСreator.ViewModel
             if (Current2Page == "LevelEditPage")
             {
                 if (this.GD.Levels.Contains(CurrentLevel))
-                    this.GD.Levels.ReLoad(CurrentLevel, GD.Bosses);
+                    this.GD.Levels.ReLoad(CurrentLevel, GD.Bosses, GD.Questions);
                 this.CurrentLevel = null;
             }
             else if (Current2Page == "BossEditPage")

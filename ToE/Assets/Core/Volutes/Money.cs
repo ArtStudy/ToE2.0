@@ -17,13 +17,31 @@ namespace Assets.Core.Volutes
             this.Gold = g;
             this.Brains = b;
         }
+        public Money(int[] gb)
+        {
+            if (gb == null)
+            {
+                this.Gold = 0;
+                this.Brains =0;
+            }
+            else
+            {
+                this.Gold = gb[0];
+                this.Brains = gb[1];
+            }
+        }
         /// <summary>
         /// Золото
         /// </summary>
-        public int Gold { get; }
+        public int Gold { get; set; }
         /// <summary>
         /// Мозги
         /// </summary>
-        public int Brains { get; }
+        public int Brains { get; set; }
+
+        public int[] ToArray()
+        {
+            return new int[] { Gold, Brains };
+        }
     }
 }

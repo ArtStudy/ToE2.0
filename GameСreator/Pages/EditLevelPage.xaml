@@ -13,39 +13,55 @@
 
 
     <Grid Margin="40">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" MaxWidth="100"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="110"/>
+            <RowDefinition Height="169"/>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="32"/>
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
-        <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.ID}" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="134,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Name}"  VerticalAlignment="Top"/>
-        <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="22"/>
-        <Label Content="Name" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Height="26" Width="42"/>
-        <TextBlock Text="Level." HorizontalAlignment="Left" Margin="100,35,0,0" VerticalAlignment="Top" Width="29" Height="16"/>
-        <Label  IsEnabled="False"  Content="Questions" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="63" Margin="0,83,0,0"/>
-        <DataGrid ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False"  Grid.Row="3">
+        <TextBox Height="23" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.ID}" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <TextBox Height="23" Margin="32.667,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Name}"  VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <Label Content="ID" VerticalAlignment="Top" Height="26"/>
+        <Label Content="Name" Margin="0,28,0,0" VerticalAlignment="Top" Height="26"/>
+        <TextBlock Text="Level." HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Width="29" Height="16" Grid.Column="1"/>
+        <Label    Content="Questions" VerticalAlignment="Top" Height="26" Margin="0,144,0,0" Grid.RowSpan="2"/>
+        <DataGrid ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False"  Grid.Row="3" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
-        <ComboBox IsEnabled="False"  SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,83,64,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" IsEditable="True" Height="22"/>
-        <Button IsEnabled="False"  Content="+" Margin="0,85,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27"  Height="20"/>
-        <Button IsEnabled="False"   Content="-" HorizontalAlignment="Right" Margin="0,85,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Height="20"/>
-        <Label Content="Boss" HorizontalAlignment="Left" Margin="0,52,0,0" VerticalAlignment="Top" Height="26" Width="34"/>
-        <ComboBox SelectedItem="{Binding  CurrentLevel.Value.Boss, Converter={StaticResource DataItemToValueConverter}}" Margin="100,56,0,0"   ItemsSource="{Binding GD.Bosses}" IsEditable="True" Height="22" VerticalAlignment="Top"/>
+        <ComboBox  SelectedItem="{Binding CurrentNewQuestionLevel}" Margin="0,142,64,0" ItemsSource="{Binding GD.Questions}" VerticalAlignment="Top" IsEditable="True" Grid.ColumnSpan="2" Grid.Column="1" />
+        <Button   Content="+" Margin="0,144,32,0" Command="{Binding AddQuestionToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27"  Height="20" Grid.Column="2"/>
+        <Button Content="-" HorizontalAlignment="Right" Margin="0,144,0,0" Command="{Binding RermoveQuestionToLevel}"  VerticalAlignment="Top" Width="27" Height="20" Grid.Column="2"/>
+        <Label Content="Boss" Margin="0,56,0,0" VerticalAlignment="Top" Height="26"/>
+        <ComboBox SelectedItem="{Binding  CurrentLevel.Value.Boss, Converter={StaticResource DataItemToValueConverter}}" Margin="0,56,0,0"   ItemsSource="{Binding GD.Bosses}" IsEditable="True" Height="22" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="Parents" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="49"/>
-        <ComboBox SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,5,64,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" IsEditable="True" Grid.Row="2" Height="22"/>
-        <Button Content="+" Margin="0,5,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27" Grid.Row="2" Height="20"/>
-        <Button Content="-" HorizontalAlignment="Right" Margin="0,6,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Grid.Row="2" Height="20"/>
-        <DataGrid IsEnabled="False" ItemsSource="{Binding CurrentLevel.Value.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False" Margin="0,0,0,0" Grid.Row="1">
+        <ComboBox SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,5,64,0" ItemsSource="{Binding GD.Levels}" VerticalAlignment="Top" IsEditable="True" Grid.Row="2" Height="22" Grid.ColumnSpan="3"/>
+        <Button Content="+" Margin="0,5,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27" Grid.Row="2" Height="20" Grid.Column="2"/>
+        <Button Content="-" HorizontalAlignment="Right" Margin="0,6,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Grid.Row="2" Height="20" Grid.Column="2"/>
+        <DataGrid  ItemsSource="{Binding CurrentLevel.Value.QuestionsLevel}" SelectedValue="{Binding CurrentQuestionLevel}" AutoGenerateColumns="False" Margin="0,0,0,0" Grid.Row="1" Grid.ColumnSpan="3">
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"/>
-                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TypeQuestion" MinWidth="200" Binding="{Binding  TypeQuestion }"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Label    Content="Price" VerticalAlignment="Top" Height="26" Margin="0,87,0,0"/>
+        <Label    Content="Gold:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="45" Margin="0,83,0,0" Grid.Column="1"/>
+        <TextBox Height="23" Margin="50,83,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Price.Gold}"  VerticalAlignment="Top" Grid.Column="1"/>
+        <Label    Content="Brains:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="45" Margin="0,83,0,0" Grid.Column="2"/>
+        <TextBox Height="23" Margin="50,83,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Price.Brains}"  VerticalAlignment="Top" Grid.Column="2"/>
+        <Label    Content="Gold:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="45" Margin="0,109,0,0" Grid.Column="1"/>
+        <TextBox Height="23" Margin="50,109,0.5,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Remuneration.Gold}"  VerticalAlignment="Top" Grid.Column="1"/>
+        <Label    Content="Brains:" HorizontalAlignment="Left" VerticalAlignment="Top" Height="26" Width="45" Margin="4,111,0,0" Grid.Column="2" />
+        <TextBox Height="23" Margin="49,111,0,0" TextWrapping="Wrap" Text="{Binding CurrentLevel.Value.Remuneration.Brains}"  VerticalAlignment="Top" Grid.Column="2"/>
+        <Label    Content="Remuneration" VerticalAlignment="Top" Height="26" Margin="0,109,0,0"/>
 
     </Grid>
 

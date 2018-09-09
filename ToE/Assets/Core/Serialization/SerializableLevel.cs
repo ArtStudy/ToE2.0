@@ -33,7 +33,7 @@ namespace Assets.Core.Serialization
 
         //Вопросы
         [DataMember]
-        public List<IQuestion> QuestionsLevel { get; set; }
+        public int[] QuestionsLevel { get; set; }
 
         //
         [DataMember]
@@ -46,6 +46,10 @@ namespace Assets.Core.Serialization
         public int[] Parents { get; set; }
         [DataMember]
         public string TranslationIdentifier { get; set; }
+        [DataMember]
+        public int[] Price { get; set; } = new int[2];
+        [DataMember]
+        public int[] Remuneration { get; set; } = new int[2];
 
     }
 }
