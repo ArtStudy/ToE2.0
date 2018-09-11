@@ -251,6 +251,8 @@ namespace GameСreator.ViewModel
             this.OpenResources = new RelayCommand(()=> OpenPageOne("ResourcesPage", null), ()=> this.ThisPac != null);
             this.OpenBosses = new RelayCommand(()=> OpenPageOne("BossesPage", UpdateAll), () => this.ThisPac != null);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
+         //   this.OpenDir = new RelayCommand(OpenDirAction, OpenDirCanEx);
+
             this.OpenLevels = new RelayCommand(()=> OpenPageOne("LevelPage", UpdateAll), () => this.ThisPac != null);
             this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", UpdateAll), () => this.ThisPac != null);
 
@@ -281,6 +283,19 @@ namespace GameСreator.ViewModel
             ////{
             ////    // Code runs "for real"
             ////}
+        }
+
+        private bool OpenDirCanEx() => true;
+
+        private void OpenDirAction()
+        {
+        /*    System.Windows.Forms.FolderBrowserDialog diag = new System.Windows.Forms.FolderBrowserDialog();
+            if (diag.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                string folder = diag.SelectedPath;  //selected folder path
+
+            }
+            diag.Dispose();*/
         }
 
         private bool RemoveParentToLevelCanEx() => CurrentQuestionLevel != null;
@@ -438,7 +453,10 @@ namespace GameСreator.ViewModel
         /// Открыть уровни пакет
         /// </summary>
         public ICommand OpenLevels { get; }
-
+        /// <summary>
+        /// Открыть папку с пакетам
+        /// </summary>
+        public ICommand OpenDir { get; }
 
         /// <summary>
         /// Открыть пакет
