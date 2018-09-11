@@ -17,7 +17,6 @@
             <MenuItem Header="Файл">
                 <MenuItem Command="{Binding CreateNewPackage}"  Header="Создать новый"/>
                 <MenuItem Command="{Binding OpenPackage}" Header="Открыть"/>
-                <MenuItem Command="{Binding OpenDir}" Header="Открыть папку"/>
                 <Separator></Separator>
                 <MenuItem Command="{Binding SavePackage}" Header="Сохранить"/>
                 <MenuItem Header="Сохранить как"/>
