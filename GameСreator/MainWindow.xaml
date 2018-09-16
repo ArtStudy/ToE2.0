@@ -8,7 +8,7 @@
         DataContext="{Binding  Main, Source={StaticResource  Locator}}"
         Title="{Binding CurrentFile.Name, TargetNullValue='Game Сreator', FallbackValue='Game Сreator'}" Height="600" Width="1000">
     <Window.Resources>
-        <CollectionViewSource x:Key="cvsTasks" Filter="CollectionViewSource_Filter" Source="{Binding CurrentObjectLanguagePack.Value.LanguageData, Mode=OneWay}" 
+        <CollectionViewSource x:Key="cvsTasks" Filter="CollectionViewSource_Filter" Source="{Binding CurrentObjectLanguagePack.LanguageData, Mode=OneWay}" 
                      >
         </CollectionViewSource>
     </Window.Resources>
@@ -17,6 +17,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Command="{Binding CreateNewPackage}"  Header="Создать новый"/>
                 <MenuItem Command="{Binding OpenPackage}" Header="Открыть"/>
+                <MenuItem Command="{Binding OpenDir}" Header="Открыть папку"/>
                 <Separator></Separator>
                 <MenuItem Command="{Binding SavePackage}" Header="Сохранить"/>
                 <MenuItem Header="Сохранить как"/>
@@ -50,13 +51,17 @@
                         <VirtualizingStackPanel Orientation="Vertical"/>
                     </ItemsPanelTemplate>
                 </Menu.ItemsPanel>
+                <MenuItem Header="Файлы" Command="{Binding OpenFilesPage}"></MenuItem>
+                <Separator></Separator>
                 <MenuItem Header="Ресурсы" Command="{Binding OpenResources}"></MenuItem>
                 <Separator></Separator>
                 <MenuItem Header="Вопросы" Command="{Binding  OpenQuestions}"></MenuItem>
                 <MenuItem Header="Боссы" Command="{Binding OpenBosses}"></MenuItem>
                 <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Локализация" Command="{Binding OpenLanguagePacks}"></MenuItem>
+                <MenuItem Header="Локализация" Command="{Binding OpenLanguagePacks}">
+                    
+                </MenuItem>
             </Menu>
 
 
@@ -73,13 +78,13 @@
                     <TabItem.Content>
                         <Grid>
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Margin="0,0,0,30" >
-                        <Frame Name="SPage"   NavigationUIVisibility="Hidden" ></Frame>
+                                <Frame Name="SPage"   NavigationUIVisibility="Hidden" ></Frame>
                             </ScrollViewer>
                             <Button Content="Сохранить" HorizontalAlignment="Right" Command="{Binding SaveValue}" VerticalAlignment="Bottom" Width="75" Margin="0,0,10,5"/>
                             <Button Content="Отмена" HorizontalAlignment="Right" Command="{Binding CancelValue}" VerticalAlignment="Bottom" Width="75" Margin="0,0,90,5"/>
 
                         </Grid>
-                   
+
                     </TabItem.Content>
                 </TabItem>
                 <TabItem IsEnabled="{Binding  CurrentMulticulturalData, Converter={StaticResource NullToBooleanConverter}}" >
@@ -98,12 +103,25 @@
                                     <DataGridTextColumn Header="Value"  MinWidth="200" Binding="{Binding Value}" />
                                 </DataGrid.Columns>
                             </DataGrid>
-                            <ComboBox SelectedItem="{Binding  CurrentObjectLanguagePack}" Margin="193,35,40,0"  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding GD.LanguagePacks}" VerticalAlignment="Top" IsEditable="True"/>
+                            <ComboBox SelectedItem="{Binding  CurrentObjectLanguagePack}" Margin="193,35,40,0"  SelectionChanged="ComboBox_SelectionChanged"  ItemsSource="{Binding LanguagesList }" VerticalAlignment="Top" IsEditable="True"/>
 
                         </Grid>
                     </TabItem.Content>
                 </TabItem>
-             
+                <TabItem  IsEnabled="{Binding  CurrentItem, Converter={StaticResource NullToBooleanConverter}}" >
+                    <TabItem.Header >
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="3">File</TextBlock>
+                        </StackPanel>
+                    </TabItem.Header>
+                    <TabItem.Content>
+                        <Grid>
+                            <Label Content="Пакет ресуров" HorizontalAlignment="Left" Margin="35,35,0,0" VerticalAlignment="Top"/>
+                            <ComboBox Margin="144,35,40,0" SelectedItem="{ Binding CurrentFileObject }" ItemsSource="{Binding Files}" VerticalAlignment="Top"/>
+
+                        </Grid>
+                    </TabItem.Content>
+                </TabItem>
             </TabControl>
             <Button Content="-" HorizontalAlignment="Right" Margin="0,10,10,0" Command="{Binding RermoveItem}"  VerticalAlignment="Top" Width="27" Grid.Column="1"/>
         </Grid>

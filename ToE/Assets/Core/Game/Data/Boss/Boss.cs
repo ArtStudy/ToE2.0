@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.Game.Data
+namespace Assets.Core.Game.Data.Boss
 {
     public class Boss : IBoss
     {
@@ -16,7 +16,7 @@ namespace Assets.Core.Game.Data
 
         public int Damage { get; set; }
 
-        public int ID { get; set; }
+        public UInt64 ID { get; set; }
         public string Name
         {
             get => _name; set
@@ -35,6 +35,10 @@ namespace Assets.Core.Game.Data
 
         public string[] BasicLocalizationFields => new string[] { "Name", "Description" };
 
+        public bool Loaded { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public override string ToString() => $"{this.Name} ({this.ID})";
     }
 }

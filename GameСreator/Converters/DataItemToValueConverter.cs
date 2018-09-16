@@ -16,7 +16,8 @@ namespace GameСreator.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ViewModel.MainViewModel.GDStatic.Bosses.Find((item)=> item.Value == value );
+            // return ViewModel.MainViewModel.GDStatic.Bosses.Find((item)=> item.Value == value );
+            return null;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

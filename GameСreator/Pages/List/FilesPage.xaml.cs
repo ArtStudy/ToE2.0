@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,18 +11,29 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace GameСreator.DWIndows
+namespace GameСreator.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AddResourse.xaml
+    /// Логика взаимодействия для Resources.xaml
     /// </summary>
-    public partial class AddResourse : Window
+    public partial class FilesPage : Page
     {
-        public AddResourse()
+        public FilesPage()
         {
+            try
+            {
+
+           
             InitializeComponent();
+            }
+            catch { }
+
+
         }
+
+ 
     }
 }

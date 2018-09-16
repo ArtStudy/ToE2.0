@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
 {
-    public class ListDataBoss : ListDataBase<Boss>
+/*    public class ListDataBoss : ListDataBase<Boss>
     {
         public override string StringNameData => "Boss.";
 
@@ -26,7 +26,7 @@ namespace Assets.Core.Game.Data
                 bosssresourse[i].Data.Position = 0;
                 SerializableBoss s = (SerializableBoss)ser.ReadObject(bosssresourse[i].Data);
 
-                obj.Value.ID = s.ID;
+                obj.Value.ID = bosssresourse[i].Identifier;
                 obj.Value.Name = s.Name.Replace(StringNameData, "");
                 obj.Value.Damage = s.Damage;
                 obj.Value.Health = s.Health;
@@ -37,7 +37,6 @@ namespace Assets.Core.Game.Data
         public override void Save(DataItem<Boss> obj)
         {
             SerializableBoss s = new SerializableBoss();
-            s.ID = obj.Value.ID;
             s.Name = StringNameData + obj.Value.Name;
             s.Damage = obj.Value.Damage;
             s.Health = obj.Value.Health;
@@ -52,7 +51,7 @@ namespace Assets.Core.Game.Data
             {
                 Item item = new Item();
                 item.FileType = FileTypes.Boss;
-                item.Identifier = ("Json." + s.Name).GetUInt64HashCode();
+               // item.Identifier = ("Json." + s.Name).GetUInt64HashCode();
                 item.Name = "Json." + s.Name;
                 item.Version = 1;
                 
@@ -65,7 +64,7 @@ namespace Assets.Core.Game.Data
             }
         }
      
-            public ListDataBoss(PAC pac)
+            public ListDataBoss(ToePackage pac)
         {
             var levelsresourse = pac.Items.GetResourcesByType(FileTypes.Boss);
             for (int i = 0; i < levelsresourse.Count; i++)
@@ -75,7 +74,7 @@ namespace Assets.Core.Game.Data
                 levelsresourse[i].Data.Position = 0;
                 SerializableBoss s = (SerializableBoss)ser.ReadObject(levelsresourse[i].Data);
                 dataItem.Value = new Boss();
-                dataItem.Value.ID = s.ID;
+
                 dataItem.Value.Name = s.Name.Replace(StringNameData, "");
                 dataItem.Value.Health = s.Health;
                 dataItem.Value.Damage = s.Damage;
@@ -88,5 +87,5 @@ namespace Assets.Core.Game.Data
         }
 
 
-    }
+    }*/
 }

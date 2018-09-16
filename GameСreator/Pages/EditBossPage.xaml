@@ -12,12 +12,12 @@
       Title="EditBoss">
 
     <Grid Margin="40">
-        <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.ID}" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="128,28,0,0" TextWrapping="Wrap" Text="{ Binding  CurrentBoss.Value.Name}"  VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding  CurrentItem.ID, Converter={StaticResource UInt64ToStringConverter}}" IsReadOnly="True" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="128,28,0,0" TextWrapping="Wrap" Text="{ Binding  CurrentItem.Name}"  VerticalAlignment="Top"/>
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top" />
-        <TextBox Height="23" Margin="100,56,0,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.Health}" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="100,84,0,0" TextWrapping="Wrap" Text="{Binding  CurrentBoss.Value.Damage}"  VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="100,56,0,0" TextWrapping="Wrap" Text="{Binding  CurrentItem.Health}" VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="100,84,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.Damage}"  VerticalAlignment="Top"/>
         <Label Content="Health" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top"/>
         <Label Content="Damage" HorizontalAlignment="Left" Margin="0,84,0,0" VerticalAlignment="Top"/>
         <TextBlock Text="Boss." HorizontalAlignment="Left" Margin="100,33,0,0" VerticalAlignment="Top" Width="28"/>

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
 {
-    public class ListDataLanguagePack : ListDataBase<LanguagePack>
+  /*  public class ListDataLanguagePack : ListDataBase<LanguagePack>
     {
         public override string StringNameData => "Lang.";
 
@@ -32,7 +32,7 @@ namespace Assets.Core.Game.Data
         public override void Save(DataItem<LanguagePack> obj)
         {
             SerializableLanguagePack s = new SerializableLanguagePack();
-            s.ID = obj.Value.ID;
+
             s.Name = StringNameData + obj.Value.Name;
             s.LanguageData = obj.Value.LanguageData ;
 
@@ -56,7 +56,7 @@ namespace Assets.Core.Game.Data
                 dataitem.Data = new MemoryStream(ms.ToArray());
             }
         }
-        public ListDataLanguagePack(PAC pac)
+        public ListDataLanguagePack(ToePackage pac)
         {
             var levelsresourse = pac.Items.GetResourcesByType(FileTypes.Language);
             for (int i = 0; i < levelsresourse.Count; i++)
@@ -75,5 +75,5 @@ namespace Assets.Core.Game.Data
         }
 
   
-    }
+    }*/
 }

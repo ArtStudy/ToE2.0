@@ -11,11 +11,11 @@
 
     <Grid>
 
-        <DataGrid CanUserAddRows="False"  SelectedItem="{Binding CurrentQuestion}"  ItemsSource="{Binding  Questions}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False"  SelectedItem="{Binding CurrentItem}"  ItemsSource="{Binding  CurrentItems}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding Value.ID}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Value.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="TypeQuestion" MinWidth="200" Binding="{Binding  Value.TypeQuestion }"></DataGridTextColumn>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="TypeQuestion" MinWidth="200" Binding="{Binding  TypeQuestion }"></DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

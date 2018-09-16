@@ -1,4 +1,4 @@
-﻿using Assets.Core.Data.Question;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +13,7 @@ namespace Assets.Core.Game.Data.Question
          private string _name;
         public TypeQuestionEnum TypeQuestion => TypeQuestionEnum.SelectOne;
 
-        public int ID { get; set; }
+        public UInt64 ID { get; set; }
         public string Name
         {
             get => _name; set
@@ -58,8 +58,11 @@ namespace Assets.Core.Game.Data.Question
             }
         }
 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public bool AnswerCheck() => RightAnswer == UserAnswer;
+
+        public override string ToString() => $"{this.Name} ({this.ID})";
     }
 }

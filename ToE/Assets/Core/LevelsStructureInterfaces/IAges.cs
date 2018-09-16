@@ -2,6 +2,7 @@
 using Assets.Core;
 using Assets.Core.Levels;
 using System.Collections.Generic;
+using Assets.Core.Game.Data.Level;
 
 namespace Assets.Core.Ages
 {

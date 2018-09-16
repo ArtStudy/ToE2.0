@@ -12,12 +12,12 @@
 
     <Grid>
 
-        <DataGrid CanUserAddRows="False"  SelectedItem="{Binding  CurrentLanguagePack }"  ItemsSource="{Binding  LanguagePacks}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False"  SelectedItem="{Binding   CurrentItem }"  ItemsSource="{Binding  CurrentItems}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding Value.ID}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Value.Name}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Culture" MinWidth="200" Binding="{Binding  Value.Culture.DisplayName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Count item" MinWidth="200" Binding="{Binding  Value.LanguageData.Count}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Culture" MinWidth="200" Binding="{Binding  Culture.DisplayName}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Count item" MinWidth="200" Binding="{Binding  LanguageData.Count}"></DataGridTextColumn>
 
             </DataGrid.Columns>
         </DataGrid>

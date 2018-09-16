@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Core.LevelsStructureInterfaces
+namespace Assets.Core.Game.Data.Boss
 {
     public interface IBoss : IBase, IMulticulturalData
     {

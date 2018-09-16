@@ -11,8 +11,8 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.Data.Question
-{
+namespace Assets.Core.Game.Data.Question
+{/*
     public class ListDataQuestion : ListDataBase<IQuestion>
     {
         public override string StringNameData => "Quest.";
@@ -35,7 +35,7 @@ namespace Assets.Core.Data.Question
 
                     QuestionSelectOne question = new QuestionSelectOne();
 
-                    question.ID = s.ID;
+                    question.ID = resourse[i].Identifier;
                     question.Name = s.Name.Replace(StringNameData, "");
                     question.NumberAnswer = s.NumberAnswer;
                     question.RightAnswer = s.RightAnswer;
@@ -55,7 +55,6 @@ namespace Assets.Core.Data.Question
 
                 SerializableQuestionSelectOne s = new SerializableQuestionSelectOne();
                 var value = (QuestionSelectOne) obj.Value;
-                s.ID = value.ID;
                 s.Name = StringNameData + value.Name;
                 s.NumberAnswer = value.NumberAnswer;
                 s.RightAnswer = value.RightAnswer;
@@ -88,7 +87,7 @@ namespace Assets.Core.Data.Question
             
         }
 
-        public ListDataQuestion(PAC pac)
+        public ListDataQuestion(ToePackage pac)
         {
             var levelsresourse = pac.Items.GetResourcesByType(FileTypes.Question);
             for (int i = 0; i < levelsresourse.Count; i++)
@@ -104,7 +103,7 @@ namespace Assets.Core.Data.Question
                     SerializableQuestionSelectOne s = (SerializableQuestionSelectOne)ser.ReadObject(levelsresourse[i].Data);
                     QuestionSelectOne question = new QuestionSelectOne();
 
-                    question.ID = s.ID;
+                    question.ID = levelsresourse[i].Identifier;
                     question.Name = s.Name.Replace(StringNameData, "");
                     question.NumberAnswer = s.NumberAnswer;
                     question.RightAnswer = s.RightAnswer;
@@ -121,5 +120,5 @@ namespace Assets.Core.Data.Question
         }
 
 
-    }
+    }*/
 }

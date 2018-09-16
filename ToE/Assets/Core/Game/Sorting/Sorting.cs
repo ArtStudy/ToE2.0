@@ -36,7 +36,7 @@ namespace Assets.Core.Game.Sorting
                     {
                         
                     }
-                    group = (int) groups[levelObj.level.Parents[0].ID].x + 1;
+              //      group = (ulong) groups[levelObj.level.Parents[0].ID].x + 1;
                     groups[i] = new Vector2(group,levelObj.level.ID);
                 }
             }
@@ -47,7 +47,7 @@ namespace Assets.Core.Game.Sorting
                 for (int j = 0; j < levelObj.level.Parents.Count; j++)
                     {
                         int k = 0;
-                        while ((int) groups[k].y != levelObj.level.Parents[j].ID)
+                        while ((ulong) groups[k].y != levelObj.level.Parents[j].ID)
                         {
                             k++;
                         }

@@ -1,6 +1,9 @@
-﻿using Assets.Core.Data.Question;
+﻿
+using Assets.Core.Game.Data;
+using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
-
+using Assets.Core.Game.Data.Question;
+using Assets.Core.Levels;
 using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Volutes;
 using System;
@@ -10,7 +13,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 
-namespace Assets.Core.Levels
+namespace Assets.Core.Game.Data.Level
 {
     public interface ILevel : IBase, IMulticulturalData
     {
@@ -39,7 +42,7 @@ namespace Assets.Core.Levels
         /// <summary>
         /// Вопросы уровня
         /// </summary>
-        List<IQuestion> QuestionsLevel { get; set; }
+        DataList<IQuestion> QuestionsLevel { get; set; }
         /// <summary>
         /// Статус уровня
         /// </summary>
@@ -48,7 +51,7 @@ namespace Assets.Core.Levels
         /// <summary>
         /// Родители уровня
         /// </summary>
-        List<ILevel> Parents { get; set; }
+        DataList<ILevel> Parents { get; set; }
   
 
     }

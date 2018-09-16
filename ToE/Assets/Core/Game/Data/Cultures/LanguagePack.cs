@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.Game.Data
+namespace Assets.Core.Game.Data.Cultures
 {
     public class LanguagePack : ILanguagePack
     {
@@ -18,9 +18,12 @@ namespace Assets.Core.Game.Data
 
         public LocalizationDictionary LanguageData { get; set; } =new LocalizationDictionary();
       
-        public int ID { get => Culture.LCID; set => Culture = new CultureInfo(value); }
+        public ulong ID { get => (ulong) Culture.LCID; set => Culture = new CultureInfo((int)value); }
         public string Name { get => Culture.Name; set => Culture = new CultureInfo(value); }
+        public bool Loaded { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public override string ToString() => $"{this.Name} ({this.ID})";
     }
 }

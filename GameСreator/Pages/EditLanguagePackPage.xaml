@@ -14,10 +14,10 @@
     <Grid Margin="40">
        
         <Label Content="Culture" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top"/>
-        <ComboBox Margin="100,0,0,0" IsEditable="True" ItemsSource="{Binding Cultures}"   SelectedValue="{Binding CurrentLanguagePack.Value.Culture}" VerticalAlignment="Top">
+        <ComboBox Margin="100,0,0,0" IsEditable="True" ItemsSource="{Binding Cultures}"   SelectedValue="{Binding CurrentItem.Culture}" VerticalAlignment="Top">
 
         </ComboBox>
-        <DataGrid AutoGenerateColumns="False"   ItemsSource="{Binding  CurrentLanguagePack.Value.LanguageData}" Margin="0,52,0,0" >
+        <DataGrid AutoGenerateColumns="False"   ItemsSource="{Binding CurrentItem.LanguageData}" Margin="0,52,0,0" >
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Key" MinWidth="200" Binding="{Binding Key}" />

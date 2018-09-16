@@ -1,7 +1,7 @@
 ﻿using Assets.Core.Game.Data.Cultures;
 using Assets.Core.ToePac;
 using GalaSoft.MvvmLight.Messaging;
-using GameСreator.DWIndows;
+
 using GameСreator.Pages;
 using GameСreator.ViewModel;
 using System;
@@ -28,8 +28,7 @@ namespace GameСreator
     /// </summary>
     public partial class MainWindow : Window
     {
-        AddResourse AddResourseWindow;
-  
+     
 
         public MainWindow()
         {
@@ -42,49 +41,66 @@ namespace GameСreator
         }
         private void NavigatorPageAction(NavigatorPageMessege obj)
         {
+            ((Page)SPage.Content)?.ClearValue(Page.DataContextProperty);
+            ClearHistory();
             switch (obj.NamePage)
             {
                 case "ResourcesPage":
-                    MainPage.Source = new Uri( "Pages\\ResourcesPage.xaml",  UriKind.Relative);
-                    break;
-                case "AddResourseWindowOpen":
-                    AddResourseWindow?.Close();
-                    AddResourseWindow = new AddResourse();
-                    AddResourseWindow.ShowDialog();
-                    break;
-                case "AddResourseWindowClose":
-                    AddResourseWindow?.Close();
-                    AddResourseWindow = null;
-                    break;
-                case "BossEditPage":
-                    SPage.Source = new Uri("Pages\\EditBossPage.xaml", UriKind.Relative);
-                    break;
-                case "BossesPage":
-                    MainPage.Source = new Uri("Pages\\BossPage.xaml", UriKind.Relative);
-                    break;
-                case "LevelPage":
-                    MainPage.Source = new Uri("Pages\\LevelPage.xaml", UriKind.Relative);
-                    break;
-                case "LanguagePacksPage":
-                    MainPage.Source = new Uri("Pages\\LanguagePacksPage.xaml", UriKind.Relative);
-                    break;
-                case "QuestionsPage":
-                    MainPage.Source = new Uri("Pages\\QuestionPage.xaml", UriKind.Relative);
-                    break;
-                case "LevelEditPage":
-                    SPage.Source = new Uri("Pages\\EditLevelPage.xaml", UriKind.Relative);
+
+                    SPage.Navigate(new ResourcesPage());
                     break;
 
-                    case "LanguagePackEditPage":
-                    SPage.Source = new Uri("Pages\\EditLanguagePackPage.xaml", UriKind.Relative);
+                case "BossEditPage":
+                    SPage.Navigate(new EditBossPage());
                     break;
-        case "EditQuestionSelectOnePage":
-                    SPage.Source = new Uri("Pages\\EditQuestionSelectOnePage.xaml", UriKind.Relative);
+                case "LanguagePackEditPage":
+                    SPage.Navigate(new EditLanguagePackPage());
                     break;
+                case "EditQuestionSelectOnePage":
+                    SPage.Navigate(new EditQuestionSelectOnePage());
+
+                    break;
+                case "BossesPage":
+                    MainPage.Source = new Uri("Pages\\List\\BossPage.xaml", UriKind.Relative);
+                    break;
+                case "LevelPage":
+                    MainPage.Source = new Uri("Pages\\List\\LevelPage.xaml", UriKind.Relative);
+                    break;
+                case "LanguagePacksPage":
+                    MainPage.Source = new Uri("Pages\\List\\LanguagePacksPage.xaml", UriKind.Relative);
+                    break;
+                case "QuestionsPage":
+                    MainPage.Source = new Uri("Pages\\List\\QuestionPage.xaml", UriKind.Relative);
+                    break;
+                case "FilesPage":
+                    MainPage.Source = new Uri("Pages\\List\\FilesPage.xaml", UriKind.Relative);
+                    break;
+                case "LevelEditPage":
+                    SPage.Navigate(new EditLevelPage());
+                    break;
+
+                   
+     
                 case "NotEditPage":
-                    SPage.Source = null;
+                    SPage.Navigate(null);
                     break;
             }
+
+        }
+        public void ClearHistory()
+        {
+            if (!SPage.CanGoBack && !SPage.CanGoForward)
+            {
+                return;
+            }
+
+            var entry = SPage.RemoveBackEntry();
+            while (entry != null)
+            {
+                entry = SPage.RemoveBackEntry();
+            }
+
+          
         }
         private void CollectionViewSource_Filter(object sender, FilterEventArgs e)
         {

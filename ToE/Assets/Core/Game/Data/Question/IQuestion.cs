@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Core.Data.Question
+namespace Assets.Core.Game.Data.Question
 {
     public interface IQuestion : IBase, IMulticulturalData
     {

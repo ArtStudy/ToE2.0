@@ -1,4 +1,5 @@
-﻿using Assets.Core.Levels;
+﻿using Assets.Core.Game.Data.Level;
+using Assets.Core.Levels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

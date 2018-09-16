@@ -1,4 +1,4 @@
-﻿using Assets.Core.Data.Question;
+﻿
 using Assets.Core.Serialization;
 using Assets.Core.ToePac;
 using System;
@@ -10,12 +10,12 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
-{
+{/*
     public class ListDataLevel : ListDataBase<Level>
     {
         private ListDataBoss _bosses;
         private ListDataQuestion _questions;
-        public ListDataLevel (PAC pac, ListDataBoss bosses, ListDataQuestion questions)
+        public ListDataLevel (ToePackage pac, ListDataBoss bosses, ListDataQuestion questions)
         {
             _bosses = bosses;
             _questions = questions;
@@ -28,26 +28,19 @@ namespace Assets.Core.Game.Data
                 levelsresourse[i].Data.Position = 0;
                 SerializableLevel s = (SerializableLevel)ser.ReadObject(levelsresourse[i].Data);
                 dataItem.Value = new Level();
-                dataItem.Value.ID = s.ID;
+
                 dataItem.Value.Name = s.Name.Replace(StringNameData, "");
                 dataItem.Value.Boss = bosses.FindById(s.Boss);
                 dataItem.Value.TranslationIdentifier = s.TranslationIdentifier;
-                dataItem.Value.QuestionsLevel = s.QuestionsLevel == null ? new List<IQuestion>() : s.QuestionsLevel.ToList().ConvertAll((item) => questions.FindById(item));
+               // dataItem.Value.QuestionsLevel = s.QuestionsLevel == null ? new DataList<IQuestion>() : s.QuestionsLevel.ToList().ConvertAll((item) => questions.FindById(item));
                 dataItem.Value.Price = new Volutes.Money(s.Price);
                 dataItem.Value.Remuneration = new Volutes.Money(s.Remuneration);
-                if (s.Parents.Length > 0)
-                    parentdata[dataItem] = s.Parents;
+
                 dataItem.ListResourse.Add(levelsresourse[i]);
                 this.Add(dataItem);
 
             }
-            foreach (var item in parentdata)
-            {
-                for (int i = 0; i < item.Value.Length; i++)
-                {
-                    item.Key.Value.Parents.Add(this.Find((level) => level.Value.ID == item.Value[i])?.Value);
-                }
-            }
+
         }
 
         public override string StringNameData => "Level.";
@@ -67,11 +60,10 @@ namespace Assets.Core.Game.Data
                 levelsresourse[i].Data.Position = 0;
                 SerializableLevel s = (SerializableLevel)ser.ReadObject(levelsresourse[i].Data);
 
-                obj.Value.ID = s.ID;
                 obj.Value.Name = s.Name.Replace(StringNameData, "");
                 obj.Value.Boss = bosses.FindById(s.Boss);
                 obj.Value.TranslationIdentifier = s.TranslationIdentifier;
-                obj.Value.QuestionsLevel = s.QuestionsLevel == null ? new List<IQuestion>(): s.QuestionsLevel.ToList().ConvertAll((item) => questions.FindById(item));
+          //      obj.Value.QuestionsLevel = s.QuestionsLevel == null ? new DataList<IQuestion>(): s.QuestionsLevel.ToList().ConvertAll((item) => questions.FindById(item));
                 obj.Value.Price = new Volutes.Money(s.Price);
                 obj.Value.Remuneration = new Volutes.Money(s.Remuneration);
                obj.Value.Parents.Clear();
@@ -90,7 +82,6 @@ namespace Assets.Core.Game.Data
         public override void Save(DataItem<Level> obj)
         {
             SerializableLevel s = new SerializableLevel();
-            s.ID = obj.Value.ID;
             s.Name = StringNameData + obj.Value.Name;
             s.Parents = obj.Value.Parents.ConvertAll((item) => item.ID).ToArray();
             s.Boss = obj.Value.Boss.ID;
@@ -118,5 +109,5 @@ namespace Assets.Core.Game.Data
                 dataitem.Data = new MemoryStream(ms.ToArray());
             }
         }
-    }
+    }*/
 }

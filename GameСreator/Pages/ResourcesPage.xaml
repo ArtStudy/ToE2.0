@@ -12,7 +12,7 @@
 
     <Grid>
         
-        <DataGrid CanUserAddRows="False"   ItemsSource="{Binding  Items, Mode=OneWay}" AutoGenerateColumns="False">
+        <DataGrid CanUserAddRows="False"   ItemsSource="{Binding  SelectedFile.Package.Items, Mode=OneWay}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="Name" MinWidth="200"  Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Identifier" MinWidth="200" Binding="{Binding Identifier, Converter={StaticResource UInt64ToStringConverter}}"></DataGridTextColumn>

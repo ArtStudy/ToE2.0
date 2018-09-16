@@ -1,4 +1,5 @@
-﻿using Assets.Core.Data.Question;
+﻿
+using Assets.Core.Game.Data.Level;
 using Assets.Core.Levels;
 
 using Assets.Core.LevelsStructureInterfaces;
@@ -29,11 +30,11 @@ namespace Assets.Core.Serialization
         [DataMember]
         public IPassageLevel PassageLevel { get; set; }
         [DataMember]
-        public int Boss { get; set; }
+        public UInt64 Boss { get; set; }
 
         //Вопросы
         [DataMember]
-        public int[] QuestionsLevel { get; set; }
+        public UInt64[] QuestionsLevel { get; set; }
 
         //
         [DataMember]
@@ -43,7 +44,7 @@ namespace Assets.Core.Serialization
         /// Родители уровня
         /// </summary>
             [DataMember]
-        public int[] Parents { get; set; }
+        public UInt64[] Parents { get; set; }
         [DataMember]
         public string TranslationIdentifier { get; set; }
         [DataMember]

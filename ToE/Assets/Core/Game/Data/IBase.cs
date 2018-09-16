@@ -5,20 +5,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.LevelsStructureInterfaces
+namespace Assets.Core.Game.Data
 {
     public  interface IBase : INotifyPropertyChanged
     {
         /// <summary>
         /// Номер 
         /// </summary>
-        int ID { get; set; }
+        UInt64 ID { get; set; }
         /// <summary>
         /// Имя 
         /// </summary>
         string Name { get; set; }
 
-   
 
     }
 }

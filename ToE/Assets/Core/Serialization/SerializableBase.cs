@@ -11,11 +11,7 @@ namespace Assets.Core.Serialization
     public class SerializableBase
     {
 
-        [DataMember]
-        /// <summary>
-        /// Номер босса
-        /// </summary>
-        public int ID{ get; set; }
+
 
         [DataMember]
         /// <summary>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
 {
-    public abstract class ListDataBase<T> : List<DataItem<T>> where T : IBase
+ /*   public abstract class ListDataBase<T> : List<DataItem<T>> where T : IBase
     {
 
         public ListDataBase() : base() { }
@@ -53,13 +53,13 @@ namespace Assets.Core.Game.Data
             return lr;
         }
 
-        public T FindById(int id)
+        public T FindById(ulong id)
         {
             if (id == 0)
                 return default(T);
             return this.Find((item) => item.Value.ID == id).Value;
         }
-        public int GenNewID()=> this.Count > 0 ? (this.Max((item) => item.Value.ID))+1 : 1;
+        public ulong GenNewID()=> this.Count > 0 ? (this.Max((item) => item.Value.ID))+1 : 1;
 
 
 
@@ -83,6 +83,6 @@ namespace Assets.Core.Game.Data
         /*  public void Remove(DataItem<T> current)
 {
 
-}*/
-    }
+}
+    }*/
 }

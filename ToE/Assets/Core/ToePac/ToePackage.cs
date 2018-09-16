@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.ToePac
 {
-    public class PAC : INotifyPropertyChanged
+    public class ToePackage : INotifyPropertyChanged
     {
         public const string FileTypeConst = "PACT";
         public const int VersionConst = 1;
@@ -28,9 +28,9 @@ namespace Assets.Core.ToePac
         }
 
 
-        public PAC() { }
+        public ToePackage() { }
 
-        public PAC(Stream data)
+        public ToePackage(Stream data)
         {
             Deserialization(data);
         }

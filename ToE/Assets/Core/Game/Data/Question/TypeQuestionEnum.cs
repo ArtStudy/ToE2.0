@@ -1,4 +1,4 @@
-﻿namespace Assets.Core.Data.Question
+﻿namespace Assets.Core.Game.Data.Question
 {
     /// <summary>
     /// Тип вопроса

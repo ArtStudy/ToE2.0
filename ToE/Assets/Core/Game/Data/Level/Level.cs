@@ -1,4 +1,6 @@
-﻿using Assets.Core.Data.Question;
+﻿
+using Assets.Core.Game.Data.Boss;
+using Assets.Core.Game.Data.Question;
 using Assets.Core.Levels;
 
 using Assets.Core.LevelsStructureInterfaces;
@@ -14,14 +16,14 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assets.Core.Game.Data
+namespace Assets.Core.Game.Data.Level
 {
     public class Level : ILevel
     {
         private string _name;
 
         // Идентификатор
-        public int ID { get; set; }
+        public UInt64 ID { get; set; }
         public string Name
         {
             get => _name; set
@@ -44,7 +46,7 @@ namespace Assets.Core.Game.Data
         public IBoss Boss { get; set; }
 
         //Вопросы
-        public List<IQuestion> QuestionsLevel { get; set; } = new List<IQuestion>();
+        public DataList<IQuestion> QuestionsLevel { get; set; } = new DataList<IQuestion>();
 
         //
         public StateLevel StateLevel { get; set; }
@@ -54,14 +56,15 @@ namespace Assets.Core.Game.Data
         /// <summary>
         /// Родители уровня
         /// </summary>
-        public List<ILevel> Parents { get; set; } = new List<ILevel>();
+        public DataList<ILevel> Parents { get; set; } = new DataList<ILevel>();
 
         public string TranslationIdentifier { get; set; }
 
         public string[] BasicLocalizationFields => new string[] { "Name", "Description" };
 
+
         public event PropertyChangedEventHandler PropertyChanged;
 
-
+        public override string ToString() => $"{this.Name} ({this.ID})";
     }
 }

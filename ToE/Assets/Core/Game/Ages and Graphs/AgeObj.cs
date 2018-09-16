@@ -39,7 +39,7 @@ public class AgeObj : MonoBehaviour
             GameObject level =  Instantiate(LevelPrefab);
             level.transform.parent = this.transform;
             LevelObj levelObj = level.GetComponent<LevelObj>();
-            levelObj.level = levels[i].Value;
+            levelObj.level = levels[i];
             LevelsObj.Add(levelObj);
             if (i==0)
                 level.transform.position = SortLevels.randomFirstLevelPos(this.transform.localScale.x / 2);
