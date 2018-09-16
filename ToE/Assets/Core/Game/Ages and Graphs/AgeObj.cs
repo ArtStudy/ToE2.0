@@ -8,6 +8,7 @@ using Assets.Core.Game.Data;
 using Assets.Core.Levels;
 using Assets.Core.Save;
 using Assets.Core.Game.Sorting;
+using Assets.Core.Game.Data.Age;
 
 public class AgeObj : MonoBehaviour
 {
@@ -32,11 +33,12 @@ public class AgeObj : MonoBehaviour
 
     void LoadLevels()
     {
-        var levels = Game.gameData.Levels;
+        var levels = GameData.Default.Levels;
         for (int i = 0; i < levels.Count; i++) 
         {
 
             GameObject level =  Instantiate(LevelPrefab);
+            level.name = levels[i].Name;
             level.transform.parent = this.transform;
             LevelObj levelObj = level.GetComponent<LevelObj>();
             levelObj.level = levels[i];

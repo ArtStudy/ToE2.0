@@ -13,7 +13,7 @@
 
         <DataGrid CanUserAddRows="False"  SelectedItem="{Binding CurrentItem}"  ItemsSource="{Binding  CurrentItems}" AutoGenerateColumns="False">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID, Converter={StaticResource UInt64ToStringConverter}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="TypeQuestion" MinWidth="200" Binding="{Binding  TypeQuestion }"></DataGridTextColumn>
 

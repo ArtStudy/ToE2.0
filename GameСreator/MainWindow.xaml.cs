@@ -58,10 +58,15 @@ namespace GameСreator
                     break;
                 case "EditQuestionSelectOnePage":
                     SPage.Navigate(new EditQuestionSelectOnePage());
-
+                    break;
+                case "AgeEditPage":
+                    SPage.Navigate(new EditAgePage());
                     break;
                 case "BossesPage":
                     MainPage.Source = new Uri("Pages\\List\\BossPage.xaml", UriKind.Relative);
+                    break;
+                case "AgesPage":
+                    MainPage.Source = new Uri("Pages\\List\\AgesPage.xaml", UriKind.Relative);
                     break;
                 case "LevelPage":
                     MainPage.Source = new Uri("Pages\\List\\LevelPage.xaml", UriKind.Relative);

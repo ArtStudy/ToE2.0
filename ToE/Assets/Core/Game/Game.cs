@@ -10,21 +10,14 @@ using Assets.Core.Game.Sorting;
 
 public class Game : MonoBehaviour
 {
-    static  FileStream GD1;
-    public static ToePackage GD1PAC;
+
+
     public List<GameObject> Ages;
-    public static GameData gameData;
 
 
     // Use this for initialization
     void Start ()
-    {
-        GD1 = new FileStream(Application.dataPath + "\\GameData\\GD1.ToePackage", FileMode.Open);
-        GD1PAC = new ToePackage(GD1);
-        GD1PAC.Items.ForEach((item) => Debug.Log(item.Name.ToString()));
-        gameData = new GameData(GD1PAC);
-
-      
+    { 
         LoadAges();
     }
 

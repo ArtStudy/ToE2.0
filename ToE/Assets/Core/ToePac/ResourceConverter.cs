@@ -1,10 +1,12 @@
 ﻿using Assets.Core.Game.Data;
+using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Serialization;
+using Assets.Core.Volutes;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,22 +20,31 @@ namespace Assets.Core.ToePac
     public class ResourceConverter
     {
 
-       private static Dictionary<ulong, List<ILevel>> bosslevelcashe = new Dictionary<ulong, List<ILevel>>();
+        private static List<ILevel> LevelCashe = new List<ILevel>();
+        private static List<IBoss> BossCashe = new List<IBoss>();
+        private static List<IQuestion> QuestionCashe = new List<IQuestion>();
+        private static List<ILanguagePack> LanguagePackCashe = new List<ILanguagePack>();
+        private static List<IAge> AgeCashe = new List<IAge>();
+
+
+        private static Dictionary<ulong, List<ILevel>> bosslevelcashe = new Dictionary<ulong, List<ILevel>>();
         private static Dictionary<ulong, List<ILevel>> questionlevelcashe = new Dictionary<ulong, List<ILevel>>();
         private static Dictionary<ulong, List<ILevel>> levellevelcashe = new Dictionary<ulong, List<ILevel>>();
-
-
+        private static Dictionary<ulong, List<IAge>> levelagecashe = new Dictionary<ulong, List<IAge>>();
+        private static Dictionary<ulong, List<IAge>> ageagecashe = new Dictionary<ulong, List<IAge>>();
 
         private const string StringNameLevelData = "Level.";
         private const string StringNameBossData = "Boss.";
         private const string StringNameQuestionData = "Quest.";
         private const string StringNameLanguagePackData = "Lang.";
+        private const string StringNameAgeData = "Age.";
 
         private static DataContractJsonSerializer SerializerLevel = new DataContractJsonSerializer(typeof(SerializableLevel));
         private static DataContractJsonSerializer SerializerBoss = new DataContractJsonSerializer(typeof(SerializableBoss));
         private static DataContractJsonSerializer SerializerQuestionBase = new DataContractJsonSerializer(typeof(SerializableQuestionBase));
         private static DataContractJsonSerializer SerializerQuestionSelectOne = new DataContractJsonSerializer(typeof(SerializableQuestionSelectOne));
         private static DataContractJsonSerializer SerializerLanguagePack = new DataContractJsonSerializer(typeof(SerializableLanguagePack));
+        private static DataContractJsonSerializer SerializerAge = new DataContractJsonSerializer(typeof(SerializableAge));
 
         /// <summary>
         /// Преобразование ресурса в объект типа уровень
@@ -44,7 +55,7 @@ namespace Assets.Core.ToePac
         /// <param name="questions">Вопросы</param>
         /// <param name="levels">Уровни</param>
         /// <returns></returns>
-        public static Tuple<ILevel, ListResourse> ResourceToLevel(Item obj, ListResourse lr, List<IBoss> bosses, List<IQuestion> questions,  List<ILevel> levels)
+        public static Tuple<ILevel, ListResourse> ResourceToLevel(ResourceItem obj, ListResourse lr)
         {
             Level level = new Level();
             obj.Data.Position = 0;
@@ -55,7 +66,7 @@ namespace Assets.Core.ToePac
 
 
             {  //Обработка босса уровня
-                IBoss bosslevel = (IBoss)bosses.Find((item) => item.ID == slevel.Boss);
+                IBoss bosslevel = BossCashe.Find((item) => item.ID == slevel.Boss);
                 if (bosslevel != null)
                 {
                     level.Boss = bosslevel;
@@ -75,7 +86,7 @@ namespace Assets.Core.ToePac
                 level.QuestionsLevel = new DataList<IQuestion>();
                 for (int j = 0; j < slevel.QuestionsLevel?.Length; j++)
                 {
-                    IQuestion qestionlevel = (IQuestion)questions.Find((item) => item.ID == slevel.QuestionsLevel[j]);
+                    IQuestion qestionlevel = QuestionCashe.Find((item) => item.ID == slevel.QuestionsLevel[j]);
                     if (qestionlevel != null)
                     {
                         level.QuestionsLevel.Add(qestionlevel);
@@ -92,14 +103,14 @@ namespace Assets.Core.ToePac
             //   
             level.TranslationIdentifier = slevel.TranslationIdentifier;
 
-            level.Price = new Assets.Core.Volutes.Money(slevel.Price);
-            level.Remuneration = new Assets.Core.Volutes.Money(slevel.Remuneration);
+            level.Price = new Money(slevel.Price);
+            level.Remuneration = new Money(slevel.Remuneration);
 
             { //Обработка родителей уровня 1
                 level.Parents = new DataList<ILevel>();
                 for (int j = 0; j < slevel.Parents?.Length; j++)
                 {
-                    ILevel levellevel = (ILevel)levels.Find((item) => item.ID == slevel.Parents[j]);
+                    ILevel levellevel = LevelCashe.Find((item) => item.ID == slevel.Parents[j]);
                     if (levellevel != null)
                     {
                         level.Parents.Add(levellevel);
@@ -123,6 +134,17 @@ namespace Assets.Core.ToePac
                     }
                 }
             }
+            { //Обработка эр
+                if (levelagecashe.ContainsKey(level.ID))
+                {
+                    for (int j = 0; j < levellevelcashe[level.ID].Count; j++)
+                    {
+                        levelagecashe[level.ID][j].Levels.Add(level);
+                    }
+                }
+            }
+
+            LevelCashe.Add(level);
             return new Tuple<ILevel, ListResourse>(level, new ListResourse { obj });
         }
         /// <summary>
@@ -131,7 +153,7 @@ namespace Assets.Core.ToePac
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
         /// <returns></returns>
-        public static Tuple<IBoss, ListResourse> ResourceToBoss(Item obj, ListResourse lr)
+        public static Tuple<IBoss, ListResourse> ResourceToBoss(ResourceItem obj, ListResourse lr)
         {
             Boss boss = new Boss();
            
@@ -151,7 +173,7 @@ namespace Assets.Core.ToePac
                     bosslevelcashe[boss.ID][j].Boss = boss;
                 }
             }
-
+            BossCashe.Add(boss);
             return new Tuple<IBoss, ListResourse>(boss, new ListResourse { obj });
         }
         /// <summary>
@@ -159,7 +181,7 @@ namespace Assets.Core.ToePac
         /// </summary>
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
-        public static Tuple<IQuestion, ListResourse> ResourceToQuestion(Item obj, ListResourse lrp)
+        public static Tuple<IQuestion, ListResourse> ResourceToQuestion(ResourceItem obj, ListResourse lrp)
         {
             obj.Data.Position = 0;
             SerializableQuestionBase s1 = (SerializableQuestionBase)SerializerQuestionBase.ReadObject(obj.Data);
@@ -183,6 +205,7 @@ namespace Assets.Core.ToePac
                         questionlevelcashe[question.ID][j].QuestionsLevel.Add(question);
                     }
                 }
+                QuestionCashe.Add(question);
                 return new Tuple<IQuestion, ListResourse>(question, new ListResourse { obj });
             }
 
@@ -193,7 +216,7 @@ namespace Assets.Core.ToePac
         /// </summary>
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
-        public static Tuple<ILanguagePack, ListResourse> ResourceToLanguagePack(Item obj, ListResourse lr)
+        public static Tuple<ILanguagePack, ListResourse> ResourceToLanguagePack(ResourceItem obj, ListResourse lr)
         {
             obj.Data.Position = 0;
             ILanguagePack language = new LanguagePack();
@@ -202,8 +225,74 @@ namespace Assets.Core.ToePac
             language.Name = s.Name.Replace(StringNameLanguagePackData, "");
             language.LanguageData = s.LanguageData;
 
-
+            LanguagePackCashe.Add(language);
             return new Tuple<ILanguagePack, ListResourse>(language, new ListResourse { obj });
+
+        }
+        /// <summary>
+        /// Преобразование ресурса в объект типа эра
+        /// </summary>
+        /// <param name="obj">Преобразуемый ресурс</param>
+        /// <param name="lr">список всех ресурсов</param>
+        public static Tuple<IAge, ListResourse> ResourceToAge(ResourceItem obj, ListResourse lr)
+        {
+            obj.Data.Position = 0;
+            IAge result = new Age();
+
+            SerializableAge s = (SerializableAge)SerializerAge.ReadObject(obj.Data);
+            result.ID =  obj.Identifier;
+            result.Name = s.Name.Replace(StringNameAgeData, "");
+            { //Обработка уровней
+                result.Levels = new DataList<ILevel>();
+                for (int j = 0; j < s.Levels?.Length; j++)
+                {
+                    ILevel levelage = LevelCashe.Find((item) => item.ID == s.Levels[j]);
+                    if (levelage != null)
+                    {
+                        result.Levels.Add(levelage);
+                    }
+                    else
+                    {
+                        result.Levels.Add(new Level { ID = s.Levels[j] });
+                        if (!levelagecashe.ContainsKey(s.Levels[j]))
+                            levelagecashe[s.Levels[j]] = new List<IAge>();
+                        levelagecashe[s.Levels[j]].Add(result);
+                    }
+                }
+            }
+
+            {  //Обработка родителя эры 1 
+                if (s.Parent != 0)
+                {
+                    IAge AgeAge = AgeCashe.Find((item) => item.ID == s.Parent);
+                    if (AgeAge != null)
+                    {
+                        result.Parent = AgeAge;
+                    }
+                    else
+                    {
+                        result.Parent  = new Age { ID = s.Parent };
+                        if (!ageagecashe.ContainsKey(s.Parent))
+                            ageagecashe[s.Parent] = new List<IAge>();
+                        ageagecashe[s.Parent].Add(result);
+                    }
+                }
+            }
+          
+            result.Price = new Money(s.Price);
+
+            { //Обработка родителя эры 2
+                if (ageagecashe.ContainsKey(result.ID))
+                {
+                    for (int j = 0; j < levellevelcashe[result.ID].Count; j++)
+                    {
+                        ageagecashe[result.ID][j].Parent = result;
+                    }
+                }
+            }
+
+            AgeCashe.Add(result);
+            return new Tuple<IAge, ListResourse>(result, new ListResourse { obj });
 
         }
         /// <summary>
@@ -254,7 +343,7 @@ namespace Assets.Core.ToePac
         public static ListResourse QuestionToResource(IQuestion questionbase)
         {
 
-            Item resourse = null;
+            ResourceItem resourse = null;
             switch (questionbase.TypeQuestion)
             {
                 case TypeQuestionEnum.SelectOne:
@@ -297,9 +386,31 @@ namespace Assets.Core.ToePac
 
             return new ListResourse { resourse };
         }
+        /// <summary>
+        /// Преобразует IAge в масив ресуров
+        /// </summary>
+        /// <param name="languagePack">Объект эры</param>
+        /// <returns>Массив русурсов</returns>
+        public static ListResourse AgeToResource(IAge age)
+        {
+
+            SerializableAge s= new SerializableAge();
+            s.Name = StringNameAgeData + age.Name;
+            s.Levels = age.Levels.ConvertAll((parent) => parent.ID).ToArray();
+            s.Parent = age.Parent.ID;
+            s.Price = age.Price.ToArray();
+            s.TranslationIdentifier = age.TranslationIdentifier;
 
 
-        private static Item CreateItem(ulong ID, SerializableBase data, FileTypes type, DataContractJsonSerializer serializer)
+            var resourse = CreateItem(age.ID, s, FileTypes.Age, SerializerAge);
+
+          
+
+            return new ListResourse { resourse };
+        }
+
+
+        private static ResourceItem CreateItem(ulong ID, SerializableBase data, FileTypes type, DataContractJsonSerializer serializer)
         {
             if (ID == 0)
                 throw new Exception("ID = 0");
@@ -308,7 +419,7 @@ namespace Assets.Core.ToePac
 
             serializer.WriteObject(ms, data);
 
-            Item item = new Item();
+            ResourceItem item = new ResourceItem();
             item.FileType = type;
             item.Identifier = ID;
             item.Name = "Json." + data.Name;

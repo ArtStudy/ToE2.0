@@ -25,7 +25,7 @@
                 <MenuItem Header="Выход"/>
             </MenuItem>
             <MenuItem Header="Дейсвия">
-                <MenuItem Command="{Binding  CreateNewResourse}"  Header="Добавить ресурс"/>
+                <MenuItem Command="{Binding  CreateNewAge}"  Header="Добавить Эру"/>
                 <MenuItem Command="{Binding   CreateNewLevel}"  Header="Добавить увровень"/>
                 <MenuItem Command="{Binding   CreateNewBoss}"  Header="Добавить боса"/>
                 <MenuItem  Header="Добавить вопрос">
@@ -53,14 +53,52 @@
                 </Menu.ItemsPanel>
                 <MenuItem Header="Файлы" Command="{Binding OpenFilesPage}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Ресурсы" Command="{Binding OpenResources}"></MenuItem>
+                <MenuItem  Command="{Binding OpenAges}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                        <TextBlock Text="Эры ("></TextBlock>
+                            <TextBlock Text="{ Binding AgeList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+         
+                <MenuItem  Command="{Binding  OpenQuestions}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Вопросы ("></TextBlock>
+                            <TextBlock Text="{ Binding QuestionsList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem  Command="{Binding OpenBosses}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Боссы ("></TextBlock>
+                            <TextBlock Text="{ Binding BossesList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem  Command="{Binding OpenLevels}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Уровни ("></TextBlock>
+                            <TextBlock Text="{ Binding LevelsList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
                 <Separator></Separator>
-                <MenuItem Header="Вопросы" Command="{Binding  OpenQuestions}"></MenuItem>
-                <MenuItem Header="Боссы" Command="{Binding OpenBosses}"></MenuItem>
-                <MenuItem Header="Уровни" Command="{Binding OpenLevels}"></MenuItem>
-                <Separator></Separator>
-                <MenuItem Header="Локализация" Command="{Binding OpenLanguagePacks}">
-                    
+                <MenuItem  Command="{Binding OpenLanguagePacks}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Локализация ("></TextBlock>
+                            <TextBlock Text="{ Binding LanguagesList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
                 </MenuItem>
             </Menu>
 

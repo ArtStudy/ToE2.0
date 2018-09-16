@@ -45,7 +45,7 @@ namespace GameСreator.ViewModel
 
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<AddResourseViewModel>();
-            SimpleIoc.Default.Register<AddBossViewModel>();
+   
   
         }
 
@@ -61,13 +61,6 @@ namespace GameСreator.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<AddResourseViewModel>(System.Guid.NewGuid().ToString());
-            }
-        }
-        public AddBossViewModel AddBosseViewModel
-        {
-            get
-            {
-                return ServiceLocator.Current.GetInstance<AddBossViewModel>(System.Guid.NewGuid().ToString());
             }
         }
 

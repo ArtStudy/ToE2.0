@@ -23,7 +23,7 @@ namespace GameСreator.ViewModel
     /// </summary>
     public class AddResourseViewModel : ViewModelBase
     {
-        public Item ThisItem { get; } = new Item();
+        public ResourceItem ThisItem { get; } = new ResourceItem();
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -65,7 +65,7 @@ namespace GameСreator.ViewModel
 
         private void SaveResourcesAction()
         {
-            Messenger.Default.Send<Item>(this.ThisItem);
+            Messenger.Default.Send<ResourceItem>(this.ThisItem);
 
             Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("AddResourseWindowClose"));
         }

@@ -1,4 +1,5 @@
 ﻿
+using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
@@ -13,43 +14,64 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Core.Game.Data
 {
     public class GameData
+
+
+
     {
+        public static GameData Default  {get; }
+
+        static GameData()
+        {
+            ListResourse lr = new ListResourse();
+          var files = Directory.GetFiles(Path.Combine(Application.dataPath, "GameData"), "*.ToePackage");
+            for(int i = 0; i < files.Length; i++)
+            {
+                var tp = new ToePackage(new FileStream(files[i], FileMode.Open));
+                lr.AddRange(tp.Items);
+            }
+            Default = new GameData(lr);
+        }
         public List<ILanguagePack> LanguagePacks { get; } = new List<ILanguagePack>();
         public List<ILevel> Levels { get; } = new List<ILevel>();
         public List<IBoss> Bosses { get; } = new List<IBoss>();
         public List<IQuestion> Questions { get; } = new List<IQuestion>();
+        public List<IAge> Ages { get; } = new List<IAge>();
 
-        public GameData(ToePackage pac)
+        public GameData(ListResourse items)
         {
-            for (int i = 0; i < pac.Items.Count; i++)
+            for (int i = 0; i < items.Count; i++)
             {
-                pac.Items[i].Data.Position = 0;
+                items[i].Data.Position = 0;
 
 
-                switch (pac.Items[i].FileType)
+                switch (items[i].FileType)
                 {
                     case FileTypes.Level:
 
-                        Levels.Add( ResourceConverter.ResourceToLevel(pac.Items[i], pac.Items, Bosses, Questions, Levels).Item1);
+                        Levels.Add( ResourceConverter.ResourceToLevel(items[i], items).Item1);
                       
                         break;
                     case FileTypes.Boss:
-                        Bosses.Add( ResourceConverter.ResourceToBoss(pac.Items[i], pac.Items).Item1);
+                        Bosses.Add( ResourceConverter.ResourceToBoss(items[i], items).Item1);
 
                         break;
                     case FileTypes.Question:
 
-                       Questions.Add(ResourceConverter.ResourceToQuestion(pac.Items[i], pac.Items).Item1);
+                       Questions.Add(ResourceConverter.ResourceToQuestion(items[i], items).Item1);
 
                         
 
                         break;
                     case FileTypes.Language:
-                        LanguagePacks.Add( ResourceConverter.ResourceToLanguagePack(pac.Items[i], pac.Items).Item1);
+                        LanguagePacks.Add( ResourceConverter.ResourceToLanguagePack(items[i], items).Item1);
+                        break;
+                    case FileTypes.Age:
+                        Ages.Add(ResourceConverter.ResourceToAge(items[i], items).Item1);
 
                         break;
 

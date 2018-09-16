@@ -17,13 +17,6 @@ namespace Assets.Core.Serialization
     public class SerializableLevel : SerializableBase
     {
 
-
-        // Цены
-    //    [DataMember]
-     //   public Money Price { get; set; }
-     //   [DataMember]
-     //   public Money Remuneration { get; set; }
-
         // Этапы
         [DataMember]
         public IEntranceTest EntranceTest { get; set; }
@@ -48,9 +41,9 @@ namespace Assets.Core.Serialization
         [DataMember]
         public string TranslationIdentifier { get; set; }
         [DataMember]
-        public int[] Price { get; set; } = new int[2];
+        public uint[] Price { get; set; } = new uint[2];
         [DataMember]
-        public int[] Remuneration { get; set; } = new int[2];
+        public uint[] Remuneration { get; set; } = new uint[2];
 
     }
 }

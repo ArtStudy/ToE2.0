@@ -1,5 +1,6 @@
 ﻿
 using Assets.Core.Game.Data;
+using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
@@ -33,7 +34,8 @@ namespace GameСreator.Core
             [FileTypes.Level] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Boss] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Question] = new Dictionary<IBase, ListResourse>(),
-            [FileTypes.Language] = new Dictionary<IBase, ListResourse>()
+            [FileTypes.Language] = new Dictionary<IBase, ListResourse>(),
+             [FileTypes.Age] = new Dictionary<IBase, ListResourse>()
         };
             
 
@@ -50,7 +52,7 @@ namespace GameСreator.Core
                 {
                     case FileTypes.Level:
 
-                     var   Levelresult = ResourceConverter.ResourceToLevel(pac.Items[i], pac.Items, this.Data[FileTypes.Boss].Keys.OfType<IBoss>().ToList(), this.Data[FileTypes.Question].Keys.OfType<IQuestion>().ToList(), this.Data[FileTypes.Level].Keys.OfType<ILevel>().ToList());
+                     var   Levelresult = ResourceConverter.ResourceToLevel(pac.Items[i], pac.Items);
                         Data[pac.Items[i].FileType][Levelresult.Item1] = Levelresult.Item2;
                         break;
                     case FileTypes.Boss:
@@ -69,6 +71,11 @@ namespace GameСreator.Core
                         var LanguagePacresult = ResourceConverter.ResourceToLanguagePack(pac.Items[i], pac.Items);
 
                         Data[pac.Items[i].FileType][LanguagePacresult.Item1] = LanguagePacresult.Item2;
+                        break;
+                    case FileTypes.Age:
+                        var Ageresult = ResourceConverter.ResourceToAge(pac.Items[i], pac.Items);
+
+                        Data[pac.Items[i].FileType][Ageresult.Item1] = Ageresult.Item2;
                         break;
 
                 }
@@ -122,19 +129,25 @@ namespace GameСreator.Core
             {
                 type = FileTypes.Language;
             }
-            var baseobj = this.Data[type][obj].Find((item)=> item.FileType == type);
-            var lr = this.Data[type][obj];
-            this.Data[type].Remove(obj);
-          
-            switch (type)
+            else if (typeof(IAge).IsAssignableFrom(typevalue))
             {
-               case FileTypes.Level:
+                type = FileTypes.Age;
+            }
+            if (this.Data[type].ContainsKey(obj))
+            {
+                var baseobj = this.Data[type][obj].Find((item) => item.FileType == type);
+                var lr = this.Data[type][obj];
+                this.Data[type].Remove(obj);
 
-                     var   Levelresult = ResourceConverter.ResourceToLevel(baseobj, lr, this.Data[FileTypes.Boss].Keys.OfType<IBoss>().ToList(), this.Data[FileTypes.Question].Keys.OfType<IQuestion>().ToList(), this.Data[FileTypes.Level].Keys.OfType<ILevel>().ToList());
+                switch (type)
+                {
+                    case FileTypes.Level:
+
+                        var Levelresult = ResourceConverter.ResourceToLevel(baseobj, lr);
                         Data[type][Levelresult.Item1] = Levelresult.Item2;
                         break;
                     case FileTypes.Boss:
-                       var Bossresult = ResourceConverter.ResourceToBoss(baseobj, lr);
+                        var Bossresult = ResourceConverter.ResourceToBoss(baseobj, lr);
 
                         Data[type][Bossresult.Item1] = Bossresult.Item2;
                         break;
@@ -150,9 +163,13 @@ namespace GameСreator.Core
 
                         Data[type][LanguagePacresult.Item1] = LanguagePacresult.Item2;
                         break;
+                    case FileTypes.Age:
 
+                        var Ageresult = ResourceConverter.ResourceToAge(baseobj, lr);
+                        Data[type][Ageresult.Item1] = Ageresult.Item2;
+                        break;
+                }
             }
-      
 
         }
 
@@ -180,6 +197,11 @@ namespace GameСreator.Core
             {
                 type = FileTypes.Language;
                 lr = ResourceConverter.LanguagePackToResource((ILanguagePack)obj);
+            }
+            else if (typeof(IAge).IsAssignableFrom(typevalue))
+            {
+                type = FileTypes.Age;
+                lr = ResourceConverter.AgeToResource((IAge)obj);
             }
 
             Data[type][obj] = lr;

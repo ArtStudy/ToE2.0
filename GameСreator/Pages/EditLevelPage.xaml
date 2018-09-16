@@ -32,7 +32,7 @@
         <Label    Content="Questions" VerticalAlignment="Top" Height="26" Margin="0,144,0,0" Grid.RowSpan="2"/>
         <DataGrid ItemsSource="{Binding CurrentItem.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False"  Grid.Row="3" Grid.ColumnSpan="3">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"></DataGridTextColumn>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID, Converter={StaticResource UInt64ToStringConverter}}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding  Name}"></DataGridTextColumn>
             </DataGrid.Columns>
         </DataGrid>
@@ -42,12 +42,12 @@
         <Label Content="Boss" Margin="0,56,0,0" VerticalAlignment="Top" Height="26"/>
         <ComboBox SelectedItem="{Binding  CurrentItem.Boss}" Margin="0,56,0,0"  ItemsSource="{Binding  BossesList}"  Height="22"  VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="Parents" HorizontalAlignment="Left" Margin="0,6,0,0" VerticalAlignment="Top" Grid.Row="2" Height="26" Width="49"/>
-        <ComboBox SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,5,64,0" ItemsSource="{Binding LevelsList}" VerticalAlignment="Top" IsEditable="True" Grid.Row="2" Height="22" Grid.ColumnSpan="3"/>
+        <ComboBox  SelectedItem="{Binding CurrentNewParentLevel}" Margin="100,5,64,0" ItemsSource="{Binding LevelsList}" VerticalAlignment="Top" IsEditable="True" Grid.Row="2" Height="22" Grid.ColumnSpan="3"/>
         <Button Content="+" Margin="0,5,32,0" Command="{Binding AddParentToLevel}" VerticalAlignment="Top" HorizontalAlignment="Right" Width="27" Grid.Row="2" Height="20" Grid.Column="2"/>
         <Button Content="-" HorizontalAlignment="Right" Margin="0,5,0,0" Command="{Binding RermoveParentToLevel}"  VerticalAlignment="Top" Width="27" Grid.Row="2" Height="20" Grid.Column="2"/>
         <DataGrid  ItemsSource="{Binding CurrentItem.QuestionsLevel}" SelectedValue="{Binding CurrentQuestionLevel}" AutoGenerateColumns="False" Margin="0,0,0,0" Grid.Row="1" Grid.ColumnSpan="3">
             <DataGrid.Columns>
-                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID}"/>
+                <DataGridTextColumn  Header="ID" MinWidth="200"  Binding="{Binding ID, Converter={StaticResource UInt64ToStringConverter}}"/>
                 <DataGridTextColumn Header="Name" MinWidth="200" Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="TypeQuestion" MinWidth="200" Binding="{Binding  TypeQuestion }"></DataGridTextColumn>
             </DataGrid.Columns>

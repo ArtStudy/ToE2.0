@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.ToePac
 {
-    public class ListResourse : List<Item> , INotifyPropertyChanged
+    public class ListResourse : List<ResourceItem> , INotifyPropertyChanged
     {
         long StartPosition = 64;
         Stream stream;
@@ -23,9 +23,9 @@ namespace Assets.Core.ToePac
             }
         }
 
-        public List<Item> GetResourcesByType(FileTypes filetype) => this.FindAll((item) => item.FileType == filetype);
+        public List<ResourceItem> GetResourcesByType(FileTypes filetype) => this.FindAll((item) => item.FileType == filetype);
 
-        public Item GetResourceByTypeAndIdentifier(FileTypes filetype, UInt64 id) => this.Find((item) => item.FileType == filetype && item.Identifier == id);
+        public ResourceItem GetResourceByTypeAndIdentifier(FileTypes filetype, UInt64 id) => this.Find((item) => item.FileType == filetype && item.Identifier == id);
 
 
 
@@ -61,7 +61,7 @@ namespace Assets.Core.ToePac
             {
                 data.Position = 64 + (128 * i);
 
-                this.Add(new Item(data));
+                this.Add(new ResourceItem(data));
 
             }
 

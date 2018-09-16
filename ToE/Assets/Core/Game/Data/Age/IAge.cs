@@ -3,37 +3,35 @@ using Assets.Core;
 using Assets.Core.Levels;
 using System.Collections.Generic;
 using Assets.Core.Game.Data.Level;
+using Assets.Core.Game.Data.Cultures;
 
-namespace Assets.Core.Ages
+namespace Assets.Core.Game.Data.Age
 {
     /// <summary>
     /// Интерфейс Эры
     /// </summary>
-    interface IAges
+   public interface IAge : IBase, IMulticulturalData
     {
-        /// <summary>
-        /// Имя Эры
-        /// </summary>
-        string Name { get; }
-        /// <summary>
-        /// Номер Эры
-        /// </summary>      
-        int ID { get; }
+       
 
         /// <summary>
         /// Цена перехода в Эру
         /// </summary>
-        Money Price { get; }
+        Money Price { get; set; }
 
         /// <summary>
         /// Доступность Эры
         /// </summary>
-        bool Availability { get; }
+        bool Availability { get; set; }
 
         /// <summary>
         /// Уровни эры
         /// </summary>
-        List<ILevel> Levels { get; }
+        DataList<ILevel> Levels { get; set; } 
+        /// <summary>
+        /// Родительская эра
+        /// </summary>
+        IAge Parent { get; set; }
 
     }
 }

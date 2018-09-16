@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.ToePac
 {
-    public class Item : INotifyPropertyChanged
+    public class ResourceItem : INotifyPropertyChanged
     {
 
 
@@ -29,11 +29,11 @@ namespace Assets.Core.ToePac
 
 
         //      UInt16 _FileType = 0;
-        public Item()
+        public ResourceItem()
         {
 
         }
-        public Item(Stream data)
+        public ResourceItem(Stream data)
         {
             Deserialization(data);
         }
@@ -71,7 +71,7 @@ namespace Assets.Core.ToePac
 
 
         }
-        public Item Deserialization(Stream data)
+        public ResourceItem Deserialization(Stream data)
         {
 
             BinaryReader br = new BinaryReader(data);
@@ -139,7 +139,8 @@ namespace Assets.Core.ToePac
         Boss = 1,
         Level = 2,
         Language = 3,
-        Question = 4
+        Question = 4, 
+        Age = 5
 
     }
 }

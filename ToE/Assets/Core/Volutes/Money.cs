@@ -12,12 +12,12 @@ namespace Assets.Core.Volutes
         /// </summary>
         /// <param name="g">Золото</param>
         /// <param name="b">Мозги</param>
-        public Money(int g, int b)
+        public Money(uint g, uint b)
         {
             this.Gold = g;
             this.Brains = b;
         }
-        public Money(int[] gb)
+        public Money(uint[] gb)
         {
             if (gb == null)
             {
@@ -33,15 +33,15 @@ namespace Assets.Core.Volutes
         /// <summary>
         /// Золото
         /// </summary>
-        public int Gold { get; set; }
+        public uint Gold { get; set; }
         /// <summary>
         /// Мозги
         /// </summary>
-        public int Brains { get; set; }
+        public uint Brains { get; set; }
 
-        public int[] ToArray()
+        public uint[] ToArray()
         {
-            return new int[] { Gold, Brains };
+            return new uint[] { Gold, Brains };
         }
     }
 }

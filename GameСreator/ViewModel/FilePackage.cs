@@ -40,6 +40,7 @@ namespace GameСreator.ViewModel
 
             using (var fs = File.Open(FileMode.OpenOrCreate))
             {
+                fs.SetLength(0);
                 Package.Serialization().WriteTo(fs);
  
             }

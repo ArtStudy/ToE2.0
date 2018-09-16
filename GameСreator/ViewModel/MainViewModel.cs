@@ -1,6 +1,7 @@
 
 using Assets.Core.Game.Ages_and_Graphs;
 using Assets.Core.Game.Data;
+using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
@@ -11,7 +12,7 @@ using Assets.Core.ToePac;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
-using GameСreator.API.Boss;
+
 
 using System;
 using System.Collections.Generic;
@@ -56,7 +57,7 @@ namespace GameСreator.ViewModel
    
         private IMulticulturalData _currentMulticulturalData;
         private LanguagePack _currentObjectLanguagePack;
-        private FileStream _currentFile;
+   
         private string _selectedPath;
         private List<FilePackage> _files = new List<FilePackage>();
         private FilePackage _selectedFile;
@@ -84,15 +85,17 @@ namespace GameСreator.ViewModel
         public List<IQuestion> QuestionsList { get => GetListOfType(FileTypes.Question).OfType<IQuestion>().ToList(); }
         public List<ILevel> LevelsList { get=> GetListOfType( FileTypes.Level).OfType<ILevel>().ToList();}
         public List<ILanguagePack> LanguagesList { get => GetListOfType(FileTypes.Language).OfType<ILanguagePack>().ToList(); }
+        public List<IAge> AgeList { get => GetListOfType(FileTypes.Age).OfType<IAge>().ToList(); }
 
         public Level CurrentNewParentLevel { get; set; }
         public IQuestion CurrentNewQuestionLevel { get; set; }
-
+        public Level CurrentNewLevelAge { get; set; }
 
         public Level CurrentParentLevel { get; set; }
         public IQuestion CurrentQuestionLevel { get; set; }
+        public Level CurrentLevelAge { get; set; }
 
-
+       
 
         public IMulticulturalData CurrentMulticulturalData { get => _currentMulticulturalData; set => Set("CurrentMulticulturalData", ref _currentMulticulturalData, value); }
 
@@ -195,6 +198,11 @@ namespace GameСreator.ViewModel
                         Current2Page = "LevelEditPage";
                         CurrentMulticulturalData = (ILevel)value;
                     }
+                    else if (typeof(IAge).IsAssignableFrom(typevalue))
+                    {
+                        Current2Page = "AgeEditPage";
+                        CurrentMulticulturalData = (IAge)value;
+                    }
                     else if (typeof(IBoss).IsAssignableFrom(typevalue))
                     {
                         Current2Page = "BossEditPage";
@@ -209,7 +217,7 @@ namespace GameСreator.ViewModel
                         }
                         CurrentMulticulturalData = (IQuestion)value;
                     }
-                    if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
+                   else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
                     {
 
                         Current2Page = "LanguagePackEditPage";
@@ -242,22 +250,23 @@ namespace GameСreator.ViewModel
         /// </summary>
         public MainViewModel()
         {
-
+            this.PropertyChanged += MainViewModel_PropertyChanged;
 
             this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, () => true);
             this.CreateNewBoss = new RelayCommand(CreateNewBossAction, () => this.Files?.Count > 0 && this.CurrentPage == "BossesPage");
+            this.CreateNewAge = new RelayCommand(CreateNewAgeAction, () => this.Files?.Count > 0 && this.CurrentPage == "AgesPage");
             this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, () => this.Files?.Count > 0 && this.CurrentPage == "LevelPage");
             this.CreateNewLanguagePack = new RelayCommand(CreateNewLanguagePacks, () => this.Files?.Count > 0 && this.CurrentPage == "LanguagePacksPage");
             this.CreateNewQuestionSelectOne = new RelayCommand(CreateNewQuestionSelectOnePacks, () => this.Files?.Count > 0 && this.CurrentPage == "QuestionsPage");
 
-            this.OpenFilesPage = new RelayCommand(() => OpenPageOne("FilesPage", null), () => this.Files?.Count > 0);
-            this.OpenResources = new RelayCommand(() => OpenPageOne("ResourcesPage", null), () => this.Files?.Count > 0);
-            this.OpenBosses = new RelayCommand(() => OpenPageOne("BossesPage", () => UpdateAll(FileTypes.Boss)), () => this.Files?.Count > 0);
+            this.OpenFilesPage = new RelayCommand(() => OpenPageOne("FilesPage", null), OpenPageCanEx);
+            this.OpenAges = new RelayCommand(() => OpenPageOne("AgesPage", () => UpdateAll(FileTypes.Age)), OpenPageCanEx);
+            this.OpenBosses = new RelayCommand(() => OpenPageOne("BossesPage", () => UpdateAll(FileTypes.Boss)), OpenPageCanEx);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
-            this.OpenLevels = new RelayCommand(() => OpenPageOne("LevelPage", () => UpdateAll( FileTypes.Level)), () => this.Files?.Count > 0);
-            this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", () => UpdateAll(FileTypes.Language)), () => this.Files?.Count > 0);
+            this.OpenLevels = new RelayCommand(() => OpenPageOne("LevelPage", () => UpdateAll( FileTypes.Level)), OpenPageCanEx);
+            this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", () => UpdateAll(FileTypes.Language)), OpenPageCanEx);
             this.OpenDir = new RelayCommand(OpenDirAction, OpenDirCanEx);
-            this.OpenQuestions = new RelayCommand(() => OpenPageOne("QuestionsPage", () => UpdateAll(FileTypes.Question)), () => this.Files?.Count > 0);
+            this.OpenQuestions = new RelayCommand(() => OpenPageOne("QuestionsPage", () => UpdateAll(FileTypes.Question)), OpenPageCanEx);
 
 
        
@@ -273,7 +282,8 @@ namespace GameСreator.ViewModel
             this.RermoveQuestionToLevel = new RelayCommand(RermoveQuestionAction, RermoveQuestionCanEx);
             this.AddParentToLevel = new RelayCommand(AddParentToLevelAction, AddParentToLevelCanEx);
             this.RermoveParentToLevel = new RelayCommand(RemoveParentToLevelAction, RemoveParentToLevelCanEx);
-
+            this.AddLevelToAge = new RelayCommand(AddLevelToAgeAction, AddLevelToAgeCanEx);
+            this.RermoveLevelToAge = new RelayCommand(RermoveLevelToAgeAction, RermoveLevelToAgeCanEx);
 
             //   this.AddLocalizationString = new RelayCommand(AddLocalizationStringAction, AddLocalizationStringCanEx);
             //     this.RemoveLocalizationString = new RelayCommand(RemoveLocalizationStringAction, RemoveLocalizationStringCanEx);
@@ -288,6 +298,47 @@ namespace GameСreator.ViewModel
             ////}
         }
 
+        private bool RermoveLevelToAgeCanEx() => this.CurrentLevelAge != null;
+
+
+        private void RermoveLevelToAgeAction()
+        {
+            ((IAge)this.CurrentItem).Levels.Remove(CurrentLevelAge);
+
+
+            var temp = this.CurrentItem;
+            this.CurrentItem = null;
+            this.CurrentItem = temp;
+        }
+
+        private bool AddLevelToAgeCanEx() => this.CurrentNewLevelAge != null;
+
+        private void AddLevelToAgeAction()
+        {
+            if (!((IAge)this.CurrentItem).Levels.Contains(this.CurrentNewLevelAge))
+            {
+                ((IAge)this.CurrentItem).Levels.Add(CurrentNewLevelAge);
+            }
+
+            var temp = this.CurrentItem;
+            this.CurrentItem = null;
+            this.CurrentItem = temp;
+        }
+
+        private void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            
+        }
+
+        private bool OpenPageCanEx()
+        {
+            this.RaisePropertyChanged("BossesList");
+            this.RaisePropertyChanged("QuestionsList");
+            this.RaisePropertyChanged("LevelsList");
+            this.RaisePropertyChanged("LanguagesList");
+            this.RaisePropertyChanged("AgeList");
+            return  this.Files?.Count > 0;
+        }
 
         private bool OpenDirCanEx() => true;
         private void OpenDirAction()
@@ -427,7 +478,13 @@ namespace GameСreator.ViewModel
                         item.ResourceFileData.Data[FileTypes.Question].Remove(this.CurrentItem);
                      
                     }
-                    if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
+                    else if (typeof(IAge).IsAssignableFrom(typevalue))
+                    {
+
+                        item.ResourceFileData.Data[FileTypes.Age].Remove(this.CurrentItem);
+
+                    }
+                    else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
                     {
                         item.ResourceFileData.Data[FileTypes.Language].Remove(this.CurrentItem);
                     }
@@ -450,6 +507,11 @@ namespace GameСreator.ViewModel
 
 
         }
+        private void CreateNewAgeAction()
+        {
+            this.CurrentItem = new Age();
+        }
+
         private void CreateNewBossAction()
         {
             this.CurrentItem = new Boss();
@@ -489,11 +551,16 @@ namespace GameСreator.ViewModel
         public ICommand AddQuestionToLevel { get; }
 
 
+        public ICommand RermoveLevelToAge { get; }
+
+        public ICommand AddLevelToAge { get; }
         public ICommand CreateNewLanguagePack { get; }
         /// <summary>
         /// Сохранить пакет
         /// </summary>
         public ICommand CreateNewLevel { get; }
+
+        public ICommand CreateNewAge { get; }
 
         public ICommand CancelValue { get; }
 
@@ -521,7 +588,7 @@ namespace GameСreator.ViewModel
         /// <summary>
         /// Открыть поле русурсов 
         /// </summary>
-        public ICommand OpenResources { get; }
+        public ICommand OpenAges { get; }
 
         /// <summary>
         /// Открыть список босов
@@ -682,7 +749,10 @@ namespace GameСreator.ViewModel
             {
                 return ((ILanguagePack)CurrentItem).Culture != null && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
             }
-          
+            else if (typeof(IAge).IsAssignableFrom(typevalue))
+            {
+                return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
+            }
             return false;
         }
 
@@ -710,6 +780,22 @@ namespace GameСreator.ViewModel
 
             SavePac.ResourceFileData.Save(this.CurrentItem);
 
+            for(int i =0; i< this.LanguagesList.Count; i++)
+            {
+                for (int j = 0; j < Files?.Count; j++)
+                {
+                    foreach (var item in Files[j].ResourceFileData.Data)
+                    {
+                        if (item.Value.ContainsKey(this.LanguagesList[i]))
+                            Files[j].ResourceFileData.Save(this.LanguagesList[i]);
+
+              
+                    }
+                }
+         
+           
+            }
+
             CurrentItem = null;
 
             switch (this.CurrentPage)
@@ -727,6 +813,9 @@ namespace GameСreator.ViewModel
                 case "LanguagePacksPage":
                     this.UpdateAll(FileTypes.Language);
                     break;
+                case "AgesPage":
+                    this.UpdateAll(FileTypes.Age);
+                    break;
 
             }
 
@@ -741,6 +830,22 @@ namespace GameСreator.ViewModel
             {
                 this.Files.ForEach((file) => file.ResourceFileData.ReLoad(this.CurrentItem));
                 this.CurrentItem = null;
+
+                for (int i = 0; i < this.LanguagesList.Count; i++)
+                {
+                    for (int j = 0; j < Files?.Count; j++)
+                    {
+                        foreach (var item in Files[j].ResourceFileData.Data)
+                        {
+                            if (item.Value.ContainsKey(this.LanguagesList[i]))
+                                Files[j].ResourceFileData.ReLoad(this.LanguagesList[i]);
+
+
+                        }
+                    }
+
+
+                }
             }
             this.CurrentItem = null;
 
@@ -758,7 +863,10 @@ namespace GameСreator.ViewModel
                     break;
                 case "LanguagePacksPage":
                     this.UpdateAll(FileTypes.Language);
-                    break;    
+                    break;
+                case "AgesPage":
+                    this.UpdateAll(FileTypes.Age);
+                    break;
 
             }
           
