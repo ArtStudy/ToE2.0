@@ -41,3 +41,6 @@ Toe/Logs/
 ToE/Logs/IncrementalCompiler/UnityEditor.StandardEvents.rsp
 ToE/Logs/IncrementalCompiler/Assembly-CSharp.rsp
 *.rsp
+ToE/.vscode/launch.json
+ToE/.vscode/launch.json
+ToE/Logs/IncrementalCompiler/unity_incremental_compiler_server.log
