@@ -125,7 +125,7 @@ namespace Assets.Core.ToePac
         /// <summary>
         /// Данные
         /// </summary>
-        public MemoryStream Data { get; set; }
+        public MemoryStream Data { get; set; } = new MemoryStream();
 
         /// <summary>
         /// Позиция файла
@@ -140,7 +140,7 @@ namespace Assets.Core.ToePac
         Level = 2,
         Language = 3,
         Question = 4, 
-        Age = 5
-
+        Age = 5,
+        SaveData = 6
     }
 }

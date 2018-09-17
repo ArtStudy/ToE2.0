@@ -18,6 +18,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Level
 {
+    [TypeDataAttribute(FileTypes.Level)]
     public class Level : ILevel
     {
         private string _name;
@@ -49,7 +50,7 @@ namespace Assets.Core.Game.Data.Level
         public DataList<IQuestion> QuestionsLevel { get; set; } = new DataList<IQuestion>();
 
         //
-        public StateLevel StateLevel { get; set; }
+        public StateLevel StateLevel { get => SaveGame.GetValue<StateLevel>(this, StateLevel.Сlosed); set => SaveGame.SetValue<StateLevel>(this, value); }
 
 
 

@@ -72,6 +72,12 @@ public class AgeObj : MonoBehaviour {
         Age.Web = new Web ();
         var levels = GameData.Default.Levels;
         for (int i = 0; i < levels.Count; i++) {
+
+            //Кодом ниже я тестировал рабосу сохранений для файлов данных, пожалуйста не убирай
+         /*   Debug.Log("1: "  + levels[i].StateLevel.ToString());
+            levels[i].StateLevel = Assets.Core.Game.Data.Level.StateLevel.Boss;
+            Debug.Log("2: " + levels[i].StateLevel.ToString());   
+            */
             Age.Web.AddLevel (levels[i]);
         }
     }
