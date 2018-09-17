@@ -1,0 +1,10 @@
+ (0,0): RoslynIncrementalCompiler client threw an exception. As a result the built-in compiler was used to compile the Temp/Assembly-CSharp.dll. Exception: System.Threading.ThreadAbortException
+  at System.Text.RegularExpressions.RegexInterpreter.Go () [0x00007] in <60233c34ef3e4e5f892759dbfc5ae27d>:0 
+  at System.Text.RegularExpressions.RegexRunner.Scan (System.Text.RegularExpressions.Regex regex, System.String text, System.Int32 textbeg, System.Int32 textend, System.Int32 textstart, System.Int32 prevlen, System.Boolean quick, System.TimeSpan timeout) [0x000e6] in <60233c34ef3e4e5f892759dbfc5ae27d>:0 
+  at System.Text.RegularExpressions.Regex.Run (System.Boolean quick, System.Int32 prevlen, System.String input, System.Int32 beginning, System.Int32 length, System.Int32 startat) [0x00095] in <60233c34ef3e4e5f892759dbfc5ae27d>:0 
+  at System.Text.RegularExpressions.Regex.Match (System.String input, System.Int32 startat) [0x00019] in <60233c34ef3e4e5f892759dbfc5ae27d>:0 
+  at System.Text.RegularExpressions.Regex.Match (System.String input) [0x00021] in <60233c34ef3e4e5f892759dbfc5ae27d>:0 
+  at UnityEditor.Compilation.CSharpCompilerOutputParser.NormalizedStatusFor (System.String fileName, System.Int32 column, System.Int32 line, System.String message) [0x00030] in <90b95150721149dd97da4fac20668b2e>:0 
+  at UnityEditor.Compilation.ExternalCompilerBridge.<StartCompiler>b__6_1 (System.String sourceFile, System.Int32 line, System.Int32 column, System.String message, UnityEditor.Compilation.CustomCompiler+CompilationMessageType msgType) [0x00073] in <90b95150721149dd97da4fac20668b2e>:0 
+  at UnityEditor.Compilation.RoslynIncrementalCompiler.InvokeCompiler (System.String[] unityCompilerArguments, UnityEditor.Compilation.CustomCompiler+OnCompilerMessage onMessage, UnityEditor.Compilation.CustomCompiler+OnCompilationDone onDone) [0x0016b] in <90b95150721149dd97da4fac20668b2e>:0 
+  at UnityEditor.Compilation.ExternalCompilerBridge+<>c__DisplayClass6_0.<StartCompiler>b__0 () [0x00000] in <90b95150721149dd97da4fac20668b2e>:0 
