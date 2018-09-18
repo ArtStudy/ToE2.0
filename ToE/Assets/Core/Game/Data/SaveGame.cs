@@ -1,4 +1,5 @@
-﻿using Assets.Core.ToePac;
+﻿using Assets.Core.Game.Data.User;
+using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +14,7 @@ namespace Assets.Core.Game.Data
 {
     public class SaveGame
     {
+        public const UInt64 IDUserData = 0x0001;
         static string path = Path.Combine(Application.persistentDataPath, "save.ToePackage");
         static ToePackage TPSaves;
         static SaveGame()
@@ -112,6 +114,17 @@ namespace Assets.Core.Game.Data
             }
 
            ;
+        }
+
+        public static IUser GetUser()
+        {
+            List<ResourceItem> items = TPSaves.Items.GetResourcesByType(FileTypes.User);
+            if (items.Count > 0)
+            {
+                var item = items[0];
+            }
+         
+            return new User.User();
         }
     }
 }

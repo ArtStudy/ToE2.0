@@ -141,6 +141,7 @@ namespace Assets.Core.ToePac
         Language = 3,
         Question = 4, 
         Age = 5,
-        SaveData = 6
+        SaveData = 6,
+        User
     }
 }

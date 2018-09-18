@@ -4,9 +4,11 @@ using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
+using Assets.Core.Game.Data.User;
 using Assets.Core.Levels;
 using Assets.Core.Serialization;
 using Assets.Core.ToePac;
+using Assets.Core.User;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -41,6 +43,8 @@ namespace Assets.Core.Game.Data
         public List<IBoss> Bosses { get; } = new List<IBoss>();
         public List<IQuestion> Questions { get; } = new List<IQuestion>();
         public List<IAge> Ages { get; } = new List<IAge>();
+
+        public IUser User { get; set; } = new User.User();
 
         public GameData(ListResourse items)
         {
