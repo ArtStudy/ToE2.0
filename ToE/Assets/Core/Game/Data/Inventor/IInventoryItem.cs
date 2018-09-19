@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Inventor
 {
-    interface IInventoryItem : IBase, IMulticulturalData
+   public  interface IInventoryItem : IBase, IMulticulturalData
     {
         Enhancements ImprovingHealth { get; }
         Enhancements ImproveResponseTime { get; }

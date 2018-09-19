@@ -39,9 +39,9 @@ namespace Assets.Core.ToePac
         {
             MemoryStream ms = new MemoryStream();
             var data = new BinaryWriter(ms);
-
+     
             data.Write(this.FileType);
-
+        
             data.Write(this.Version);
 
             data.Write(this.Items.Count);
@@ -78,7 +78,7 @@ namespace Assets.Core.ToePac
 
 
             pac.Position = 0;
-
+      
 
             this._FileType = br.ReadString();
             this._Version = br.ReadInt32();

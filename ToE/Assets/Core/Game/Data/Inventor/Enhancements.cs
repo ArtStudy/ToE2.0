@@ -15,9 +15,9 @@ namespace Assets.Core.Game.Data.Inventor
         /// <summary>
         /// Значение
         /// </summary>
-        public double Value { get; } 
+        public double Value { get; set; }
     }
-    public enum TypeEnhancements
+    public enum TypeEnhancements : byte
     {
         /// <summary>
         /// Добавочный тип
