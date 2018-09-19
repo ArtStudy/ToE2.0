@@ -5,7 +5,7 @@ using Assets.Core.LevelsStructureInterfaces;
 using UnityEngine;
 
 public static class WebDrawer {
-    public static int kSize = 5;
+    public static int kSize = 10;
 
     public static Transform ageTransform;
 
@@ -27,9 +27,9 @@ public static class WebDrawer {
         delta = level.transform.localScale.x / 2;
         r = ageTransform.localScale.x / 2;
         h = r * 2 / age.Age.Web.groups.Count;
-        x = UnityEngine.Random.Range (r - levelPos.x * h, r - (levelPos.x + 1) * h);
+        x = UnityEngine.Random.Range (r - levelPos.x * h + delta, r - (levelPos.x + 1) * h - delta);
         step = (float) Math.Sqrt (r * r - x * x) / age.Age.Web.groups[(int) levelPos.x].Count;
-        y = UnityEngine.Random.Range (-step, step);
+        y = UnityEngine.Random.Range (-step + delta, step - delta);
         z = Math.Sqrt (r * r - x * x - y * y);
         if (UnityEngine.Random.Range (0, 100) % 2 == 0)
             z = -z;
