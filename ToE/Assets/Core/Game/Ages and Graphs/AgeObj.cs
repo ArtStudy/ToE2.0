@@ -16,7 +16,7 @@ public class AgeObj : MonoBehaviour {
     public GameObject LevelPrefab;
     public GameObject WayPrefab;
     private Save save;
-    private List<GameObject> Levels = new List<GameObject> ();
+    public List<GameObject> Levels = new List<GameObject> ();
     private List<LevelObj> LevelsObj = new List<LevelObj> ();
     private List<GameObject> Ways = new List<GameObject> ();
 
@@ -74,11 +74,12 @@ public class AgeObj : MonoBehaviour {
         for (int i = 0; i < levels.Count; i++) {
 
             //Кодом ниже я тестировал рабосу сохранений для файлов данных, пожалуйста не убирай
-         /*   Debug.Log("1: "  + levels[i].StateLevel.ToString());
-            levels[i].StateLevel = Assets.Core.Game.Data.Level.StateLevel.Boss;
-            Debug.Log("2: " + levels[i].StateLevel.ToString());   
-            */
+            /*   Debug.Log("1: "  + levels[i].StateLevel.ToString());
+               levels[i].StateLevel = Assets.Core.Game.Data.Level.StateLevel.Boss;
+               Debug.Log("2: " + levels[i].StateLevel.ToString());   
+               */
             Age.Web.AddLevel (levels[i]);
         }
+        Age.Web.SortWeb ();
     }
 }
