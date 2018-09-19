@@ -362,6 +362,7 @@
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/ToePac/ResourceItem.cs"
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/ToePac/ToePackage.cs"
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/Transliteration.cs"
+-i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/UI/CameraRotationScript.cs"
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/UI/Labels.cs"
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/UI/UserInfo.cs"
 -i:"/home/xomyake/ToE/ToE2.0/ToE/Assets/Core/Volutes/Money.cs"

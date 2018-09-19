@@ -14,7 +14,7 @@ public class Game : MonoBehaviour {
 
     public GameObject camera;
     void Awake () {
-        //LoadGUI ();
+        LoadGUI ();
     }
     void Start () {
         LoadAges ();
@@ -32,6 +32,6 @@ public class Game : MonoBehaviour {
         }
     }
     void LoadGUI () {
-        //camera = Instantiate (camera);
+        //camera.AddComponent ();
     }
 }
