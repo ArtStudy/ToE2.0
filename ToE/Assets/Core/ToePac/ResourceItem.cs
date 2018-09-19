@@ -142,6 +142,7 @@ namespace Assets.Core.ToePac
         Question = 4, 
         Age = 5,
         SaveData = 6,
-        User
+        User = 7,
+        InventoryItem = 8
     }
 }

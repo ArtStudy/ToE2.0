@@ -11,9 +11,9 @@ namespace Assets.Core.Game.Data.Inventor
     {
         private string _name;
 
-        public Enhancements ImprovingHealth => new Enhancements();
+        public Enhancements ImprovingHealth { get; set; } =  new Enhancements();
 
-        public Enhancements ImproveResponseTime => new Enhancements();
+        public Enhancements ImproveResponseTime  { get; set; } = new Enhancements();
 
         public UInt64 ID { get; set; }
         public string Name

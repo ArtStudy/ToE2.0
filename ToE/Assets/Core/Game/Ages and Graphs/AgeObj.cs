@@ -53,6 +53,7 @@ public class AgeObj : MonoBehaviour {
                 way.transform.parent = this.transform;
                 WayObj wayobj = way.GetComponent<WayObj> ();
                 wayobj.ParentLevel = LevelsObj.Find ((item) => item.GetComponent<LevelObj> ().level == levelObj.level.Parents[j]);
+                wayobj.name = wayobj.ParentLevel.level.Name + " - " + levelObj.level.Name;
                 wayobj.ChildLevel = levelObj;
                 Ways.Add (way);
             }

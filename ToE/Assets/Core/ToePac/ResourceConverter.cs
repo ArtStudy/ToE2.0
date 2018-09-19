@@ -9,6 +9,7 @@ using Assets.Core.Game.Data;
 using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.LevelsStructureInterfaces;
@@ -23,6 +24,7 @@ namespace Assets.Core.ToePac {
         private static List<IQuestion> QuestionCashe = new List<IQuestion> ();
         private static List<ILanguagePack> LanguagePackCashe = new List<ILanguagePack> ();
         private static List<IAge> AgeCashe = new List<IAge> ();
+        private static List<IInventoryItem> InventoryItemCashe = new List<IInventoryItem>();
 
         private static Dictionary<ulong, List<ILevel>> bosslevelcashe = new Dictionary<ulong, List<ILevel>> ();
         private static Dictionary<ulong, List<ILevel>> questionlevelcashe = new Dictionary<ulong, List<ILevel>> ();
@@ -35,6 +37,7 @@ namespace Assets.Core.ToePac {
         private const string StringNameQuestionData = "Quest.";
         private const string StringNameLanguagePackData = "Lang.";
         private const string StringNameAgeData = "Age.";
+        private const string StringNameInventoryItemData = "InvIt.";
 
         private static DataContractJsonSerializer SerializerLevel = new DataContractJsonSerializer (typeof (SerializableLevel));
         private static DataContractJsonSerializer SerializerBoss = new DataContractJsonSerializer (typeof (SerializableBoss));
@@ -42,7 +45,7 @@ namespace Assets.Core.ToePac {
         private static DataContractJsonSerializer SerializerQuestionSelectOne = new DataContractJsonSerializer (typeof (SerializableQuestionSelectOne));
         private static DataContractJsonSerializer SerializerLanguagePack = new DataContractJsonSerializer (typeof (SerializableLanguagePack));
         private static DataContractJsonSerializer SerializerAge = new DataContractJsonSerializer (typeof (SerializableAge));
-
+    
         /// <summary>
         /// Преобразование ресурса в объект типа уровень
         /// </summary>
@@ -252,6 +255,28 @@ namespace Assets.Core.ToePac {
 
         }
         /// <summary>
+        /// Преобразование ресурса в объект типа элемент инвентаря
+        /// </summary>
+        /// <param name="obj">Преобразуемый ресурс</param>
+        /// <param name="lr">список всех ресурсов</param>
+        public static Tuple<IInventoryItem, ListResourse> ResourceToInventoryItem(ResourceItem obj, ListResourse lr)
+        {
+            obj.Data.Position = 0;
+            InventoryItem result = new InventoryItem();
+
+            SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+
+
+            result.ID = obj.Identifier;
+            s.ToObject(ref result);
+
+
+
+            InventoryItemCashe.Add(result);
+            return new Tuple<IInventoryItem, ListResourse>(result, new ListResourse { obj });
+
+        }
+        /// <summary>
         /// Преобразует ILevel в масив ресуров
         /// </summary>
         /// <param name="level">Объект уровня</param>
@@ -344,7 +369,24 @@ namespace Assets.Core.ToePac {
 
             return new ListResourse { resourse };
         }
+        /// <summary>
+        /// Преобразует IInventoryItem в масив ресуров
+        /// </summary>
+        /// <param name="languagePack">Объект элемента инвентаря</param>
+        /// <returns>Массив русурсов</returns>
+        public static ListResourse InventoryItemToResource(IInventoryItem inventoryItem)
+        {
 
+            SerializableInventoryItem s = new SerializableInventoryItem((InventoryItem)inventoryItem);
+
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                resourse = CreateItem(inventoryItem.ID, StringNameInventoryItemData + s.Name, FileTypes.InventoryItem, ms);
+            }
+
+            return new ListResourse { resourse };
+        }
         private static ResourceItem CreateItem (ulong ID, SerializableBase data, FileTypes type, DataContractJsonSerializer serializer) {
             if (ID == 0)
                 throw new Exception ("ID = 0");
@@ -362,6 +404,21 @@ namespace Assets.Core.ToePac {
             return item;
 
         }
+        private static ResourceItem CreateItem(ulong ID, string name, FileTypes type, MemoryStream ms)
+        {
+            if (ID == 0)
+                throw new Exception("ID = 0");
 
+          
+
+            ResourceItem item = new ResourceItem();
+            item.FileType = type;
+            item.Identifier = ID;
+            item.Name = "Binary." + name;
+            item.Version = 2;
+            item.Data = new MemoryStream(ms.ToArray());
+            return item;
+
+        }
     }
 }
