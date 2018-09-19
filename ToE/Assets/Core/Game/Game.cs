@@ -21,13 +21,14 @@ public class Game : MonoBehaviour {
     }
 
     void Update () {
-        //for (int i = 0; i < Ages.Count; i++) 
-        //MenuAnimations.Rotation(Ages[i]);
+        for (int i = 0; i < Ages.Count; i++)
+            MenuAnimations.Rotation (Ages[i]);
     }
 
     void LoadAges () {
         for (int i = 0; i < Ages.Count; i++) {
             Ages[i] = Instantiate (Ages[i]);
+
         }
     }
     void LoadGUI () {

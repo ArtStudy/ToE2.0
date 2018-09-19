@@ -44,3 +44,5 @@ ToE/Logs/IncrementalCompiler/Assembly-CSharp.rsp
 ToE/.vscode/launch.json
 ToE/.vscode/launch.json
 ToE/Logs/IncrementalCompiler/unity_incremental_compiler_server.log
+ToE/Logs/IncrementalCompiler/Assembly-CSharp.rsp
+ToE/Logs/IncrementalCompiler/unity_incremental_compiler_server.log

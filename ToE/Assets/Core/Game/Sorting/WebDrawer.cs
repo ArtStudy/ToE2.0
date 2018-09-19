@@ -5,7 +5,7 @@ using Assets.Core.LevelsStructureInterfaces;
 using UnityEngine;
 
 public static class WebDrawer {
-    public static int kSize = 10;
+    public static int kSize = 5;
 
     public static Transform ageTransform;
 
@@ -20,16 +20,20 @@ public static class WebDrawer {
     // Отрисовка уровня
     public static void DrawLevel (GameObject level, AgeObj age) {
         LevelObj levelObj = level.GetComponent<LevelObj> ();
-        int groupNumber = age.Age.Web.FindLevelGroup (levelObj.level);
+        Vector2 levelPos = age.Age.Web.FindLevelPos (levelObj.level);
+        UnityEngine.Debug.Log (levelPos.y);
         double x, y, z;
-        float r, h;
+        float r, h, step, delta;
+        delta = level.transform.localScale.x / 2;
         r = ageTransform.localScale.x / 2;
         h = r * 2 / age.Age.Web.groups.Count;
-        x = UnityEngine.Random.Range (r - groupNumber * h, r - (groupNumber + 1) * h);
-        y = UnityEngine.Random.Range (-(float) Math.Sqrt (r * r - x * x), (float) Math.Sqrt (r * r - x * x));
+        x = UnityEngine.Random.Range (r - levelPos.x * h, r - (levelPos.x + 1) * h);
+        step = (float) Math.Sqrt (r * r - x * x) / age.Age.Web.groups[(int) levelPos.x].Count;
+        y = UnityEngine.Random.Range (-step, step);
         z = Math.Sqrt (r * r - x * x - y * y);
         if (UnityEngine.Random.Range (0, 100) % 2 == 0)
             z = -z;
         level.transform.position = new Vector3 ((float) x, (float) y, (float) z);
     }
+
 }
