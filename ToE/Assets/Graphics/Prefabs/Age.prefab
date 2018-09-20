@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 23560235920567094}
   - component: {fileID: 135772199838802922}
   - component: {fileID: 114479389560948458}
+  - component: {fileID: 114365360130298062}
   m_Layer: 0
   m_Name: Age
   m_TagString: Untagged
@@ -85,6 +86,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1718929356174984}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114365360130298062
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1718929356174984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 017a72c37ea4645879b0e56e1b9631f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
 --- !u!114 &114479389560948458
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -99,6 +112,7 @@ MonoBehaviour:
   LevelPrefab: {fileID: 1658368282251802, guid: 22d2c8318fef37f488ed5db9bb12c1a3,
     type: 2}
   WayPrefab: {fileID: 1806045702991634, guid: 6dacc35ce92877e4eaca499e635c49d5, type: 2}
+  Levels: []
 --- !u!135 &135772199838802922
 SphereCollider:
   m_ObjectHideFlags: 1
