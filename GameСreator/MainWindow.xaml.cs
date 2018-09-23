@@ -62,6 +62,9 @@ namespace GameСreator
                 case "AgeEditPage":
                     SPage.Navigate(new EditAgePage());
                     break;
+                case "EditInventoryItemPage":
+                    SPage.Navigate(new EditInventoryItemPage());
+                    break;
                 case "BossesPage":
                     MainPage.Source = new Uri("Pages\\List\\BossPage.xaml", UriKind.Relative);
                     break;
@@ -79,6 +82,9 @@ namespace GameСreator
                     break;
                 case "FilesPage":
                     MainPage.Source = new Uri("Pages\\List\\FilesPage.xaml", UriKind.Relative);
+                    break;
+                case "InventoryItemPage":
+                    MainPage.Navigate(new InventoryItemsPage());
                     break;
                 case "LevelEditPage":
                     SPage.Navigate(new EditLevelPage());

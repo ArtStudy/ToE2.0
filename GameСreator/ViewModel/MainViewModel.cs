@@ -4,6 +4,7 @@ using Assets.Core.Game.Data;
 using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.Levels;
@@ -43,7 +44,9 @@ namespace GameСreator.ViewModel
     {
         string CurrentPage = string.Empty;
 
-        private string Current2Page { get => _current2Page; set
+        private string Current2Page
+        {
+            get => _current2Page; set
             {
                 _current2Page = value;
                 Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege(_current2Page));
@@ -54,10 +57,10 @@ namespace GameСreator.ViewModel
         public CultureInfo[] Cultures => CultureInfo.GetCultures(CultureTypes.AllCultures);
 
         private IBase _currentItem;
-   
+
         private IMulticulturalData _currentMulticulturalData;
         private LanguagePack _currentObjectLanguagePack;
-   
+
         private string _selectedPath;
         private List<FilePackage> _files = new List<FilePackage>();
         private FilePackage _selectedFile;
@@ -83,9 +86,10 @@ namespace GameСreator.ViewModel
 
         public List<IBoss> BossesList { get => GetListOfType(FileTypes.Boss).OfType<IBoss>().ToList(); }
         public List<IQuestion> QuestionsList { get => GetListOfType(FileTypes.Question).OfType<IQuestion>().ToList(); }
-        public List<ILevel> LevelsList { get=> GetListOfType( FileTypes.Level).OfType<ILevel>().ToList();}
+        public List<ILevel> LevelsList { get => GetListOfType(FileTypes.Level).OfType<ILevel>().ToList(); }
         public List<ILanguagePack> LanguagesList { get => GetListOfType(FileTypes.Language).OfType<ILanguagePack>().ToList(); }
         public List<IAge> AgeList { get => GetListOfType(FileTypes.Age).OfType<IAge>().ToList(); }
+        public List<IInventoryItem> InventoryItemList { get => GetListOfType(FileTypes.InventoryItem).OfType<IInventoryItem>().ToList(); }
 
         public Level CurrentNewParentLevel { get; set; }
         public IQuestion CurrentNewQuestionLevel { get; set; }
@@ -95,7 +99,7 @@ namespace GameСreator.ViewModel
         public IQuestion CurrentQuestionLevel { get; set; }
         public Level CurrentLevelAge { get; set; }
 
-       
+
 
         public IMulticulturalData CurrentMulticulturalData { get => _currentMulticulturalData; set => Set("CurrentMulticulturalData", ref _currentMulticulturalData, value); }
 
@@ -131,7 +135,7 @@ namespace GameСreator.ViewModel
         {
             get
             {
-                if(this.CurrentItem == null)
+                if (this.CurrentItem == null)
                     return null;
                 for (int i = 0; i < Files?.Count; i++)
                 {
@@ -145,8 +149,8 @@ namespace GameСreator.ViewModel
             }
             set => NewCurrentFileObject = value;
         }
-                
-               
+
+
 
 
         public LanguagePack CurrentObjectLanguagePack
@@ -154,7 +158,7 @@ namespace GameСreator.ViewModel
             get => _currentObjectLanguagePack; set
             {
 
-              
+
 
 
                 if (value != null)
@@ -191,38 +195,43 @@ namespace GameСreator.ViewModel
                     {
                         //GD.Levels.ReLoad(_currentItem, GD.Bosses, GD.Questions);
                     }
-           
-                    var typevalue = value.GetType();
-                    if (typeof(ILevel).IsAssignableFrom(typevalue))
-                    {
-                        Current2Page = "LevelEditPage";
-                        CurrentMulticulturalData = (ILevel)value;
-                    }
-                    else if (typeof(IAge).IsAssignableFrom(typevalue))
-                    {
-                        Current2Page = "AgeEditPage";
-                        CurrentMulticulturalData = (IAge)value;
-                    }
-                    else if (typeof(IBoss).IsAssignableFrom(typevalue))
-                    {
-                        Current2Page = "BossEditPage";
-                        CurrentMulticulturalData = (IBoss)value;
-                    }
-                    else if (typeof(IQuestion).IsAssignableFrom(typevalue))
-                    {
-                        if (((IQuestion)value).TypeQuestion == TypeQuestionEnum.SelectOne)
-                        {
 
-                            Current2Page = "EditQuestionSelectOnePage";
-                        }
-                        CurrentMulticulturalData = (IQuestion)value;
-                    }
-                   else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
+                    FileTypes type = ((TypeDataAttribute)value.GetType().GetCustomAttributes(typeof(TypeDataAttribute), false)[0]).Type;
+                    switch (type)
                     {
+                        case FileTypes.Level:
+                            Current2Page = "LevelEditPage";
+                            CurrentMulticulturalData = (ILevel)value;
+                            break;
+                        case FileTypes.Age:
+                            Current2Page = "AgeEditPage";
+                            CurrentMulticulturalData = (IAge)value;
+                            break;
+                        case FileTypes.Boss:
+                            Current2Page = "BossEditPage";
+                            CurrentMulticulturalData = (IBoss)value;
+                            break;
+                        case FileTypes.Question:
+                            if (((IQuestion)value).TypeQuestion == TypeQuestionEnum.SelectOne)
+                            {
 
-                        Current2Page = "LanguagePackEditPage";
-                        //CurrentMulticulturalData = (ILanguagePack)value;
+                                Current2Page = "EditQuestionSelectOnePage";
+                            }
+                            CurrentMulticulturalData = (IQuestion)value;
+                            break;
+                        case FileTypes.InventoryItem:
+                       
+                                Current2Page = "EditInventoryItemPage";
+                          
+                            CurrentMulticulturalData = (IInventoryItem)value;
+                            break;
+                        case FileTypes.Language:
+                            Current2Page = "LanguagePackEditPage";
+                            //CurrentMulticulturalData = (ILanguagePack)value;
+                            break;
                     }
+
+
 
                 }
                 else
@@ -232,7 +241,7 @@ namespace GameСreator.ViewModel
                     Messenger.Default.Send<NavigatorPageMessege>(new NavigatorPageMessege("NotEditPage"));
                 }
                 this.Set("CurrentItem", ref _currentItem, value);
-               
+
                 CurrentObjectLanguagePack = null;
 
 
@@ -242,9 +251,9 @@ namespace GameСreator.ViewModel
 
             }
         }
-    
 
-       
+
+
         /// <summary>
         /// Initializes a new instance of the MainViewModel class.
         /// </summary>
@@ -253,30 +262,32 @@ namespace GameСreator.ViewModel
             this.PropertyChanged += MainViewModel_PropertyChanged;
 
             this.CreateNewPackage = new RelayCommand(CreateNewPackageAction, () => true);
-            this.CreateNewBoss = new RelayCommand(CreateNewBossAction, () => this.Files?.Count > 0 && this.CurrentPage == "BossesPage");
-            this.CreateNewAge = new RelayCommand(CreateNewAgeAction, () => this.Files?.Count > 0 && this.CurrentPage == "AgesPage");
-            this.CreateNewLevel = new RelayCommand(CreateNewLevelAction, () => this.Files?.Count > 0 && this.CurrentPage == "LevelPage");
-            this.CreateNewLanguagePack = new RelayCommand(CreateNewLanguagePacks, () => this.Files?.Count > 0 && this.CurrentPage == "LanguagePacksPage");
-            this.CreateNewQuestionSelectOne = new RelayCommand(CreateNewQuestionSelectOnePacks, () => this.Files?.Count > 0 && this.CurrentPage == "QuestionsPage");
+            this.CreateNewBoss = new RelayCommand(() => this.CurrentItem = new Boss(), () => this.Files?.Count > 0 && this.CurrentPage == "BossesPage");
+            this.CreateNewAge = new RelayCommand(() => this.CurrentItem = new Age(), () => this.Files?.Count > 0 && this.CurrentPage == "AgesPage");
+            this.CreateNewLevel = new RelayCommand(() => this.CurrentItem = new Level(), () => this.Files?.Count > 0 && this.CurrentPage == "LevelPage");
+            this.CreateNewLanguagePack = new RelayCommand(() => this.CurrentItem = new LanguagePack(), () => this.Files?.Count > 0 && this.CurrentPage == "LanguagePacksPage");
+            this.CreateNewQuestionSelectOne = new RelayCommand(() => this.CurrentItem = new QuestionSelectOne(), () => this.Files?.Count > 0 && this.CurrentPage == "QuestionsPage");
+            this.CreateNewInventoryItem = new RelayCommand(() => this.CurrentItem = new InventoryItem(), () => this.Files?.Count > 0);
 
             this.OpenFilesPage = new RelayCommand(() => OpenPageOne("FilesPage", null), OpenPageCanEx);
             this.OpenAges = new RelayCommand(() => OpenPageOne("AgesPage", () => UpdateAll(FileTypes.Age)), OpenPageCanEx);
             this.OpenBosses = new RelayCommand(() => OpenPageOne("BossesPage", () => UpdateAll(FileTypes.Boss)), OpenPageCanEx);
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
-            this.OpenLevels = new RelayCommand(() => OpenPageOne("LevelPage", () => UpdateAll( FileTypes.Level)), OpenPageCanEx);
+            this.OpenLevels = new RelayCommand(() => OpenPageOne("LevelPage", () => UpdateAll(FileTypes.Level)), OpenPageCanEx);
             this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", () => UpdateAll(FileTypes.Language)), OpenPageCanEx);
             this.OpenDir = new RelayCommand(OpenDirAction, OpenDirCanEx);
             this.OpenQuestions = new RelayCommand(() => OpenPageOne("QuestionsPage", () => UpdateAll(FileTypes.Question)), OpenPageCanEx);
+            this.InventoryItems = new RelayCommand(() => OpenPageOne("InventoryItemPage", () => UpdateAll(FileTypes.InventoryItem)), OpenPageCanEx);
 
 
-       
+
 
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
-            this.CancelValue = new RelayCommand(CancelValueAction, CancelValueCanEx);
-          
+            this.CancelValue = new RelayCommand(CancelValueAction);
+
             this.RermoveItem = new RelayCommand(RermoveItemAction, RermoveItemCanEx);
- 
+
 
             this.AddQuestionToLevel = new RelayCommand(AddQuestionToLevelAction, AddQuestionToLevelCanEx);
             this.RermoveQuestionToLevel = new RelayCommand(RermoveQuestionAction, RermoveQuestionCanEx);
@@ -327,7 +338,7 @@ namespace GameСreator.ViewModel
 
         private void MainViewModel_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            
+
         }
 
         private bool OpenPageCanEx()
@@ -337,24 +348,25 @@ namespace GameСreator.ViewModel
             this.RaisePropertyChanged("LevelsList");
             this.RaisePropertyChanged("LanguagesList");
             this.RaisePropertyChanged("AgeList");
-            return  this.Files?.Count > 0;
+            this.RaisePropertyChanged("InventoryItemList");
+            return this.Files?.Count > 0;
         }
 
         private bool OpenDirCanEx() => true;
         private void OpenDirAction()
         {
-            if (Files.Count > 0 && MessageBox.Show("Закрыть текущие файлы?", "Файлы", MessageBoxButton.YesNo)== MessageBoxResult.Yes)
+            if (Files.Count > 0 && MessageBox.Show("Закрыть текущие файлы?", "Файлы", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
             {
                 if (MessageBox.Show("Сохранить текущие файлы?", "Файлы", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    for(int i = 0; i < Files.Count; i++)
+                    for (int i = 0; i < Files.Count; i++)
                     {
                         Files[i].Save();
                     }
                 }
-     
-                    Files.Clear();
-         
+
+                Files.Clear();
+
             }
 
             using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
@@ -390,7 +402,7 @@ namespace GameСreator.ViewModel
 
         private void AddParentToLevelAction()
         {
-            if (!((ILevel)this.CurrentItem).Parents.Contains(this.CurrentNewParentLevel)&& !this.CurrentNewParentLevel.Parents.Contains((ILevel)this.CurrentItem) && this.CurrentItem != this.CurrentNewParentLevel)
+            if (!((ILevel)this.CurrentItem).Parents.Contains(this.CurrentNewParentLevel) && !this.CurrentNewParentLevel.Parents.Contains((ILevel)this.CurrentItem) && this.CurrentItem != this.CurrentNewParentLevel)
             {
                 ((ILevel)this.CurrentItem).Parents.Add(CurrentNewParentLevel);
             }
@@ -446,9 +458,9 @@ namespace GameСreator.ViewModel
         private bool RermoveItemCanEx => !string.IsNullOrWhiteSpace(CurrentPage);
         private void RermoveItemAction()
         {
-            if(this.CurrentPage == "FilesPage")
+            if (this.CurrentPage == "FilesPage")
             {
-                if(MessageBox.Show("Сохранить изменения в файле?", "Файлы", MessageBoxButton.YesNo)== MessageBoxResult.Yes)
+                if (MessageBox.Show("Сохранить изменения в файле?", "Файлы", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
                     this.SelectedFile.Save();
                     this.Files.Remove(this.SelectedFile);
@@ -457,37 +469,16 @@ namespace GameСreator.ViewModel
                 return;
             }
 
-            var typevalue = this.CurrentItem.GetType();
+            FileTypes type = ((TypeDataAttribute)this.CurrentItem.GetType().GetCustomAttributes(typeof(TypeDataAttribute), false)[0]).Type;
 
             foreach (var item in this.Files)
             {
 
                 if (item.IsActive)
                 {
-                    if (typeof(ILevel).IsAssignableFrom(typevalue))
-                    {
-                        item.ResourceFileData.Data[FileTypes.Level].Remove(this.CurrentItem);
-                    }
-                    else if (typeof(IBoss).IsAssignableFrom(typevalue))
-                    {
-                        item.ResourceFileData.Data[FileTypes.Boss].Remove(this.CurrentItem);
-                    }
-                    else if (typeof(IQuestion).IsAssignableFrom(typevalue))
-                    {
 
-                        item.ResourceFileData.Data[FileTypes.Question].Remove(this.CurrentItem);
-                     
-                    }
-                    else if (typeof(IAge).IsAssignableFrom(typevalue))
-                    {
+                    item.ResourceFileData.Data[type].Remove(this.CurrentItem);
 
-                        item.ResourceFileData.Data[FileTypes.Age].Remove(this.CurrentItem);
-
-                    }
-                    else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
-                    {
-                        item.ResourceFileData.Data[FileTypes.Language].Remove(this.CurrentItem);
-                    }
                 }
             }
 
@@ -495,38 +486,6 @@ namespace GameСreator.ViewModel
         }
 
 
-        private void CreateNewLanguagePacks()
-        {
-            this.CurrentItem = new LanguagePack();
-     
-        }
-        private void CreateNewQuestionSelectOnePacks()
-        {
-            this.CurrentItem = new QuestionSelectOne();
-
-
-
-        }
-        private void CreateNewAgeAction()
-        {
-            this.CurrentItem = new Age();
-        }
-
-        private void CreateNewBossAction()
-        {
-            this.CurrentItem = new Boss();
-          
-        }
-        private void CreateNewLevelAction()
-        {
-            this.CurrentItem = new Level();
-
-        }
-
-
-
-
-      
         /// <summary>
         /// Добавить родителя уровня
         /// </summary>
@@ -552,13 +511,14 @@ namespace GameСreator.ViewModel
 
 
         public ICommand RermoveLevelToAge { get; }
-
+        public ICommand InventoryItems { get; }
         public ICommand AddLevelToAge { get; }
         public ICommand CreateNewLanguagePack { get; }
         /// <summary>
         /// Сохранить пакет
         /// </summary>
         public ICommand CreateNewLevel { get; }
+        public ICommand CreateNewInventoryItem { get; }
 
         public ICommand CreateNewAge { get; }
 
@@ -638,15 +598,15 @@ namespace GameСreator.ViewModel
                 // Save document
                 string filename = dlg.FileName;
                 this.Files.Add(new FilePackage(filename, true));
-            
+
 
             }
         }
-        
 
 
 
-     
+
+
 
 
         private void OpenPageOne(string NamePage, Action ac)
@@ -657,7 +617,7 @@ namespace GameСreator.ViewModel
         }
 
 
-   
+
         private void SavePackageAction()
         {
             this.Files.ForEach((file) => file.Save());
@@ -671,11 +631,11 @@ namespace GameСreator.ViewModel
         private void OpenPackageAction()
         {
 
-             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
             dlg.FileName = "Document"; // Default file name
             dlg.DefaultExt = ".ToePackage"; // Default file extension
             dlg.Filter = "ToePackage documents (*.ToePackage)|*.ToePackage"; // Filter files by extension
-
+            dlg.Multiselect = true;
             // Show save file dialog box
             Nullable<bool> result = dlg.ShowDialog();
 
@@ -683,16 +643,50 @@ namespace GameСreator.ViewModel
             if (result == true)
             {
                 // Save document
-                this.Files.Add(new FilePackage(dlg.FileName) );
+
+                for(int i = 0; i < dlg.FileNames.Length; i++)
+                {
+                    this.Files.Add(new FilePackage(dlg.FileNames[i]));
+                }
+           
 
             }
-          
+
         }
 
 
 
 
 
+        private void UpdateAll()
+        {
+            this.CurrentItem = null;
+
+
+            switch (this.CurrentPage)
+            {
+                case "QuestionsPage":
+                    this.UpdateAll(FileTypes.Question);
+                    break;
+
+                case "BossesPage":
+                    this.UpdateAll(FileTypes.Boss);
+                    break;
+                case "LevelPage":
+                    this.UpdateAll(FileTypes.Level);
+                    break;
+                case "LanguagePacksPage":
+                    this.UpdateAll(FileTypes.Language);
+                    break;
+                case "AgesPage":
+                    this.UpdateAll(FileTypes.Age);
+                    break;
+                case "InventoryItemPage":
+                    this.UpdateAll(FileTypes.InventoryItem);
+                    break;
+
+            }
+        }
 
         private void UpdateAll(FileTypes type)
         {
@@ -704,7 +698,7 @@ namespace GameСreator.ViewModel
         }
         private List<IBase> GetListOfType(FileTypes type)
         {
-          
+
 
 
             var items = new List<IBase>();
@@ -729,30 +723,36 @@ namespace GameСreator.ViewModel
         {
             if (this.CurrentItem == null)
                 return false;
-            var typevalue = this.CurrentItem.GetType();
-            if (typeof(ILevel).IsAssignableFrom(typevalue))
+            FileTypes type = ((TypeDataAttribute)this.CurrentItem.GetType().GetCustomAttributes(typeof(TypeDataAttribute), false)[0]).Type;
+            switch (type)
             {
-                return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null)) && ((ILevel)CurrentItem).Boss != null;
-            }
-            else if (typeof(IBoss).IsAssignableFrom(typevalue))
-            {
-                return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
-            }
-            else if (typeof(IQuestion).IsAssignableFrom(typevalue))
-            {
-                var currentQuestion = (QuestionSelectOne)CurrentItem;
-                return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null)) && currentQuestion.NumberAnswer > 1 && currentQuestion.RightAnswer > 0;
-                
+                case FileTypes.Level:
+                    return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null)) && ((ILevel)CurrentItem).Boss != null;
+
+
+                case FileTypes.Boss:
+                    return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
+
+                case FileTypes.Question:
+                    var currentQuestion = (QuestionSelectOne)CurrentItem;
+                    return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null)) && currentQuestion.NumberAnswer > 1 && currentQuestion.RightAnswer > 0;
+
+
+                case FileTypes.Language:
+                    return ((ILanguagePack)CurrentItem).Culture != null && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
+
+                case FileTypes.Age:
+                    return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
+
+                case FileTypes.InventoryItem:
+
+                    return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
+
 
             }
-          else  if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
-            {
-                return ((ILanguagePack)CurrentItem).Culture != null && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
-            }
-            else if (typeof(IAge).IsAssignableFrom(typevalue))
-            {
-                return CurrentItem.Name?.Length > 0 && (this.CurrentFileObject != null || (CurrentItem.ID == 0 && this.NewCurrentFileObject != null));
-            }
+
+
+ 
             return false;
         }
 
@@ -780,7 +780,7 @@ namespace GameСreator.ViewModel
 
             SavePac.ResourceFileData.Save(this.CurrentItem);
 
-            for(int i =0; i< this.LanguagesList.Count; i++)
+            for (int i = 0; i < this.LanguagesList.Count; i++)
             {
                 for (int j = 0; j < Files?.Count; j++)
                 {
@@ -789,44 +789,23 @@ namespace GameСreator.ViewModel
                         if (item.Value.ContainsKey(this.LanguagesList[i]))
                             Files[j].ResourceFileData.Save(this.LanguagesList[i]);
 
-              
+
                     }
                 }
-         
-           
-            }
 
-            CurrentItem = null;
-
-            switch (this.CurrentPage)
-            {
-                case "QuestionsPage":
-                    this.UpdateAll(FileTypes.Question);
-                    break;
-
-                case "BossesPage":
-                    this.UpdateAll(FileTypes.Boss);
-                    break;
-                case "LevelPage":
-                    this.UpdateAll(FileTypes.Level);
-                    break;
-                case "LanguagePacksPage":
-                    this.UpdateAll(FileTypes.Language);
-                    break;
-                case "AgesPage":
-                    this.UpdateAll(FileTypes.Age);
-                    break;
 
             }
+
+            UpdateAll();
 
         }
 
 
-        private bool CancelValueCanEx() => true;
+
 
         private void CancelValueAction()
         {
-            if (this.CurrentItem.ID >0)
+            if (this.CurrentItem.ID > 0)
             {
                 this.Files.ForEach((file) => file.ResourceFileData.ReLoad(this.CurrentItem));
                 this.CurrentItem = null;
@@ -847,29 +826,11 @@ namespace GameСreator.ViewModel
 
                 }
             }
-            this.CurrentItem = null;
 
-            switch(this.CurrentPage)
-            {
-                case "QuestionsPage":
-                    this.UpdateAll(FileTypes.Question);
-                    break;
+            UpdateAll();
 
-                case "BossesPage":
-                    this.UpdateAll(FileTypes.Boss);
-                    break;
-                case "LevelPage":
-                    this.UpdateAll(FileTypes.Level);
-                    break;
-                case "LanguagePacksPage":
-                    this.UpdateAll(FileTypes.Language);
-                    break;
-                case "AgesPage":
-                    this.UpdateAll(FileTypes.Age);
-                    break;
 
-            }
-          
+
         }
 
 
@@ -878,4 +839,5 @@ namespace GameСreator.ViewModel
 
 
     }
+
 }

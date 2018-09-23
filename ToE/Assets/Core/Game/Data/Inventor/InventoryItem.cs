@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Core.ToePac;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Inventor
 {
+    
+    [TypeDataAttribute(FileTypes.InventoryItem)]
+
     public class InventoryItem : IInventoryItem
     {
         private string _name;

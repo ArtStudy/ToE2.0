@@ -1,4 +1,5 @@
 ﻿
+using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Question
 {
+    [TypeDataAttribute(FileTypes.Question)]
     public class QuestionSelectOne : IQuestion
     {
          private string _name;
@@ -29,11 +31,11 @@ namespace Assets.Core.Game.Data.Question
         /// <summary>
         /// Правильный ответ
         /// </summary>
-        public int RightAnswer { get; set; } = 1;
+        public uint RightAnswer { get; set; } = 1;
         /// <summary>
         /// Колличесво ответов
         /// </summary>
-        public int NumberAnswer { get; set; } = 4;
+        public uint NumberAnswer { get; set; } = 4;
         /// <summary>
         /// Правильный ответ
         /// </summary>

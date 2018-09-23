@@ -3,7 +3,7 @@
     /// <summary>
     /// Тип вопроса
     /// </summary>
-    public enum TypeQuestionEnum
+    public enum TypeQuestionEnum : ulong
     {
         SelectOne = 2 
         

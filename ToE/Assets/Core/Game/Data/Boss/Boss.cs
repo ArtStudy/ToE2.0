@@ -1,4 +1,5 @@
 ﻿using Assets.Core.LevelsStructureInterfaces;
+using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Boss
 {
+    [TypeDataAttribute(FileTypes.Boss)]
     public class Boss : IBoss
     {
         private string _name;
 
-        public int Health { get; set; }
+        public uint Health { get; set; }
 
-        public int Damage { get; set; }
+        public uint Damage { get; set; }
 
         public UInt64 ID { get; set; }
         public string Name

@@ -25,10 +25,9 @@
             <RowDefinition Height="1*"/>
         </Grid.RowDefinitions>
         <TextBox Height="23" TextWrapping="Wrap" Text="{Binding  CurrentItem.ID, Converter={StaticResource UInt64ToStringConverter}}" IsReadOnly="True" VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
-        <TextBox Height="23" Margin="32.667,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.Name}"  VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
+        <TextBox Height="23" Margin="0,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.Name}"  VerticalAlignment="Top" Grid.ColumnSpan="2" Grid.Column="1"/>
         <Label Content="ID" VerticalAlignment="Top" Height="26"/>
         <Label Content="Name" Margin="0,28,0,0" VerticalAlignment="Top" Height="26"/>
-        <TextBlock Text="Level." HorizontalAlignment="Left" Margin="0,35,0,0" VerticalAlignment="Top" Width="29" Height="16" Grid.Column="1"/>
         <Label    Content="Questions" VerticalAlignment="Top" Height="26" Margin="0,144,0,0" Grid.RowSpan="2"/>
         <DataGrid ItemsSource="{Binding CurrentItem.Parents}" SelectedValue="{Binding CurrentParentLevel}" AutoGenerateColumns="False"  Grid.Row="3" Grid.ColumnSpan="3">
             <DataGrid.Columns>

@@ -1,7 +1,7 @@
 ﻿
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.LevelsStructureInterfaces;
-
+using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data.Cultures
 {
+    [TypeDataAttribute(FileTypes.Language)]
     public class LanguagePack : ILanguagePack
     {
         public CultureInfo Culture { get; set; }

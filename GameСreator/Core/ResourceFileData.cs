@@ -3,11 +3,12 @@ using Assets.Core.Game.Data;
 using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.Levels;
 using Assets.Core.LevelsStructureInterfaces;
-using Assets.Core.Serialization;
+
 using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,8 @@ namespace GameСreator.Core
             [FileTypes.Boss] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Question] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Language] = new Dictionary<IBase, ListResourse>(),
-             [FileTypes.Age] = new Dictionary<IBase, ListResourse>()
+            [FileTypes.Age] = new Dictionary<IBase, ListResourse>(),
+            [FileTypes.InventoryItem] = new Dictionary<IBase, ListResourse>()
         };
             
 
@@ -77,6 +79,11 @@ namespace GameСreator.Core
 
                         Data[pac.Items[i].FileType][Ageresult.Item1] = Ageresult.Item2;
                         break;
+                    case FileTypes.InventoryItem:
+                        var InventoryItemresult = ResourceConverter.ResourceToInventoryItem(pac.Items[i], pac.Items);
+
+                        Data[pac.Items[i].FileType][InventoryItemresult.Item1] = InventoryItemresult.Item2;
+                        break;
 
                 }
              
@@ -112,27 +119,7 @@ namespace GameСreator.Core
         {
 
             var typevalue = obj.GetType();
-            FileTypes type =  FileTypes.Unknown;
-            if (typeof(ILevel).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Level;
-            }
-            else if (typeof(IBoss).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Boss;
-            }
-            else if (typeof(IQuestion).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Question;
-            }
-            else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Language;
-            }
-            else if (typeof(IAge).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Age;
-            }
+            FileTypes type = ((TypeDataAttribute)obj.GetType().GetCustomAttributes(typeof(TypeDataAttribute), false)[0]).Type;
             if (this.Data[type].ContainsKey(obj))
             {
                 var baseobj = this.Data[type][obj].Find((item) => item.FileType == type);
@@ -168,6 +155,11 @@ namespace GameСreator.Core
                         var Ageresult = ResourceConverter.ResourceToAge(baseobj, lr);
                         Data[type][Ageresult.Item1] = Ageresult.Item2;
                         break;
+                    case FileTypes.InventoryItem:
+                        var InventoryItemresult = ResourceConverter.ResourceToInventoryItem(baseobj, lr);
+
+                        Data[type][InventoryItemresult.Item1] = InventoryItemresult.Item2;
+                        break;
                 }
             }
 
@@ -175,34 +167,38 @@ namespace GameСreator.Core
 
         public void Save(IBase obj)
         {
-            var typevalue = obj.GetType();
-            FileTypes type = FileTypes.Unknown;
+  
+            FileTypes type = ((TypeDataAttribute)obj.GetType().GetCustomAttributes(typeof(TypeDataAttribute), false)[0]).Type;
             ListResourse lr = null;
-            if (typeof(ILevel).IsAssignableFrom(typevalue))
+
+            switch (type)
             {
-                type = FileTypes.Level;
-                lr = ResourceConverter.LevelToResource((ILevel)obj);
+                case FileTypes.Level:
+
+                    lr = ResourceConverter.LevelToResource((ILevel)obj);
+                    break;
+                case FileTypes.Boss:
+                    lr = ResourceConverter.BossToResource((IBoss)obj);
+                    break;
+                case FileTypes.Question:
+
+                    lr = ResourceConverter.QuestionToResource((IQuestion)obj);
+
+                    break;
+                case FileTypes.Language:
+                    lr = ResourceConverter.LanguagePackToResource((ILanguagePack)obj);
+                    break;
+                case FileTypes.Age:
+
+                    lr = ResourceConverter.AgeToResource((IAge)obj);
+                    break;
+                case FileTypes.InventoryItem:
+
+                    lr = ResourceConverter.InventoryItemToResource((IInventoryItem)obj);
+                    break;
             }
-            else if (typeof(IBoss).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Boss;
-                lr = ResourceConverter.BossToResource((IBoss)obj);
-            }
-            else if (typeof(IQuestion).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Question;
-                lr = ResourceConverter.QuestionToResource((IQuestion)obj);
-            }
-            else if (typeof(ILanguagePack).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Language;
-                lr = ResourceConverter.LanguagePackToResource((ILanguagePack)obj);
-            }
-            else if (typeof(IAge).IsAssignableFrom(typevalue))
-            {
-                type = FileTypes.Age;
-                lr = ResourceConverter.AgeToResource((IAge)obj);
-            }
+
+
 
             Data[type][obj] = lr;
 

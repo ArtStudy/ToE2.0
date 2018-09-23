@@ -28,6 +28,7 @@
                 <MenuItem Command="{Binding  CreateNewAge}"  Header="Добавить Эру"/>
                 <MenuItem Command="{Binding   CreateNewLevel}"  Header="Добавить увровень"/>
                 <MenuItem Command="{Binding   CreateNewBoss}"  Header="Добавить боса"/>
+                <MenuItem Command="{Binding   CreateNewInventoryItem}"  Header="Добавить элемент инвентаря"/>
                 <MenuItem  Header="Добавить вопрос">
                     <MenuItem Command="{Binding   CreateNewQuestionSelectOne}"  Header="Добавить вопрос с одним вариантом ответа"/>
                 </MenuItem>
@@ -86,6 +87,15 @@
                         <WrapPanel>
                             <TextBlock Text="Уровни ("></TextBlock>
                             <TextBlock Text="{ Binding LevelsList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <MenuItem  Command="{Binding InventoryItems}">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Элементы инвентаря ("></TextBlock>
+                            <TextBlock Text="{ Binding InventoryItemList.Count}"></TextBlock>
                             <TextBlock Text=")"></TextBlock>
                         </WrapPanel>
                     </MenuItem.Header>

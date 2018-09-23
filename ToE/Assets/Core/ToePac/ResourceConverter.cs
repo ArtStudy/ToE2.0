@@ -13,7 +13,7 @@ using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.LevelsStructureInterfaces;
-using Assets.Core.Serialization;
+
 using Assets.Core.Volutes;
 
 namespace Assets.Core.ToePac {
@@ -39,13 +39,9 @@ namespace Assets.Core.ToePac {
         private const string StringNameAgeData = "Age.";
         private const string StringNameInventoryItemData = "InvIt.";
 
-        private static DataContractJsonSerializer SerializerLevel = new DataContractJsonSerializer (typeof (SerializableLevel));
-        private static DataContractJsonSerializer SerializerBoss = new DataContractJsonSerializer (typeof (SerializableBoss));
-        private static DataContractJsonSerializer SerializerQuestionBase = new DataContractJsonSerializer (typeof (SerializableQuestionBase));
-        private static DataContractJsonSerializer SerializerQuestionSelectOne = new DataContractJsonSerializer (typeof (SerializableQuestionSelectOne));
-        private static DataContractJsonSerializer SerializerLanguagePack = new DataContractJsonSerializer (typeof (SerializableLanguagePack));
-        private static DataContractJsonSerializer SerializerAge = new DataContractJsonSerializer (typeof (SerializableAge));
-    
+
+   
+
         /// <summary>
         /// Преобразование ресурса в объект типа уровень
         /// </summary>
@@ -55,77 +51,107 @@ namespace Assets.Core.ToePac {
         /// <param name="questions">Вопросы</param>
         /// <param name="levels">Уровни</param>
         /// <returns></returns>
-        public static Tuple<ILevel, ListResourse> ResourceToLevel (ResourceItem obj, ListResourse lr) {
-            Level level = new Level ();
-            obj.Data.Position = 0;
-            SerializableLevel slevel = (SerializableLevel) SerializerLevel.ReadObject (obj.Data);
+        public static Tuple<ILevel, ListResourse> ResourceToLevel(ResourceItem obj, ListResourse lr)
+        {
 
-            level.ID = obj.Identifier;
-            level.Name = slevel.Name.Replace (StringNameLevelData, "");
+                obj.Data.Position = 0;
+                Level result = new Level();
 
-            { //Обработка босса уровня
-                IBoss bosslevel = BossCashe.Find ((item) => item.ID == slevel.Boss);
-                if (bosslevel != null) {
-                    level.Boss = bosslevel;
-                } else {
-                    level.Boss = new Boss { ID = slevel.Boss };
-                    if (!bosslevelcashe.ContainsKey (slevel.Boss))
-                        bosslevelcashe[slevel.Boss] = new List<ILevel> ();
-                    bosslevelcashe[slevel.Boss].Add (level);
-                }
-            }
-
-            { //Обработка вопросов уровня
-                level.QuestionsLevel = new DataList<IQuestion> ();
-                for (int j = 0; j < slevel.QuestionsLevel?.Length; j++) {
-                    IQuestion qestionlevel = QuestionCashe.Find ((item) => item.ID == slevel.QuestionsLevel[j]);
-                    if (qestionlevel != null) {
-                        level.QuestionsLevel.Add (qestionlevel);
-                    } else {
-                        level.QuestionsLevel.Add (new QuestionSelectOne { ID = slevel.QuestionsLevel[j] });
-                        if (!questionlevelcashe.ContainsKey (slevel.QuestionsLevel[j]))
-                            questionlevelcashe[slevel.QuestionsLevel[j]] = new List<ILevel> ();
-                        questionlevelcashe[slevel.QuestionsLevel[j]].Add (level);
+                // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+                using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+                {
+                    result.Name = data.ReadString();
+                    result.ID = obj.Identifier;
+                    result.TranslationIdentifier = data.ReadString();
+               
+                    { //Обработка босса уровня
+                        var Isboss = data.ReadBoolean();
+                        if (Isboss)
+                        {
+                            var bossid = data.ReadUInt64();
+                            IBoss bosslevel = BossCashe.Find((item) => item.ID == bossid);
+                            if (bosslevel != null)
+                            {
+                                result.Boss = bosslevel;
+                            }
+                            else
+                            {
+                                result.Boss = new Boss { ID = bossid };
+                                if (!bosslevelcashe.ContainsKey(bossid))
+                                    bosslevelcashe[bossid] = new List<ILevel>();
+                                bosslevelcashe[bossid].Add(result);
+                            }
+                        }
                     }
-                }
-            }
-            //   
-            level.TranslationIdentifier = slevel.TranslationIdentifier;
-
-            level.Price = new Money (slevel.Price);
-            level.Remuneration = new Money (slevel.Remuneration);
-
-            { //Обработка родителей уровня 1
-                level.Parents = new DataList<ILevel> ();
-                for (int j = 0; j < slevel.Parents?.Length; j++) {
-                    ILevel levellevel = LevelCashe.Find ((item) => item.ID == slevel.Parents[j]);
-                    if (levellevel != null) {
-                        level.Parents.Add (levellevel);
-                    } else {
-                        level.Parents.Add (new Level { ID = slevel.Parents[j] });
-                        if (!levellevelcashe.ContainsKey (slevel.Parents[j]))
-                            levellevelcashe[slevel.Parents[j]] = new List<ILevel> ();
-                        levellevelcashe[slevel.Parents[j]].Add (level);
+                    { //Обработка вопросов уровня
+                        var questioncount = data.ReadInt32();
+                        result.QuestionsLevel = new DataList<IQuestion>();
+                        for (int j = 0; j < questioncount; j++)
+                        {
+                            var questionid = data.ReadUInt64();
+                            IQuestion qestionlevel = QuestionCashe.Find((item) => item.ID == questionid);
+                            if (qestionlevel != null)
+                            {
+                                result.QuestionsLevel.Add(qestionlevel);
+                            }
+                            else
+                            {
+                                result.QuestionsLevel.Add(new QuestionSelectOne { ID = questionid });
+                                if (!questionlevelcashe.ContainsKey(questionid))
+                                    questionlevelcashe[questionid] = new List<ILevel>();
+                                questionlevelcashe[questionid].Add(result);
+                            }
+                        }
                     }
-                }
-            }
+                    result.Price = new Money(data.ReadUInt32(), data.ReadUInt32());
+                    result.Remuneration = new Money(data.ReadUInt32(), data.ReadUInt32());
 
-            { //Обработка родителей уровня 2
-                if (levellevelcashe.ContainsKey (level.ID)) {
-                    for (int j = 0; j < levellevelcashe[level.ID].Count; j++) {
-                        levellevelcashe[level.ID][j].Parents.Add (level);
+                    { //Обработка родителей уровня 1
+                        result.Parents = new DataList<ILevel>();
+                        var parentcount = data.ReadInt32();
+                        for (int j = 0; j < parentcount; j++)
+                        {
+                            var parentid = data.ReadUInt64();
+                            ILevel levellevel = LevelCashe.Find((item) => item.ID == parentid);
+                            if (levellevel != null)
+                            {
+                                result.Parents.Add(levellevel);
+                            }
+                            else
+                            {
+                                result.Parents.Add(new Level { ID = parentid });
+                                if (!levellevelcashe.ContainsKey(parentid))
+                                    levellevelcashe[parentid] = new List<ILevel>();
+                                levellevelcashe[parentid].Add(result);
+                            }
+                        }
                     }
-                }
-            } { //Обработка эр
-                if (levelagecashe.ContainsKey (level.ID)) {
-                    for (int j = 0; j < levellevelcashe[level.ID].Count; j++) {
-                        levelagecashe[level.ID][j].Levels.Add (level);
+                    { //Обработка родителей уровня 2
+                        if (levellevelcashe.ContainsKey(result.ID))
+                        {
+                            for (int j = 0; j < levellevelcashe[result.ID].Count; j++)
+                            {
+                                levellevelcashe[result.ID][j].Parents.Add(result);
+                            }
+                        }
                     }
-                }
-            }
+                    { //Обработка эр
+                        if (levelagecashe.ContainsKey(result.ID))
+                        {
+                            for (int j = 0; j < levellevelcashe[result.ID].Count; j++)
+                            {
+                                levelagecashe[result.ID][j].Levels.Add(result);
+                            }
+                        }
+                    }
 
-            LevelCashe.Add (level);
-            return new Tuple<ILevel, ListResourse> (level, new ListResourse { obj });
+                }
+
+                LevelCashe.Add(result);
+                return new Tuple<ILevel, ListResourse>(result, new ListResourse { obj });
+
+      
+
         }
         /// <summary>
         /// Преобразование ресурса в объект типа босс
@@ -133,25 +159,31 @@ namespace Assets.Core.ToePac {
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
         /// <returns></returns>
-        public static Tuple<IBoss, ListResourse> ResourceToBoss (ResourceItem obj, ListResourse lr) {
-            Boss boss = new Boss ();
+        public static Tuple<IBoss, ListResourse> ResourceToBoss(ResourceItem obj, ListResourse lr)
+        {
+ 
+                obj.Data.Position = 0;
+                Boss result = new Boss();
 
-            obj.Data.Position = 0;
-
-            SerializableBoss sboss = (SerializableBoss) SerializerBoss.ReadObject (obj.Data);
-            boss.ID = obj.Identifier;
-            boss.Name = sboss.Name.Replace (StringNameBossData, "");
-            boss.Health = sboss.Health;
-            boss.Damage = sboss.Damage;
-            boss.TranslationIdentifier = sboss.TranslationIdentifier;
-            //
-            if (bosslevelcashe.ContainsKey (boss.ID)) {
-                for (int j = 0; j < bosslevelcashe[boss.ID].Count; j++) {
-                    bosslevelcashe[boss.ID][j].Boss = boss;
+                // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+                using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+                {
+                    result.Name = data.ReadString();
+                    result.ID = obj.Identifier;
+                    result.TranslationIdentifier = data.ReadString();
+                    result.Health = data.ReadUInt32();
+                    result.Damage = data.ReadUInt32();
                 }
-            }
-            BossCashe.Add (boss);
-            return new Tuple<IBoss, ListResourse> (boss, new ListResourse { obj });
+                if (bosslevelcashe.ContainsKey(result.ID))
+                {
+                    for (int j = 0; j < bosslevelcashe[result.ID].Count; j++)
+                    {
+                        bosslevelcashe[result.ID][j].Boss = result;
+                    }
+                }
+                BossCashe.Add(result);
+                return new Tuple<IBoss, ListResourse>(result, new ListResourse { obj });
+          
         }
         /// <summary>
         /// Преобразование ресурса в объект типа вопрос
@@ -159,29 +191,47 @@ namespace Assets.Core.ToePac {
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
         public static Tuple<IQuestion, ListResourse> ResourceToQuestion (ResourceItem obj, ListResourse lrp) {
-            obj.Data.Position = 0;
-            SerializableQuestionBase s1 = (SerializableQuestionBase) SerializerQuestionBase.ReadObject (obj.Data);
-            if (s1.TypeQuestion == TypeQuestionEnum.SelectOne) {
+
                 obj.Data.Position = 0;
-                SerializableQuestionSelectOne squestion = (SerializableQuestionSelectOne) SerializerQuestionSelectOne.ReadObject (obj.Data);
-                QuestionSelectOne question = new QuestionSelectOne ();
+                IQuestion result = null;
 
-                question.ID = obj.Identifier;
-                question.Name = squestion.Name.Replace (StringNameQuestionData, "");
-                question.NumberAnswer = squestion.NumberAnswer;
-                question.RightAnswer = squestion.RightAnswer;
-                question.TranslationIdentifier = squestion.TranslationIdentifier;
+                // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+                using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+                {
+                    String name  =  data.ReadString();
+                    String translationIdentifier = data.ReadString();
 
-                if (questionlevelcashe.ContainsKey (question.ID)) {
-                    for (int j = 0; j < questionlevelcashe[question.ID].Count; j++) {
-                        questionlevelcashe[question.ID][j].QuestionsLevel.Add (question);
+                    TypeQuestionEnum typeQuestion =(TypeQuestionEnum)data.ReadUInt64();
+                    if(typeQuestion == TypeQuestionEnum.SelectOne)
+                    {
+
+                        QuestionSelectOne qsoresult = new QuestionSelectOne();
+                        qsoresult.Name = name;
+                        qsoresult.ID = obj.Identifier;
+                        qsoresult.TranslationIdentifier = translationIdentifier;
+
+                        qsoresult.NumberAnswer = data.ReadUInt32();
+                        qsoresult.RightAnswer = data.ReadUInt32();
+                        result = qsoresult;
+
+                    }
+
+   
+
+
+                 
+                }
+                if (questionlevelcashe.ContainsKey(result.ID))
+                {
+                    for (int j = 0; j < questionlevelcashe[result.ID].Count; j++)
+                    {
+                        questionlevelcashe[result.ID][j].QuestionsLevel.Add(result);
                     }
                 }
-                QuestionCashe.Add (question);
-                return new Tuple<IQuestion, ListResourse> (question, new ListResourse { obj });
-            }
-
-            return null;
+                QuestionCashe.Add(result);
+                return new Tuple<IQuestion, ListResourse>(result, new ListResourse { obj });
+      
+          
         }
         /// <summary>
         /// Преобразование ресурса в объект типа языковой пакет
@@ -189,16 +239,28 @@ namespace Assets.Core.ToePac {
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
         public static Tuple<ILanguagePack, ListResourse> ResourceToLanguagePack (ResourceItem obj, ListResourse lr) {
-            obj.Data.Position = 0;
-            ILanguagePack language = new LanguagePack ();
 
-            SerializableLanguagePack s = (SerializableLanguagePack) SerializerLanguagePack.ReadObject (obj.Data);
-            language.Name = s.Name.Replace (StringNameLanguagePackData, "");
-            language.LanguageData = s.LanguageData;
+                obj.Data.Position = 0;
+                ILanguagePack result = new LanguagePack();
 
-            LanguagePackCashe.Add (language);
-            return new Tuple<ILanguagePack, ListResourse> (language, new ListResourse { obj });
+                // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+                using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+                {
+                    result.Name = data.ReadString();
+                    //result.ID = obj.Identifier;
+                  
+                    int ldatacount = data.ReadInt32();
+                    result.LanguageData = new LocalizationDictionary();
+                    for (int i = 0; i < ldatacount; i++)
+                    {
+                        result.LanguageData.Add(new LocalizationKeyValuePair(data.ReadString(), data.ReadString()));
+                    } 
+   
+                }
 
+                LanguagePackCashe.Add(result);
+                return new Tuple<ILanguagePack, ListResourse>(result, new ListResourse { obj });
+     
         }
         /// <summary>
         /// Преобразование ресурса в объект типа эра
@@ -206,52 +268,77 @@ namespace Assets.Core.ToePac {
         /// <param name="obj">Преобразуемый ресурс</param>
         /// <param name="lr">список всех ресурсов</param>
         public static Tuple<IAge, ListResourse> ResourceToAge (ResourceItem obj, ListResourse lr) {
-            obj.Data.Position = 0;
-            IAge result = new Age ();
+    
+                obj.Data.Position = 0;
 
-            SerializableAge s = (SerializableAge) SerializerAge.ReadObject (obj.Data);
-            result.ID = obj.Identifier;
-            result.Name = s.Name.Replace (StringNameAgeData, ""); { //Обработка уровней
-                result.Levels = new DataList<ILevel> ();
-                for (int j = 0; j < s.Levels?.Length; j++) {
-                    ILevel levelage = LevelCashe.Find ((item) => item.ID == s.Levels[j]);
-                    if (levelage != null) {
-                        result.Levels.Add (levelage);
-                    } else {
-                        result.Levels.Add (new Level { ID = s.Levels[j] });
-                        if (!levelagecashe.ContainsKey (s.Levels[j]))
-                            levelagecashe[s.Levels[j]] = new List<IAge> ();
-                        levelagecashe[s.Levels[j]].Add (result);
+                IAge result = new Age();
+
+                // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+                using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+                {
+                    result.Name = data.ReadString();
+                    result.ID = obj.Identifier;
+                    result.TranslationIdentifier = data.ReadString();
+
+                    { //Обработка уровней
+                        int levelcount = data.ReadInt32();
+                        result.Levels = new DataList<ILevel>();
+                        for (int j = 0; j < levelcount; j++)
+                        {
+                            var levelid = data.ReadUInt64();
+                            ILevel levelage = LevelCashe.Find((item) => item.ID == levelid);
+                            if (levelage != null)
+                            {
+                                result.Levels.Add(levelage);
+                            }
+                            else
+                            {
+                                result.Levels.Add(new Level { ID = levelid });
+                                if (!levelagecashe.ContainsKey(levelid))
+                                    levelagecashe[levelid] = new List<IAge>();
+                                levelagecashe[levelid].Add(result);
+                            }
+                        }
+
+
+
                     }
-                }
-            }
 
-            { //Обработка родителя эры 1 
-                if (s.Parent != 0) {
-                    IAge AgeAge = AgeCashe.Find ((item) => (ulong) item.ID == s.Parent);
-                    if (AgeAge != null) {
-                        result.Parent = AgeAge;
-                    } else {
-                        result.Parent = new Age { ID = s.Parent };
-                        if (!ageagecashe.ContainsKey (s.Parent))
-                            ageagecashe[s.Parent] = new List<IAge> ();
-                        ageagecashe[s.Parent].Add (result);
+                    { //Обработка родителя эры 1 
+                        var Isparent = data.ReadBoolean();
+                        if (Isparent)
+                        {
+                            var parentid = data.ReadUInt64();
+                            IAge AgeAge = AgeCashe.Find((item) => item.ID == parentid);
+                            if (AgeAge != null)
+                            {
+                                result.Parent = AgeAge;
+                            }
+                            else
+                            {
+                                result.Parent = new Age { ID = parentid };
+                                if (!ageagecashe.ContainsKey(parentid))
+                                    ageagecashe[parentid] = new List<IAge>();
+                                ageagecashe[parentid].Add(result);
+                            }
+                        } 
                     }
-                }
-            }
+                    result.Price = new Money(data.ReadUInt32(), data.ReadUInt32());
 
-            result.Price = new Money (s.Price);
-
-            { //Обработка родителя эры 2
-                if (ageagecashe.ContainsKey ((ulong) result.ID)) {
-                    for (int j = 0; j < levellevelcashe[(ulong) result.ID].Count; j++) {
-                        ageagecashe[(ulong) result.ID][j].Parent = result;
+                    { //Обработка родителя эры 2
+                        if (ageagecashe.ContainsKey((ulong)result.ID))
+                        {
+                            for (int j = 0; j < levellevelcashe[(ulong)result.ID].Count; j++)
+                            {
+                                ageagecashe[(ulong)result.ID][j].Parent = result;
+                            }
+                        }
                     }
+                   
                 }
-            }
-
-            AgeCashe.Add (result);
-            return new Tuple<IAge, ListResourse> (result, new ListResourse { obj });
+                AgeCashe.Add(result);
+                return new Tuple<IAge, ListResourse>(result, new ListResourse { obj });
+          
 
         }
         /// <summary>
@@ -262,15 +349,20 @@ namespace Assets.Core.ToePac {
         public static Tuple<IInventoryItem, ListResourse> ResourceToInventoryItem(ResourceItem obj, ListResourse lr)
         {
             obj.Data.Position = 0;
-            InventoryItem result = new InventoryItem();
+            IInventoryItem result = new InventoryItem();
 
-            SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+            // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+            using (var data = new BinaryReader(obj.Data))
+            {
+                result.Name = data.ReadString();
+                result.ID = obj.Identifier;
+                result.TranslationIdentifier = data.ReadString();
+                result.ImproveResponseTime = new Enhancements ();
+                result.ImproveResponseTime.TypeEnhancement = (TypeEnhancements)data.ReadUInt64();
+                result.ImproveResponseTime.Value = data.ReadDouble();
+                result.ImprovingHealth = new Enhancements { TypeEnhancement = (TypeEnhancements)data.ReadUInt64(), Value = data.ReadDouble() };
 
-
-            result.ID = obj.Identifier;
-            s.ToObject(ref result);
-
-
+            }
 
             InventoryItemCashe.Add(result);
             return new Tuple<IInventoryItem, ListResourse>(result, new ListResourse { obj });
@@ -282,18 +374,43 @@ namespace Assets.Core.ToePac {
         /// <param name="level">Объект уровня</param>
         /// <returns>Массив русурсов</returns>
         public static ListResourse LevelToResource (ILevel level) {
-            SerializableLevel sLevel = new SerializableLevel ();
-            sLevel.Name = StringNameLevelData + level.Name;
-            sLevel.Parents = level.Parents.ConvertAll ((parent) => parent.ID).ToArray ();
-            sLevel.Boss = level.Boss.ID;
-            sLevel.QuestionsLevel = level.QuestionsLevel.ConvertAll ((question) => question.ID).ToArray ();
-            sLevel.TranslationIdentifier = level.TranslationIdentifier;
-            sLevel.Price = level.Price.ToArray ();
-            sLevel.Remuneration = level.Remuneration.ToArray ();
 
-            var resourse = CreateItem (level.ID, sLevel, FileTypes.Level, SerializerLevel);
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(level.Name); //Поле Name
+                    data.Write(level.TranslationIdentifier); //Идентификатор перевода
+                    var isboss = level.Boss != null;
+                    data.Write(isboss);
+                    if(isboss)
+                    data.Write(level.Boss.ID);
+                    data.Write(level.QuestionsLevel.Count); 
+                    for(int i = 0; i < level.QuestionsLevel.Count; i++ )
+                    {
+                        data.Write(level.QuestionsLevel[i].ID);
+                    }
+                    data.Write(level.Price.Gold);
+                    data.Write(level.Price.Brains);
+                    data.Write(level.Remuneration.Gold);
+                    data.Write(level.Remuneration.Brains);
+                    data.Write(level.Parents.Count);
+                    for (int i = 0; i < level.Parents.Count; i++)
+                    {
+                        data.Write(level.Parents[i].ID);
+                    }
+
+                }
+                resourse = CreateItem(level.ID, StringNameLevelData + level.Name, FileTypes.Level, ms);
+            }
 
             return new ListResourse { resourse };
+
+
+
+
+
         }
         /// <summary>
         /// Преобразует IBoss в масив ресуров
@@ -301,13 +418,20 @@ namespace Assets.Core.ToePac {
         /// <param name="boss">Объект босса</param>
         /// <returns>Массив русурсов</returns>
         public static ListResourse BossToResource (IBoss boss) {
-            SerializableBoss sBoss = new SerializableBoss ();
-            sBoss.Name = StringNameBossData + boss.Name;
-            sBoss.Damage = boss.Damage;
-            sBoss.Health = boss.Health;
-            sBoss.TranslationIdentifier = boss.TranslationIdentifier;
-
-            var resourse = CreateItem (boss.ID, sBoss, FileTypes.Boss, SerializerBoss);
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(boss.Name); //Поле Name
+                    data.Write(boss.TranslationIdentifier); //Идентификатор перевода
+                   
+                    data.Write(boss.Health);
+                    data.Write(boss.Damage);
+ 
+                }
+                resourse = CreateItem(boss.ID, StringNameBossData + boss.Name, FileTypes.Boss, ms);
+            }
 
             return new ListResourse { resourse };
         }
@@ -316,25 +440,31 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="questionbase">Объект вопроса</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse QuestionToResource (IQuestion questionbase) {
-
+        public static ListResourse QuestionToResource(IQuestion questionbase) {
             ResourceItem resourse = null;
-            switch (questionbase.TypeQuestion) {
-                case TypeQuestionEnum.SelectOne:
-                    QuestionSelectOne questionSelectOne = (QuestionSelectOne) questionbase;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(questionbase.Name); //Поле Name
+                    data.Write(questionbase.TranslationIdentifier); //Идентификатор перевода
+                    data.Write((ulong)questionbase.TypeQuestion);
+                    switch (questionbase.TypeQuestion)
+                    {
+                        case TypeQuestionEnum.SelectOne:
+                            QuestionSelectOne questionSelectOne = (QuestionSelectOne)questionbase;
+                            data.Write(questionSelectOne.NumberAnswer);
+                            data.Write(questionSelectOne.RightAnswer);
+                            break;
+                    }
 
-                    SerializableQuestionSelectOne sQuestionSelectOne = new SerializableQuestionSelectOne ();;
-                    sQuestionSelectOne.Name = StringNameQuestionData + questionSelectOne.Name;
-                    sQuestionSelectOne.NumberAnswer = questionSelectOne.NumberAnswer;
-                    sQuestionSelectOne.RightAnswer = questionSelectOne.RightAnswer;
-                    sQuestionSelectOne.TranslationIdentifier = questionSelectOne.TranslationIdentifier;
-                    sQuestionSelectOne.TypeQuestion = questionSelectOne.TypeQuestion;
-
-                    resourse = CreateItem (questionbase.ID, sQuestionSelectOne, FileTypes.Question, SerializerQuestionSelectOne);
-                    break;
-            }
+                }
+            resourse = CreateItem(questionbase.ID, StringNameQuestionData + questionbase.Name, FileTypes.Question, ms);
+        }
 
             return new ListResourse { resourse };
+
+
         }
         /// <summary>
         /// Преобразует ILanguagePack в масив ресуров
@@ -343,13 +473,24 @@ namespace Assets.Core.ToePac {
         /// <returns>Массив русурсов</returns>
         public static ListResourse LanguagePackToResource (ILanguagePack languagePack) {
 
-            SerializableLanguagePack sLanguagePack = new SerializableLanguagePack ();
-            sLanguagePack.Name = StringNameLanguagePackData + languagePack.Name;
-            sLanguagePack.LanguageData = languagePack.LanguageData;
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(languagePack.Name); //Поле Name
+   
+                  
+                    data.Write(languagePack.LanguageData.Count);
+                    languagePack.LanguageData.ForEach((item) => { data.Write(item.Key ?? string.Empty); data.Write(item.Value ?? string.Empty); });
 
-            var resourse = CreateItem (languagePack.ID, sLanguagePack, FileTypes.Language, SerializerLanguagePack);
+                }
+                resourse = CreateItem(languagePack.ID, StringNameLanguagePackData + languagePack.Name, FileTypes.Language, ms);
+            }
 
             return new ListResourse { resourse };
+
+        
         }
         /// <summary>
         /// Преобразует IAge в масив ресуров
@@ -358,16 +499,30 @@ namespace Assets.Core.ToePac {
         /// <returns>Массив русурсов</returns>
         public static ListResourse AgeToResource (IAge age) {
 
-            SerializableAge s = new SerializableAge ();
-            s.Name = StringNameAgeData + age.Name;
-            s.Levels = age.Levels.ConvertAll ((parent) => parent.ID).ToArray ();
-            s.Parent = (ulong) age.Parent.ID;
-            s.Price = age.Price.ToArray ();
-            s.TranslationIdentifier = age.TranslationIdentifier;
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(age.Name); //Поле Name
+                    data.Write(age.TranslationIdentifier); //Идентификатор перевода
 
-            var resourse = CreateItem ((ulong) age.ID, s, FileTypes.Age, SerializerAge);
+                    data.Write(age.Levels.Count);
+                    age.Levels.ForEach((item) => data.Write(item.ID));
+                    var isparent = age.Parent != null;
+                    data.Write(isparent);
+                    if(isparent)
+                        data.Write(age.Parent.ID);
+                    data.Write(age.Price.Gold);
+                    data.Write(age.Price.Brains);
+
+                }
+                resourse = CreateItem(age.ID, StringNameAgeData + age.Name, FileTypes.Age, ms);
+            }
 
             return new ListResourse { resourse };
+
+        
         }
         /// <summary>
         /// Преобразует IInventoryItem в масив ресуров
@@ -377,33 +532,27 @@ namespace Assets.Core.ToePac {
         public static ListResourse InventoryItemToResource(IInventoryItem inventoryItem)
         {
 
-            SerializableInventoryItem s = new SerializableInventoryItem((InventoryItem)inventoryItem);
+          
 
             ResourceItem resourse = null;
-            using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream ms  = new MemoryStream())
             {
-                resourse = CreateItem(inventoryItem.ID, StringNameInventoryItemData + s.Name, FileTypes.InventoryItem, ms);
-            }
+                using (var data = new BinaryWriter(ms))
+                {
+                    data.Write(inventoryItem.Name); //Поле Name
+                    data.Write(inventoryItem.TranslationIdentifier); //Идентификатор перевода
 
+                    data.Write((ulong)inventoryItem.ImproveResponseTime.TypeEnhancement); //Поле типа улучшения для времени
+                    data.Write(inventoryItem.ImproveResponseTime.Value); //Поле значения улучшения для времени
+                    data.Write((ulong)inventoryItem.ImprovingHealth.TypeEnhancement); //Поле типа улучшения для здоровья
+                    data.Write(inventoryItem.ImprovingHealth.Value); //Поле значения улучшения для здоровья
+                }
+                resourse = CreateItem(inventoryItem.ID, StringNameInventoryItemData + inventoryItem.Name, FileTypes.InventoryItem, ms);
+            }
+     
             return new ListResourse { resourse };
         }
-        private static ResourceItem CreateItem (ulong ID, SerializableBase data, FileTypes type, DataContractJsonSerializer serializer) {
-            if (ID == 0)
-                throw new Exception ("ID = 0");
-
-            MemoryStream ms = new MemoryStream ();
-
-            serializer.WriteObject (ms, data);
-
-            ResourceItem item = new ResourceItem ();
-            item.FileType = type;
-            item.Identifier = ID;
-            item.Name = "Json." + data.Name;
-            item.Version = 1;
-            item.Data = new MemoryStream (ms.ToArray ());
-            return item;
-
-        }
+       
         private static ResourceItem CreateItem(ulong ID, string name, FileTypes type, MemoryStream ms)
         {
             if (ID == 0)

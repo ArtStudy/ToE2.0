@@ -48,7 +48,7 @@ namespace GameСreator.Core
             this.nameToValueMap = this.valueToNameMap
               .ToDictionary(kvp => kvp.Value, kvp => kvp.Key);
             Clear();
-            foreach (String name in this.nameToValueMap.Keys)
+            foreach (String name in this.nameToValueMap.Values)
                 Add(name);
         }
 

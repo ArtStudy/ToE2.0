@@ -11,21 +11,21 @@ namespace Assets.Core.Game.Data.Inventor
         /// <summary>
         /// Тип улучшения
         /// </summary>
-        public TypeEnhancements TypeEnhancements { get; set; }
+        public TypeEnhancements TypeEnhancement { get; set; }
         /// <summary>
         /// Значение
         /// </summary>
         public double Value { get; set; }
     }
-    public enum TypeEnhancements : byte
+    public enum TypeEnhancements : ulong
     {
         /// <summary>
         /// Добавочный тип
         /// </summary>
-        Additional,
+        Additional = 2,
         /// <summary>
         /// Умножение
         /// </summary>
-        Multiplier
+        Multiplier = 4
     }
 }

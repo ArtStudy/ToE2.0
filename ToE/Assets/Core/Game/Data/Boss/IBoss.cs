@@ -13,11 +13,11 @@ namespace Assets.Core.Game.Data.Boss
         /// <summary>
         /// Здоровье
         /// </summary>
-        int Health { get; }
+        uint Health { get; }
         /// <summary>
         /// Урон
         /// </summary>
-        int Damage { get; }
+        uint Damage { get; }
     }
 
     public enum BossTypeEnum

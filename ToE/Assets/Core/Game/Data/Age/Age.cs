@@ -4,9 +4,12 @@ using System.ComponentModel;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Sorting;
 using Assets.Core.Levels;
+using Assets.Core.ToePac;
 using Assets.Core.Volutes;
 
 namespace Assets.Core.Game.Data.Age {
+
+    [TypeDataAttribute(FileTypes.Age)]
     public class Age : IAge {
 
         private string _name;
