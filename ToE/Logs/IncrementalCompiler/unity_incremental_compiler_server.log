@@ -1,2 +1,6 @@
  (0,0): Unity incremental compiler server
+<<<<<<< Updated upstream
  (0,0): watchdog active on pid: 4848
+=======
+ (0,0): watchdog active on pid: 14194
+>>>>>>> Stashed changes

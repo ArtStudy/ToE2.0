@@ -6,15 +6,12 @@ using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Core.Game.Ages_and_Graphs
-{
-    static class WayDrawer
-    {
-        public static void DrawWay(WayObj way)
-            {
-            LineRenderer lineRenderer = way.GetComponent<LineRenderer>();
-            lineRenderer.positionCount = ArcCalculator.countOfPoints;
-            lineRenderer.SetPositions(ArcCalculator.ArcPointsCalculation(way.ParentLevel.transform.position, way.ChildLevel.transform.position));            
-            }
+namespace Assets.Core.Game.Ages_and_Graphs {
+    static class WayDrawer {
+        public static void DrawWay (WayObj way) {
+            LineRenderer lineRenderer = way.GetComponent<LineRenderer> ();
+            lineRenderer.positionCount = 2;
+            lineRenderer.SetPositions (new Vector3[2] { way.parentPos, way.childPos });
+        }
     }
 }
