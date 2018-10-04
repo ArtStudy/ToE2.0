@@ -2,6 +2,7 @@
 using Assets.Core.Game.Data.Age;
 using Assets.Core.Game.Data.Boss;
 using Assets.Core.Game.Data.Cultures;
+using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
 using Assets.Core.Game.Data.User;
@@ -43,6 +44,7 @@ namespace Assets.Core.Game.Data
         public List<IBoss> Bosses { get; } = new List<IBoss>();
         public List<IQuestion> Questions { get; } = new List<IQuestion>();
         public List<IAge> Ages { get; } = new List<IAge>();
+        public List<IInventoryItem> IInventoryItems { get; } = new List<IInventoryItem>();
 
         public IUser User { get; set; } = new User.User();
 
@@ -78,7 +80,10 @@ namespace Assets.Core.Game.Data
                         Ages.Add(ResourceConverter.ResourceToAge(items[i], items).Item1);
 
                         break;
+                    case FileTypes.InventoryItem:
+                        IInventoryItems.Add(ResourceConverter.ResourceToInventoryItem(items[i], items).Item1);
 
+                        break;
                 }
 
 

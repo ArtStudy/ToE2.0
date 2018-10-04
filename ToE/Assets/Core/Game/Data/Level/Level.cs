@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 namespace Assets.Core.Game.Data.Level
 {
     [TypeDataAttribute(FileTypes.Level)]
-    public class Level : ILevel
+    public class Level : ILevel, ISaveData
     {
         private string _name;
 

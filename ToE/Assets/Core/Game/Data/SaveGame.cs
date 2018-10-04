@@ -1,4 +1,5 @@
-﻿using Assets.Core.Game.Data.User;
+﻿using Assets.Core.Game.Data.Level;
+using Assets.Core.Game.Data.User;
 using Assets.Core.ToePac;
 using System;
 using System.Collections.Generic;
@@ -15,11 +16,15 @@ namespace Assets.Core.Game.Data
     public class SaveGame
     {
         public const UInt64 IDUserData = 0x0001;
+        public const UInt64 IDLevelData = 0x0002;
         static string path = Path.Combine(Application.persistentDataPath, "save.ToePackage");
+        public static SaveLevelData SaveLevelData { get; }
+
         static ToePackage TPSaves;
+
         static SaveGame()
         {
-            if(File.Exists(path))
+            if (File.Exists(path))
             {
                 using (var fs = new FileStream(path, FileMode.Open))
                 {
@@ -30,8 +35,27 @@ namespace Assets.Core.Game.Data
             {
                 TPSaves = new ToePackage();
             }
-           
-               
+
+            SaveLevelData = new SaveLevelData();
+            var levelitem = TPSaves.Items.GetResourceByTypeAndIdentifier(FileTypes.SaveData, IDLevelData);
+            if (levelitem != null)
+            {
+                using (var data = new BinaryReader(levelitem.Data))
+                {
+                    var stateLevelSavecount = data.ReadInt32();
+                    SaveLevelData.StateLevel.Clear();
+
+                    for (int i = 0; i < stateLevelSavecount; i++)
+                    {
+                        SaveLevelData.StateLevel.Add(data.ReadUInt64(), (StateLevel)data.ReadUInt64());
+                    }
+
+
+                }
+
+            }
+
+
 
         }
         public static T GetValue<T>(IBase obj, T defaultvalue, [CallerMemberName] string name = "")

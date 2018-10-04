@@ -55,7 +55,7 @@ namespace Assets.Core.Game.Data.Level
   
 
     }
-    public enum StateLevel
+    public enum StateLevel : UInt64
     {
         /// <summary>
         /// Незоступен
