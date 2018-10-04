@@ -52,6 +52,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 878668b8169d8ff42b76925f4e0b39a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentPos: {x: 0, y: 0, z: 0}
+  childPos: {x: 0, y: 0, z: 0}
 --- !u!120 &120490380080351162
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -110,8 +112,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 0.9470444}
-      key1: {r: 0, g: 0, b: 0, a: 0.9470444}
+      key0: {r: 0.039159846, g: 0.21541095, b: 0.754717, a: 0.9470444}
+      key1: {r: 0.7529412, g: 0.10100596, b: 0.039215673, a: 0.9470444}
       key2: {r: 1, g: 1, b: 1, a: 1}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
