@@ -1,2 +1,7 @@
  (0,0): Unity incremental compiler server
+<<<<<<< HEAD
  (0,0): watchdog active on pid: 14100
+=======
+ (0,0): watchdog active on pid: 4753
+ (0,0): watchdog triggered an exit
+>>>>>>> d25cca021d585087fab35f09ff428ee989fd02fb

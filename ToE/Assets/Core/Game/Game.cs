@@ -10,24 +10,23 @@ using UnityEngine;
 
 public class Game : MonoBehaviour {
 
-    public List<GameObject> Ages;
+    public GameObject AgePrefab;
 
     public GameObject camera;
     void Awake () {
-        LoadGUI ();
+        //LoadGUI ();
     }
     void Start () {
         LoadAges ();
     }
 
-    void Update () {
-        for (int i = 0; i < Ages.Count; i++)
-            MenuAnimations.Rotation (Ages[i]);
-    }
+    void Update () { }
 
     void LoadAges () {
-        for (int i = 0; i < Ages.Count; i++) {
-            Ages[i] = Instantiate (Ages[i]);
+        var ages = GameData.Default.Ages;
+        for (int i = 0; i < ages.Count - 1; i++) { //Только 1 эра спавнится
+            GameObject age = Instantiate (AgePrefab);
+            age.name = ages[i].Name;
 
         }
     }

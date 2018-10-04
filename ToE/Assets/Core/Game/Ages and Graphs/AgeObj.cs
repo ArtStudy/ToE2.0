@@ -16,17 +16,16 @@ public class AgeObj : MonoBehaviour {
     public GameObject LevelPrefab;
     public GameObject WayPrefab;
     private Save save;
-    public List<GameObject> Levels = new List<GameObject> ();
-    private List<LevelObj> LevelsObj = new List<LevelObj> ();
+    public Dictionary<int, GameObject> Levels = new Dictionary<int, GameObject> ();
     private List<GameObject> Ways = new List<GameObject> ();
 
     void Awake () {
         Age = new Age ();
+        Age.FillGrid (GameData.Default.Levels);
     }
 
     void Start () {
-        CreateWeb ();
-        WebDrawer.ResizeAge (this);
+
         LoadLevels ();
     }
 
@@ -35,52 +34,32 @@ public class AgeObj : MonoBehaviour {
     }
 
     void LoadLevels () {
-        var levels = GameData.Default.Levels;
-        for (int i = 0; i < levels.Count; i++) {
-            GameObject level = Instantiate (LevelPrefab);
-            level.name = levels[i].Name;
-            level.transform.parent = this.transform;
+        for (int i = 0; i < Age.levelsGrid.levels.Count; i++) {
+            GameObject level = Instantiate (LevelPrefab, FindLevelPos (i), Quaternion.identity, this.transform);
+            level.name = Age.levelsGrid.levels[i].Name;
             LevelObj levelObj = level.GetComponent<LevelObj> ();
-            levelObj.level = levels[i];
-            LevelsObj.Add (levelObj);
-            WebDrawer.DrawLevel (level, this);
-            Levels.Add (level);
+            levelObj.level = Age.levelsGrid.levels[i];
+            Levels.Add (i, level);
         }
-        for (int i = 0; i < LevelsObj.Count; i++) {
-            LevelObj levelObj = LevelsObj[i];
-            for (int j = 0; j < levelObj.level.Parents.Count; j++) {
+
+        for (int i = 0; i < Age.levelsGrid.levels.Count; i++) {
+            for (int j = 0; j < Age.levelsGrid.levels[i].Parents.Count; j++) {
                 GameObject way = Instantiate (WayPrefab);
                 way.transform.parent = this.transform;
                 WayObj wayobj = way.GetComponent<WayObj> ();
-                wayobj.ParentLevel = LevelsObj.Find ((item) => item.GetComponent<LevelObj> ().level == levelObj.level.Parents[j]);
-                wayobj.name = wayobj.ParentLevel.level.Name + " - " + levelObj.level.Name;
-                wayobj.ChildLevel = levelObj;
+                wayobj.childPos = Levels[i].transform.position;
+                for (int k = 0; k < Levels.Count; k++) {
+                    if (Levels[k].GetComponent<LevelObj> ().level == Levels[i].GetComponent<LevelObj> ().level.Parents[j])
+                        wayobj.parentPos = Levels[k].transform.position;
+                }
                 Ways.Add (way);
             }
         }
     }
 
-    void TestWay () {
-        Ways[0] = Instantiate (Ways[0]);
-        Ways[0].transform.parent = this.transform;
-        WayObj way = Ways[0].GetComponent<WayObj> ();
-        way.ParentLevel = Levels[0].GetComponent<LevelObj> ();
-        way.ChildLevel = Levels[1].GetComponent<LevelObj> ();
-        WayObj testWay = Ways[0].GetComponent<WayObj> ();
-    }
+    Vector3 FindLevelPos (int i) {
 
-    void CreateWeb () {
-        Age.Web = new Web ();
-        var levels = GameData.Default.Levels;
-        for (int i = 0; i < levels.Count; i++) {
-
-            //Кодом ниже я тестировал рабосу сохранений для файлов данных, пожалуйста не убирай
-            /*   Debug.Log("1: "  + levels[i].StateLevel.ToString());
-               levels[i].StateLevel = Assets.Core.Game.Data.Level.StateLevel.Boss;
-               Debug.Log("2: " + levels[i].StateLevel.ToString());   
-               */
-            Age.Web.AddLevel (levels[i]);
-        }
-        Age.Web.SortWeb ();
+        Vector3 pos = Age.levelsGrid.levelsPositions[i] * LevelPrefab.transform.localScale.x;
+        return pos;
     }
 }

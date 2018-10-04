@@ -13,6 +13,7 @@ namespace Assets.Core.Game.Data.Age {
     public class Age : IAge {
 
         private string _name;
+
         public Money Price { get; set; } = new Money (0, 0);
 
         public bool Availability { get; set; }
@@ -31,9 +32,17 @@ namespace Assets.Core.Game.Data.Age {
         public string TranslationIdentifier { get; set; }
 
         public string[] BasicLocalizationFields => new string[] { "Name", "Description" };
-        public Web Web { get; set; }
+        //public Web Web { get; set; }
 
         public IAge Parent { get; set; }
+
+        public LevelsGrid levelsGrid { get; set; } = new LevelsGrid ();
+
+        public void FillGrid (List<ILevel> levels) {
+            foreach (var level in levels) {
+                levelsGrid.AddLevel (level);
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

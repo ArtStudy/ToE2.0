@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Core;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
+using Assets.Core.Game.Sorting;
 using Assets.Core.Levels;
 using Assets.Core.Volutes;
 
@@ -38,10 +39,7 @@ namespace Assets.Core.Game.Data.Age {
         /// </summary>
         IAge Parent { get; set; }
 
-        /// <summary>
-        /// Сетка уровней
-        /// </summary>
-        Web Web { get; set; }
+        LevelsGrid levelsGrid { get; set; }
 
     }
 }
