@@ -33,30 +33,17 @@ namespace Assets.Core.Game.Data {
             }
             Default = new GameData (lr);
         }
-<<<<<<< HEAD
+
         public List<ILanguagePack> LanguagePacks { get; } = new List<ILanguagePack>();
         public List<ILevel> Levels { get; } = new List<ILevel>();
         public List<IBoss> Bosses { get; } = new List<IBoss>();
         public List<IQuestion> Questions { get; } = new List<IQuestion>();
         public List<IAge> Ages { get; } = new List<IAge>();
-        public List<IInventoryItem> IInventoryItems { get; } = new List<IInventoryItem>();
+        public List<IInventoryItem> InventoryItems { get; } = new List<IInventoryItem>();
 
         public IUser User { get; set; } = new User.User();
 
-        public GameData(ListResourse items)
-        {
-            for (int i = 0; i < items.Count; i++)
-            {
-                items[i].Data.Position = 0;
-=======
-        public List<ILanguagePack> LanguagePacks { get; } = new List<ILanguagePack> ();
-        public List<ILevel> Levels { get; } = new List<ILevel> ();
-        public List<IBoss> Bosses { get; } = new List<IBoss> ();
-        public List<IQuestion> Questions { get; } = new List<IQuestion> ();
-        public List<IAge> Ages { get; } = new List<IAge> ();
->>>>>>> d25cca021d585087fab35f09ff428ee989fd02fb
 
-        public IUser User { get; set; } = new User.User ();
 
         public GameData (ListResourse items) {
             for (int i = 0; i < items.Count; i++) {
@@ -85,7 +72,7 @@ namespace Assets.Core.Game.Data {
 
                         break;
                     case FileTypes.InventoryItem:
-                        IInventoryItems.Add(ResourceConverter.ResourceToInventoryItem(items[i], items).Item1);
+                        InventoryItems.Add(ResourceConverter.ResourceToInventoryItem(items[i], items).Item1);
 
                         break;
                 }

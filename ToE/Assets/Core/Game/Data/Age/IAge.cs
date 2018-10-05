@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Collections.Generic;
+
 using Assets.Core;
 using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Level;
@@ -11,15 +11,9 @@ namespace Assets.Core.Game.Data.Age {
     /// <summary>
     /// Интерфейс Эры
     /// </summary>
-    public interface IAge : IBase, IMulticulturalData {
-        /// <summary>
-        /// Имя Эры
-        /// </summary>
-        string Name { get; set; }
-        /// <summary>
-        /// Номер Эры
-        /// </summary>      
-        ulong ID { get; set; }
+    public interface IAge : IBase, IMulticulturalData
+    {
+       
         /// <summary>
         /// Цена перехода в Эру
         /// </summary>

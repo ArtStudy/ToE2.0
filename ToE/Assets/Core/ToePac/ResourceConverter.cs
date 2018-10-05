@@ -17,7 +17,7 @@ using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.Volutes;
 
 namespace Assets.Core.ToePac {
-    public class ResourceConverter {
+    public partial class ResourceConverter {
 
         private static List<ILevel> LevelCashe = new List<ILevel> ();
         private static List<IBoss> BossCashe = new List<IBoss> ();
@@ -352,7 +352,7 @@ namespace Assets.Core.ToePac {
             IInventoryItem result = new InventoryItem();
 
             // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
-            using (var data = new BinaryReader(obj.Data))
+            using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
             {
                 result.Name = data.ReadString();
                 result.ID = obj.Identifier;
@@ -378,7 +378,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(level.Name); //Поле Name
                     data.Write(level.TranslationIdentifier); //Идентификатор перевода
@@ -421,7 +421,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(boss.Name); //Поле Name
                     data.Write(boss.TranslationIdentifier); //Идентификатор перевода
@@ -444,7 +444,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(questionbase.Name); //Поле Name
                     data.Write(questionbase.TranslationIdentifier); //Идентификатор перевода
@@ -476,7 +476,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(languagePack.Name); //Поле Name
    
@@ -502,7 +502,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(age.Name); //Поле Name
                     data.Write(age.TranslationIdentifier); //Идентификатор перевода
@@ -537,7 +537,7 @@ namespace Assets.Core.ToePac {
             ResourceItem resourse = null;
             using (MemoryStream ms  = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
                     data.Write(inventoryItem.Name); //Поле Name
                     data.Write(inventoryItem.TranslationIdentifier); //Идентификатор перевода

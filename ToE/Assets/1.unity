@@ -418,9 +418,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5567c20acd54eb74ebeeea58b2d021e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ages:
-  - {fileID: 1718929356174984, guid: fd9786386cb9a422f97283d6cdcc4e77, type: 2}
-  camera: {fileID: 0}
+  AgePrefab: {fileID: 1718929356174984, guid: fd9786386cb9a422f97283d6cdcc4e77, type: 2}
+  curentcamera: {fileID: 1098602685699740, guid: 22d2c8318fef37f488ed5db9bb12c1a3,
+    type: 2}
 --- !u!1 &1639341880
 GameObject:
   m_ObjectHideFlags: 0

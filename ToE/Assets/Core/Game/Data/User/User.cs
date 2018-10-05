@@ -13,7 +13,7 @@ namespace Assets.Core.Game.Data.User
     /// Класс Пользователя
     /// </summary>
     [TypeDataAttribute(FileTypes.User)]
-    public class User : IUser
+    public class User : IUser, ISaveData
     {
         public ulong ID
         {
@@ -39,7 +39,7 @@ namespace Assets.Core.Game.Data.User
         }
 
 
-        public string CorrectName { get => SaveGame.GetValue(this, "User"); set => SaveGame.SetValue(this, value); }
+       public string CorrectName { get => SaveGame.GetValue(this, "User"); set => SaveGame.SetValue(this, value); }
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

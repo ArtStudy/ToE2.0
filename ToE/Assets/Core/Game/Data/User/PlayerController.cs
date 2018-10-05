@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine;
+
 
 [RequireComponent (typeof (Rigidbody))]
 
@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour {
 
 	public Transform head;
 
-	public Camera camera;
+	public Camera currentcamera;
 
 	public float sensitivity = 5f; // чувствительность мыши
 	public float headMinY = -40f; // ограничение угла для головы
@@ -30,7 +30,9 @@ public class PlayerController : MonoBehaviour {
 
 	void Start () {
 		body = GetComponent<Rigidbody> ();
-		head = camera.transform.position;
+   
+
+        head = currentcamera.transform;
 		body.freezeRotation = true;
 		layerMask = 1 << gameObject.layer | 1 << 2;
 		layerMask = ~layerMask;
