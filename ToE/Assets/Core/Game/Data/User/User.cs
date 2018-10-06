@@ -1,4 +1,5 @@
 ﻿
+using Assets.Core.BindingData;
 using Assets.Core.Game.Data;
 using Assets.Core.ToePac;
 using System;
@@ -13,9 +14,9 @@ namespace Assets.Core.Game.Data.User
     /// Класс Пользователя
     /// </summary>
     [TypeDataAttribute(FileTypes.User)]
-    public class User : IUser, ISaveData
+    public class User : ChangeNotifier, IUser, ISaveData
     {
-        string _CorrectName;
+  
         public ulong ID
         {
             get
@@ -42,15 +43,14 @@ namespace Assets.Core.Game.Data.User
 
        public string CorrectName
         {
-            get => _CorrectName;
+            get => SaveGame.GetValue(this, string.Empty);
             set
             {
-                _CorrectName = value;
-
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("CorrectName"));
+                this.SetProperty(() => SaveGame.SetValue(this, value));
+              
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
+    
     }
 }

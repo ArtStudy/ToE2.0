@@ -5,10 +5,6 @@
 -out:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Temp/Assembly-CSharp.dll"
 -nostdlib
 -unsafe
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.AIModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.ARModule.dll"
@@ -71,6 +67,10 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.XRModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEditor.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/Unity.Locator.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
+-r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
@@ -292,6 +292,9 @@
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Binding.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/ChangeNotifier.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IntToNotBoolConverter.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IValueConverter.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyProperty.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyPropertys.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Ext.cs"
@@ -343,6 +346,7 @@
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Tale.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Wings.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/PlayerController.cs"
+-i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/SaveUserData.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/User.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Game.cs"
 -i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/Field.cs"

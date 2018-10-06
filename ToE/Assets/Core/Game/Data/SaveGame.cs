@@ -18,8 +18,9 @@ namespace Assets.Core.Game.Data
         public const UInt64 IDUserData = 0x0001;
         public const UInt64 IDLevelData = 0x0002;
         static string path = Path.Combine(Application.persistentDataPath, "save.ToePackage");
-        private static SaveLevelData SaveLevelData { get; }
+        private static SaveUserData SaveUserData { get; }
 
+        private static SaveLevelData SaveLevelData { get; }
         static ToePackage TPSaves;
 
         static SaveGame()
@@ -42,10 +43,12 @@ namespace Assets.Core.Game.Data
             {
 
                 SaveLevelData = ResourceConverter.ResourceToSaveLevel(levelitem, TPSaves.Items);
+                SaveUserData = ResourceConverter.ResourceToSaveUser(levelitem, TPSaves.Items);
             }
           else
             {
                 SaveLevelData = new SaveLevelData();
+                SaveUserData = new SaveUserData();
             }
 
 
@@ -83,6 +86,9 @@ namespace Assets.Core.Game.Data
                 case FileTypes.Level:
                     @base = SaveLevelData;
                     break;
+                case FileTypes.User:
+                    @base = SaveUserData;
+                    break;
             }
 
             var typebase = @base.GetType();
@@ -99,8 +105,10 @@ namespace Assets.Core.Game.Data
         public static void Save()
         {
             TPSaves.Items.Clear();
-           var item1 = ResourceConverter.SaveLevelToResource(SaveLevelData);
-            TPSaves.Items.AddRange(item1);
+
+            TPSaves.Items.AddRange(ResourceConverter.ToResource(SaveLevelData));
+
+            TPSaves.Items.AddRange(ResourceConverter.ToResource(SaveUserData));
             using (var fs = new FileStream(path, FileMode.OpenOrCreate))
             {
                 fs.SetLength(0);

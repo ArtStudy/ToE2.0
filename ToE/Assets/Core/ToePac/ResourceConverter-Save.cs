@@ -12,6 +12,7 @@ using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
+using Assets.Core.Game.Data.User;
 using Assets.Core.LevelsStructureInterfaces;
 
 using Assets.Core.Volutes;
@@ -23,21 +24,13 @@ namespace Assets.Core.ToePac {
 
    
 
-        /// <summary>
-        /// Преобразование ресурса в объект типа уровень
-        /// </summary>
-        /// <param name="obj">Преобразуемый ресурс</param>
-        /// <param name="lr">список всех ресурсов</param>
-        /// <param name="bosses">Боссы</param>
-        /// <param name="questions">Вопросы</param>
-        /// <param name="levels">Уровни</param>
-        /// <returns></returns>
+
         public static SaveLevelData ResourceToSaveLevel(ResourceItem obj, ListResourse lr)
         {
 
                 obj.Data.Position = 0;
             SaveLevelData result = new SaveLevelData();
-            using (var data = new BinaryReader(obj.Data))
+            using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
             {
         
                 var stateLevelSavecount = data.ReadInt32();
@@ -55,22 +48,68 @@ namespace Assets.Core.ToePac {
       
 
         }
-        
-        /// <summary>
-        /// Преобразует ILevel в масив ресуров
-        /// </summary>
-        /// <param name="level">Объект уровня</param>
-        /// <returns>Массив русурсов</returns>
-        public static ListResourse SaveLevelToResource(SaveLevelData obj) {
+        public static SaveUserData ResourceToSaveUser(ResourceItem obj, ListResourse lr)
+        {
+
+            obj.Data.Position = 0;
+            SaveUserData result = new SaveUserData();
+            using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+            {
+
+                var stateLevelSavecount = data.ReadInt32();
+                result.CorrectName.Clear();
+
+                for (int i = 0; i < stateLevelSavecount; i++)
+                {
+                    result.CorrectName.Add(data.ReadUInt64(), data.ReadString());
+                }
+
+
+            }
+            return result;
+
+
+
+        }
+
+        public static ListResourse ToResource(SaveUserData obj) {
 
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
-                using (var data = new BinaryWriter(ms))
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
+                {
+
+                    data.Write(obj.CorrectName.Count); //Колличесво элементов
+                  
+                    for (int i = 0; i < obj.CorrectName.Count; i++)
+                    {
+                        data.Write(obj.CorrectName.ElementAt(i).Key);
+                        data.Write(obj.CorrectName.ElementAt(i).Value);
+                    }
+
+                }
+                resourse = CreateItem(obj.ID, obj.Name, FileTypes.SaveData, ms);
+            }
+
+            return new ListResourse { resourse };
+
+
+
+
+
+        }
+        public static ListResourse ToResource(SaveLevelData obj)
+        {
+
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
                 {
 
                     data.Write(obj.StateLevel.Count); //Колличесво элементов
-                  
+
                     for (int i = 0; i < obj.StateLevel.Count; i++)
                     {
                         data.Write(obj.StateLevel.ElementAt(i).Key);
@@ -88,8 +127,7 @@ namespace Assets.Core.ToePac {
 
 
         }
-      
-       
-     
+
+
     }
 }

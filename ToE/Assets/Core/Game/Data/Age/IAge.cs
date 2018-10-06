@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Assets.Core;
 using Assets.Core.Game.Data.Cultures;
@@ -13,7 +14,7 @@ namespace Assets.Core.Game.Data.Age {
     /// </summary>
     public interface IAge : IBase, IMulticulturalData
     {
-       
+
         /// <summary>
         /// Цена перехода в Эру
         /// </summary>

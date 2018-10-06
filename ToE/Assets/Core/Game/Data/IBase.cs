@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Assets.Core.Game.Data
 {
-    public  interface IBase : INotifyPropertyChanged
+    public  interface IBase 
     {
         /// <summary>
         /// Номер 
