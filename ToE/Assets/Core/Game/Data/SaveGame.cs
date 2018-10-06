@@ -43,11 +43,23 @@ namespace Assets.Core.Game.Data
             {
 
                 SaveLevelData = ResourceConverter.ResourceToSaveLevel(levelitem, TPSaves.Items);
-                SaveUserData = ResourceConverter.ResourceToSaveUser(levelitem, TPSaves.Items);
+              
             }
           else
             {
                 SaveLevelData = new SaveLevelData();
+              
+            }
+            var useritem = TPSaves.Items.GetResourceByTypeAndIdentifier(FileTypes.SaveData, IDUserData);
+            if (useritem != null)
+            {
+
+           
+                SaveUserData = ResourceConverter.ResourceToSaveUser(useritem, TPSaves.Items);
+            }
+            else
+            {
+               
                 SaveUserData = new SaveUserData();
             }
 

@@ -42,6 +42,7 @@ namespace Assets.Core.BindingData
 
             binding.obj = obj;
             DependencyPropertyData.Add(binding);
+            binding.UpdateOnModelBinding();
             return binding;
         }
 
@@ -64,7 +65,6 @@ namespace Assets.Core.BindingData
         }
         Binding(object UIobj)
         {
-
 
             this.istwoway = (UIobj.GetType().GetProperty("onValueChanged") != null);
             this.UIobj = UIobj;
@@ -96,33 +96,38 @@ namespace Assets.Core.BindingData
         {
             object newv1 = sender;
             Type currentType = sender.GetType();
-
-            foreach (string propertyName in path.Split('.'))
+            var r = path.Split('.');
+            if (r.Contains(e.PropertyName))
             {
 
-             //   newv1 = sender.GetType().GetProperty(propertyName).GetValue(sender);
 
-                PropertyInfo property = currentType.GetProperty(propertyName);
-                newv1 = property.GetValue(newv1);
-                currentType = property.PropertyType;
+                foreach (string propertyName in r)
+                {
 
+                    //   newv1 = sender.GetType().GetProperty(propertyName).GetValue(sender);
+
+                    PropertyInfo property = currentType.GetProperty(propertyName);
+                    newv1 = property.GetValue(newv1);
+                    currentType = property.PropertyType;
+
+                }
+
+                if (vc != null)
+                {
+                    newv1 = vc.Convert(newv1, newv1.GetType(), null, null);
+                }
+                var propert = this.UIobj.GetType().GetProperty(this.dp.Name);
+                this.dp.propertyChangedCallback(this.UIobj, new DependencyPropertyChangedEventArgs
+                {
+                    OldValue = propert.GetValue(this.UIobj),
+                    NewValue = newv1
+                });
             }
-        
-            if (vc != null)
-            {
-                newv1 = vc.Convert(newv1, newv1.GetType(), null, null);
-            }
-            var propert = this.UIobj.GetType().GetProperty(this.dp.Name);
-            this.dp.propertyChangedCallback(this.UIobj, new DependencyPropertyChangedEventArgs
-            {
-                OldValue = propert.GetValue(this.UIobj),
-                NewValue = newv1
-            });
-
         }
-        public void UpdateBinding()
+        public void UpdateOnModelBinding()
         {
-
+            var r = this.path.Split('.');
+            Obj_PropertyChanged(this.obj, new PropertyChangedEventArgs(r[0]));
         }
     }
 
