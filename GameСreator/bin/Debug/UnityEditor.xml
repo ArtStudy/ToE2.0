@@ -30690,6 +30690,11 @@ See Also: PhysicsVisualizationSettings.</para>
         <para>True if Virtual Reality Support is enabled.</para>
       </returns>
     </member>
+    <member name="M:UnityEditor.PlayerSettings.GetWsaHolographicRemotingEnabled">
+      <summary>
+        <para>Returns true if Holographic Remoting is enabled.</para>
+      </summary>
+    </member>
     <member name="M:UnityEditor.PlayerSettings.HasAspectRatio(UnityEditor.AspectRatio)">
       <summary>
         <para>Returns whether or not the specified aspect ratio is enabled.</para>
@@ -31636,6 +31641,11 @@ Note: calling this function will implicitly call Application.SetStackTraceLogTyp
       </summary>
       <param name="targetGroup">The BuildTargetGroup to set the value for.</param>
       <param name="value">The value to set, true to enable, false to disable.</param>
+    </member>
+    <member name="M:UnityEditor.PlayerSettings.SetWsaHolographicRemotingEnabled">
+      <summary>
+        <para>Enables Holographic Remoting.</para>
+      </summary>
     </member>
     <member name="T:UnityEditor.PlayerSettings.SplashScreen">
       <summary>

@@ -2,7 +2,7 @@
 -target:library
 -nowarn:0169
 -langversion:7
--out:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Temp/Assembly-CSharp.dll"
+-out:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Temp/Assembly-CSharp.dll
 -nostdlib
 -unsafe
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.dll"
@@ -67,10 +67,10 @@
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEngine/UnityEngine.XRModule.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/UnityEditor.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Managed/Unity.Locator.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll"
--r:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll"
+-r:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll
+-r:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll
+-r:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll
+-r:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Library/ScriptAssemblies/Unity.TextMeshPro.dll
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Timeline/RuntimeEditor/UnityEngine.Timeline.dll"
 -r:"C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll"
@@ -204,7 +204,7 @@
 -d:UNITY_2017_4_OR_NEWER
 -d:UNITY_2018_1_OR_NEWER
 -d:UNITY_2018_2_OR_NEWER
--d:UNITY_2018_2_5
+-d:UNITY_2018_2_11
 -d:UNITY_2018_2
 -d:UNITY_2018
 -d:PLATFORM_ARCH_64
@@ -291,83 +291,83 @@
 -d:ENABLE_BURST_AOT
 -d:UNITY_TEAM_LICENSE
 -d:ENABLE_VSTU
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Binding.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/ChangeNotifier.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IntToNotBoolConverter.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IValueConverter.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyProperty.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyPropertys.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Ext.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/ArcCalculator.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Web.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/AgeRotation.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/CameraRotateAround.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Age/Age.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Age/IAge.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Boss/Boss.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Boss/IBoss.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/ILanguagePack.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/IMulticulturalData.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LanguagePack.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LocalizationDictionary.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LocalizationKeyValuePair.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/DataList.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/GameData.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/IBase.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/Enhancements.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/IInventoryItem.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/InventoryItem.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/ISaveData.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/ILevel.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/Level.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/SaveLevelData.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/IQuestion.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/QuestionSelectOne.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/TypeQuestionEnum.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/SaveGame.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/StoredDataAttribute.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/TypeDataAttribute.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Character.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/IUser.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Look.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Body.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Eyes.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Hands.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Head.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Legs.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Mouth.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Nose.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Skin.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Tale.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Wings.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/PlayerController.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/SaveUserData.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/User.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Game.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/Field.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/LevelsDrawer.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/LevelsGrid.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/Sorting.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/SortLevels.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/WebDrawer.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IDynamicTest.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IPassageLevel.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IWay.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Menu/Menu.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Save/Save.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ListResourse.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceConverter.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceConverter-Save.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceItem.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ToePackage.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Transliteration.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/UI/Labels.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/UI/UserInfo.cs"
--i:"D:/Облака/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Volutes/Money.cs"
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Binding.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/ChangeNotifier.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IntToNotBoolConverter.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/Converters/IValueConverter.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyProperty.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/BindingData/DependencyPropertys.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Ext.cs
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/AgeObj.cs"
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/ArcCalculator.cs"
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/LevelObj.cs"
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayDrawer.cs"
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/WayObj.cs"
+-i:"C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Ages and Graphs/Web.cs"
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/AgeRotation.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/CameraRotateAround.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Animations/MenuAnimations.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Age/Age.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Age/IAge.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Boss/Boss.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Boss/IBoss.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/ILanguagePack.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/IMulticulturalData.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LanguagePack.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LocalizationDictionary.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Cultures/LocalizationKeyValuePair.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/DataList.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/GameData.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/IBase.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/Enhancements.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/IInventoryItem.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Inventor/InventoryItem.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/ISaveData.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/ILevel.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/Level.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/SaveLevelData.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/IQuestion.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/QuestionSelectOne.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/TypeQuestionEnum.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/SaveGame.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/StoredDataAttribute.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/TypeDataAttribute.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Character.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/IUser.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Look.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Body.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Eyes.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Hands.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Head.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Legs.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Mouth.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Nose.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Skin.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Tale.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/LookParts/Wings.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/PlayerController.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/SaveUserData.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/User.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Game.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/Field.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/LevelsDrawer.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/LevelsGrid.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/Sorting.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/SortLevels.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Sorting/WebDrawer.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Test/Cube.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IDynamicTest.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IPassageLevel.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/LevelsStructureInterfaces/IWay.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Menu/Menu.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Save/Save.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ListResourse.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceConverter.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceConverter-Save.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ResourceItem.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/ToePac/ToePackage.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Transliteration.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/UI/Labels.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/UI/UserInfo.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Volutes/Money.cs
 -v:0

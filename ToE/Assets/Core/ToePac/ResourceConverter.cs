@@ -37,6 +37,7 @@ namespace Assets.Core.ToePac {
         private const string StringNameQuestionData = "Quest.";
         private const string StringNameLanguagePackData = "Lang.";
         private const string StringNameAgeData = "Age.";
+        private const string StringNameLevelsAgeData = "LevelsAge.";
         private const string StringNameInventoryItemData = "InvIt.";
 
 
@@ -279,30 +280,57 @@ namespace Assets.Core.ToePac {
                     result.Name = data.ReadString();
                     result.ID = obj.Identifier;
                     result.TranslationIdentifier = data.ReadString();
-
-                    { //Обработка уровней
-                        int levelcount = data.ReadInt32();
-                        result.Levels = new DataList<ILevel>();
-                        for (int j = 0; j < levelcount; j++)
+                { //Обработка уровней
+                    var levelsage = lr.FindAllByTypeAndIdentifier(FileTypes.LevelsAge, obj.Identifier);
+                    result.Levels = new DataList<ILevel>();
+                    for (int i = 0; i< levelsage.Count; i++ )
+                    {
+                        using (var data1 = new BinaryReader(levelsage[i].Data, Encoding.UTF8, true))
                         {
-                            var levelid = data.ReadUInt64();
-                            ILevel levelage = LevelCashe.Find((item) => item.ID == levelid);
-                            if (levelage != null)
+                            int levelcount = data1.ReadInt32();
+                            for (int j = 0; j < levelcount; j++)
                             {
-                                result.Levels.Add(levelage);
-                            }
-                            else
-                            {
-                                result.Levels.Add(new Level { ID = levelid });
-                                if (!levelagecashe.ContainsKey(levelid))
-                                    levelagecashe[levelid] = new List<IAge>();
-                                levelagecashe[levelid].Add(result);
+                                var levelid = data1.ReadUInt64();
+                                ILevel levelage = LevelCashe.Find((item) => item.ID == levelid);
+                                if (levelage != null)
+                                {
+                                    result.Levels.Add(levelage);
+                                }
+                                else
+                                {
+                                    result.Levels.Add(new Level { ID = levelid });
+                                    if (!levelagecashe.ContainsKey(levelid))
+                                        levelagecashe[levelid] = new List<IAge>();
+                                    levelagecashe[levelid].Add(result);
+                                }
                             }
                         }
-
-
-
                     }
+
+                }
+                  /*{ //Обработка уровней
+                       int levelcount = data.ReadInt32();
+                       result.Levels = new DataList<ILevel>();
+                       for (int j = 0; j < levelcount; j++)
+                       {
+                           var levelid = data.ReadUInt64();
+                           ILevel levelage = LevelCashe.Find((item) => item.ID == levelid);
+                           if (levelage != null)
+                           {
+                               result.Levels.Add(levelage);
+                           }
+                           else
+                           {
+                               result.Levels.Add(new Level { ID = levelid });
+                               if (!levelagecashe.ContainsKey(levelid))
+                                   levelagecashe[levelid] = new List<IAge>();
+                               levelagecashe[levelid].Add(result);
+                           }
+                       }
+
+
+
+                   }*/
 
                     { //Обработка родителя эры 1 
                         var Isparent = data.ReadBoolean();
@@ -500,6 +528,7 @@ namespace Assets.Core.ToePac {
         public static ListResourse AgeToResource (IAge age) {
 
             ResourceItem resourse = null;
+            ResourceItem resourseLevels = null;
             using (MemoryStream ms = new MemoryStream())
             {
                 using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
@@ -507,20 +536,28 @@ namespace Assets.Core.ToePac {
                     data.Write(age.Name); //Поле Name
                     data.Write(age.TranslationIdentifier); //Идентификатор перевода
 
-                    data.Write(age.Levels.Count);
-                    age.Levels.ForEach((item) => data.Write(item.ID));
+                    // data.Write(age.Levels.Count);
+                    //  age.Levels.ForEach((item) => data.Write(item.ID));
                     var isparent = age.Parent != null;
                     data.Write(isparent);
-                    if(isparent)
+                    if (isparent)
                         data.Write(age.Parent.ID);
                     data.Write(age.Price.Gold);
                     data.Write(age.Price.Brains);
-
                 }
                 resourse = CreateItem(age.ID, StringNameAgeData + age.Name, FileTypes.Age, ms);
             }
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
+                    {
+                     data.Write(age.Levels.Count);
+                      age.Levels.ForEach((item) => data.Write(item.ID));
+                }
+                resourseLevels = CreateItem(age.ID, StringNameLevelsAgeData + age.Name, FileTypes.LevelsAge, ms);
 
-            return new ListResourse { resourse };
+            }
+                return new ListResourse { resourse, resourseLevels };
 
         
         }

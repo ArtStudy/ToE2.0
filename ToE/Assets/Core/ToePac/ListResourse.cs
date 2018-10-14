@@ -26,6 +26,7 @@ namespace Assets.Core.ToePac
         public List<ResourceItem> GetResourcesByType(FileTypes filetype) => this.FindAll((item) => item.FileType == filetype);
 
         public ResourceItem GetResourceByTypeAndIdentifier(FileTypes filetype, UInt64 id) => this.Find((item) => item.FileType == filetype && item.Identifier == id);
+        public List<ResourceItem> FindAllByTypeAndIdentifier(FileTypes filetype, UInt64 id) => this.FindAll((item) => item.FileType == filetype && item.Identifier == id);
 
 
 

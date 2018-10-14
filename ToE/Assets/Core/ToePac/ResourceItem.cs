@@ -54,7 +54,7 @@ namespace Assets.Core.ToePac
             bw.Write(this.Length);
             this.Position = st.Length;
             bw.Write(this.Position);
-
+            bw.Write(this.Group);
             stream.Position = this.Position;
             stream.Write(this.Data.ToArray(), 0, (int) this.Data.Length);
  
@@ -83,6 +83,7 @@ namespace Assets.Core.ToePac
             this.Version = br.ReadInt32();
             var length = br.ReadInt64();
             this.Position = br.ReadInt64();
+            this.Group = br.ReadUInt32();
 
             byte[] bytedata = new byte[length];
 
@@ -98,7 +99,7 @@ namespace Assets.Core.ToePac
 
         public override string ToString()
         {
-            return this.Name + "_" + String.Format("0x{0:X}", this.Identifier) + "_" + this.FileType + "_" + this.Version + ".res";
+            return this.Name + "_" + String.Format("0x{0:X}", this.Identifier) + "_" + String.Format("0x{0:X}", this.Group) + "_" + this.FileType + "_" + this.Version + ".res";
         }
 
 
@@ -112,6 +113,10 @@ namespace Assets.Core.ToePac
         /// Тип файла
         /// </summary>
         public FileTypes FileType { get; set; } = FileTypes.Unknown;
+        /// <summary>
+        /// Тип файла
+        /// </summary>
+        public uint Group { get; set; } 
 
         /// <summary>
         /// Длинна файла
@@ -143,6 +148,9 @@ namespace Assets.Core.ToePac
         Age = 5,
         SaveData = 6,
         User = 7,
-        InventoryItem = 8
+        InventoryItem = 8,
+
+        LevelsAge
+
     }
 }

@@ -16,7 +16,8 @@
             <DataGrid.Columns>
                 <DataGridTextColumn  Header="Name" MinWidth="200"  Binding="{Binding Name}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Identifier" MinWidth="200" Binding="{Binding Identifier, Converter={StaticResource UInt64ToStringConverter}}"></DataGridTextColumn>
-                <DataGridTextColumn Header="FileType" MinWidth="200" Binding="{Binding FileType}"></DataGridTextColumn>
+                 <DataGridTextColumn  Header="Group" MinWidth="200"  Binding="{Binding Group, Converter={StaticResource UInt32ToStringConverter}}"></DataGridTextColumn>  
+              <DataGridTextColumn Header="FileType" MinWidth="200" Binding="{Binding FileType}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Length" MinWidth="200" Binding="{Binding Length}"></DataGridTextColumn>
                
             </DataGrid.Columns>
