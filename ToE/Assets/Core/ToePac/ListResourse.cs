@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Core.ToePac
 {
@@ -21,6 +22,7 @@ namespace Assets.Core.ToePac
             {
                 handler(this, new PropertyChangedEventArgs(name));
             }
+
         }
 
         public List<ResourceItem> GetResourcesByType(FileTypes filetype) => this.FindAll((item) => item.FileType == filetype);

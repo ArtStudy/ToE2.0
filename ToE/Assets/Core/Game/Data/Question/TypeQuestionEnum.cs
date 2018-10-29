@@ -5,7 +5,9 @@
     /// </summary>
     public enum TypeQuestionEnum : ulong
     {
-        SelectOne = 2 
+        SelectLot = 1,
+        SelectOne = 2,
+
         
     }
 }

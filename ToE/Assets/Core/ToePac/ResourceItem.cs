@@ -150,7 +150,8 @@ namespace Assets.Core.ToePac
         User = 7,
         InventoryItem = 8,
 
-        LevelsAge
+        LevelsAge = 9,
+        TextStyle = 10
 
     }
 }

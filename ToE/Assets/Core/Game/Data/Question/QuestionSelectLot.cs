@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 namespace Assets.Core.Game.Data.Question
 {
     [TypeDataAttribute(FileTypes.Question)]
-    public class QuestionSelectOne : IQuestion
+    public class QuestionSelectLot : IQuestion
     {
-         private string _name;
-        public TypeQuestionEnum TypeQuestion => TypeQuestionEnum.SelectOne;
+        private string _name;
+
+        public TypeQuestionEnum TypeQuestion => TypeQuestionEnum.SelectLot;
 
         public UInt64 ID { get; set; }
         public string Name
@@ -29,17 +30,15 @@ namespace Assets.Core.Game.Data.Question
         }
 
         /// <summary>
-        /// Правильный ответ
+        /// Правильные ответы
         /// </summary>
-        public uint RightAnswer { get; set; } = 1;
+        public List<uint> RightAnswers { get; set; }
         /// <summary>
         /// Колличесво ответов
         /// </summary>
         public uint NumberAnswer { get; set; } = 4;
-        /// <summary>
-        /// Правильный ответ
-        /// </summary>
-        public int UserAnswer { get; set; }
+
+        public List<uint> UserAnswers { get; set; }
 
         public string TranslationIdentifier { get; set; }
 
@@ -63,7 +62,16 @@ namespace Assets.Core.Game.Data.Question
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public double AnswerCheck() => (RightAnswer == UserAnswer) ? 1 : 0;
+        public double AnswerCheck() {
+            Double preresult = 0;
+            for (int i = 0; i < RightAnswers.Count; i++)
+            {
+                if (UserAnswers.Contains(RightAnswers[i]))
+                    preresult += 1;
+
+            }
+            return preresult / RightAnswers.Count;
+        }
 
         public override string ToString() => $"{this.Name} ({this.ID})";
     }

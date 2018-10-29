@@ -16,7 +16,7 @@ public class UserInfo : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
-
+        
         Binding.Register(InputText, DependencyProperty.textonInputFieldtProperty, this, "NewCorrectName");
         Binding.Register(this.gameObject, DependencyProperty.activedonGameObjectProperty, GameData.Default.User, "CorrectName.Length", new IntToNotBoolConverter());
 

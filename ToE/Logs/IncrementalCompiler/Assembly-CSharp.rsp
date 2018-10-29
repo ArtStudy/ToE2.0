@@ -327,11 +327,14 @@
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/Level.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Level/SaveLevelData.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/IQuestion.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/QuestionSelectLot.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/QuestionSelectOne.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/Question/TypeQuestionEnum.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/SaveGame.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/StoredDataAttribute.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/TypeDataAttribute.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/UI/ITextStyle.cs
+-i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/UI/TextStyle.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Character.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/IUser.cs
 -i:C:/Users/Dmitr/OneDrive/GitHub/ToE2.0/ToE/Assets/Core/Game/Data/User/Look.cs

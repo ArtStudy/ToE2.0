@@ -7,6 +7,7 @@ using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
+using Assets.Core.Game.Data.UI;
 using Assets.Core.Levels;
 using Assets.Core.LevelsStructureInterfaces;
 using Assets.Core.ToePac;
@@ -90,6 +91,7 @@ namespace GameСreator.ViewModel
         public List<ILanguagePack> LanguagesList { get => GetListOfType(FileTypes.Language).OfType<ILanguagePack>().ToList(); }
         public List<IAge> AgeList { get => GetListOfType(FileTypes.Age).OfType<IAge>().ToList(); }
         public List<IInventoryItem> InventoryItemList { get => GetListOfType(FileTypes.InventoryItem).OfType<IInventoryItem>().ToList(); }
+        public List<ITextStyle> TextStyleList { get => GetListOfType(FileTypes.TextStyle).OfType<ITextStyle>().ToList(); }
 
         public Level CurrentNewParentLevel { get; set; }
         public IQuestion CurrentNewQuestionLevel { get; set; }
@@ -269,18 +271,10 @@ namespace GameСreator.ViewModel
             this.CreateNewQuestionSelectOne = new RelayCommand(() => this.CurrentItem = new QuestionSelectOne(), () => this.Files?.Count > 0 && this.CurrentPage == "QuestionsPage");
             this.CreateNewInventoryItem = new RelayCommand(() => this.CurrentItem = new InventoryItem(), () => this.Files?.Count > 0);
 
-            this.OpenFilesPage = new RelayCommand(() => OpenPageOne("FilesPage", null), OpenPageCanEx);
-            this.OpenAges = new RelayCommand(() => OpenPageOne("AgesPage", () => UpdateAll(FileTypes.Age)), OpenPageCanEx);
-            this.OpenBosses = new RelayCommand(() => OpenPageOne("BossesPage", () => UpdateAll(FileTypes.Boss)), OpenPageCanEx);
+            this.OpenFilesPage = new RelayCommand(() => OpenPageOne("FilesPage", null));
             this.OpenPackage = new RelayCommand(OpenPackageAction, OpenPackageCanEx);
-            this.OpenLevels = new RelayCommand(() => OpenPageOne("LevelPage", () => UpdateAll(FileTypes.Level)), OpenPageCanEx);
-            this.OpenLanguagePacks = new RelayCommand(() => OpenPageOne("LanguagePacksPage", () => UpdateAll(FileTypes.Language)), OpenPageCanEx);
             this.OpenDir = new RelayCommand(OpenDirAction, OpenDirCanEx);
-            this.OpenQuestions = new RelayCommand(() => OpenPageOne("QuestionsPage", () => UpdateAll(FileTypes.Question)), OpenPageCanEx);
-            this.InventoryItems = new RelayCommand(() => OpenPageOne("InventoryItemPage", () => UpdateAll(FileTypes.InventoryItem)), OpenPageCanEx);
-
-
-
+            this.OpenPageList = new RelayCommand<string>((s) => OpenPageOne(s, () => UpdateAll()), OpenPageCanEx);
 
             this.SavePackage = new RelayCommand(SavePackageAction, SavePackageCanEx);
             this.SaveValue = new RelayCommand(SaveValueAction, SaveValueCanEx);
@@ -341,7 +335,7 @@ namespace GameСreator.ViewModel
 
         }
 
-        private bool OpenPageCanEx()
+        private bool OpenPageCanEx(string s)
         {
             this.RaisePropertyChanged("BossesList");
             this.RaisePropertyChanged("QuestionsList");
@@ -511,7 +505,6 @@ namespace GameСreator.ViewModel
 
 
         public ICommand RermoveLevelToAge { get; }
-        public ICommand InventoryItems { get; }
         public ICommand AddLevelToAge { get; }
         public ICommand CreateNewLanguagePack { get; }
         /// <summary>
@@ -530,35 +523,19 @@ namespace GameСreator.ViewModel
         public ICommand SavePackage { get; }
         public ICommand SaveValue { get; }
         public ICommand OpenDir { get; }
-        /// <summary>
-        /// Открыть уровни пакет
-        /// </summary>
-        public ICommand OpenLevels { get; }
 
 
         /// <summary>
         /// Открыть пакет
         /// </summary>
         public ICommand OpenPackage { get; }
-        /// <summary>
-        /// Открыть пакет
-        /// </summary>
-        public ICommand OpenQuestions { get; }
 
-        /// <summary>
-        /// Открыть поле русурсов 
-        /// </summary>
-        public ICommand OpenAges { get; }
-
-        /// <summary>
-        /// Открыть список босов
-        /// </summary>
-        public ICommand OpenBosses { get; }
         public ICommand RermoveItem { get; }
+
         /// <summary>
         /// Открыть список языковой пакет
         /// </summary>
-        public ICommand OpenLanguagePacks { get; }
+        public ICommand OpenPageList { get; }
 
         /// <summary>
         /// Создать новый паке

@@ -6,6 +6,7 @@ using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
+using Assets.Core.Game.Data.UI;
 using Assets.Core.Levels;
 using Assets.Core.LevelsStructureInterfaces;
 
@@ -37,7 +38,8 @@ namespace GameСreator.Core
             [FileTypes.Question] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Language] = new Dictionary<IBase, ListResourse>(),
             [FileTypes.Age] = new Dictionary<IBase, ListResourse>(),
-            [FileTypes.InventoryItem] = new Dictionary<IBase, ListResourse>()
+            [FileTypes.InventoryItem] = new Dictionary<IBase, ListResourse>(),
+               [FileTypes.TextStyle] = new Dictionary<IBase, ListResourse>()
         };
             
 
@@ -84,6 +86,12 @@ namespace GameСreator.Core
 
                         Data[pac.Items[i].FileType][InventoryItemresult.Item1] = InventoryItemresult.Item2;
                         break;
+                    case FileTypes.TextStyle:
+                        var TextStyleresult = ResourceConverter.ResourceToTextStyle(pac.Items[i], pac.Items);
+
+                        Data[pac.Items[i].FileType][TextStyleresult.Item1] = TextStyleresult.Item2;
+                        break;
+
 
                 }
              
@@ -160,6 +168,11 @@ namespace GameСreator.Core
 
                         Data[type][InventoryItemresult.Item1] = InventoryItemresult.Item2;
                         break;
+                    case FileTypes.TextStyle:
+                        var TextStyleresult = ResourceConverter.ResourceToTextStyle(baseobj, lr);
+
+                        Data[type][TextStyleresult.Item1] = TextStyleresult.Item2;
+                        break;
                 }
             }
 
@@ -175,26 +188,30 @@ namespace GameСreator.Core
             {
                 case FileTypes.Level:
 
-                    lr = ResourceConverter.LevelToResource((ILevel)obj);
+                    lr = ResourceConverter.ToResource((ILevel)obj);
                     break;
                 case FileTypes.Boss:
-                    lr = ResourceConverter.BossToResource((IBoss)obj);
+                    lr = ResourceConverter.ToResource((IBoss)obj);
                     break;
                 case FileTypes.Question:
 
-                    lr = ResourceConverter.QuestionToResource((IQuestion)obj);
+                    lr = ResourceConverter.ToResource((IQuestion)obj);
 
                     break;
                 case FileTypes.Language:
-                    lr = ResourceConverter.LanguagePackToResource((ILanguagePack)obj);
+                    lr = ResourceConverter.ToResource((ILanguagePack)obj);
                     break;
                 case FileTypes.Age:
 
-                    lr = ResourceConverter.AgeToResource((IAge)obj);
+                    lr = ResourceConverter.ToResource((IAge)obj);
                     break;
                 case FileTypes.InventoryItem:
 
-                    lr = ResourceConverter.InventoryItemToResource((IInventoryItem)obj);
+                    lr = ResourceConverter.ToResource((IInventoryItem)obj);
+                    break;
+                case FileTypes.TextStyle:
+
+                    lr = ResourceConverter.ToResource((ITextStyle)obj);
                     break;
             }
 

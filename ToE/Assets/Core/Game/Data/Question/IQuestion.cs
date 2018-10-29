@@ -15,6 +15,6 @@ namespace Assets.Core.Game.Data.Question
         /// </summary>
         TypeQuestionEnum TypeQuestion { get; }
 
-        bool AnswerCheck();
+        double AnswerCheck();
     }
 }

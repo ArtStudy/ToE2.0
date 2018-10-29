@@ -54,7 +54,7 @@
                 </Menu.ItemsPanel>
                 <MenuItem Header="Файлы" Command="{Binding OpenFilesPage}"></MenuItem>
                 <Separator></Separator>
-                <MenuItem  Command="{Binding OpenAges}">
+                <MenuItem Command="{Binding  OpenPageList}" CommandParameter="AgesPage">
                     <MenuItem.Header>
                         <WrapPanel>
                         <TextBlock Text="Эры ("></TextBlock>
@@ -63,8 +63,8 @@
                         </WrapPanel>
                     </MenuItem.Header>
                 </MenuItem>
-         
-                <MenuItem  Command="{Binding  OpenQuestions}">
+
+                <MenuItem  Command="{Binding  OpenPageList}" CommandParameter="QuestionsPage">
                     <MenuItem.Header>
                         <WrapPanel>
                             <TextBlock Text="Вопросы ("></TextBlock>
@@ -73,7 +73,7 @@
                         </WrapPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem  Command="{Binding OpenBosses}">
+                <MenuItem  Command="{Binding OpenPageList}" CommandParameter="BossesPage">
                     <MenuItem.Header>
                         <WrapPanel>
                             <TextBlock Text="Боссы ("></TextBlock>
@@ -82,7 +82,7 @@
                         </WrapPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem  Command="{Binding OpenLevels}">
+                <MenuItem Command="{Binding OpenPageList}" CommandParameter="LevelPage">
                     <MenuItem.Header>
                         <WrapPanel>
                             <TextBlock Text="Уровни ("></TextBlock>
@@ -91,7 +91,7 @@
                         </WrapPanel>
                     </MenuItem.Header>
                 </MenuItem>
-                <MenuItem  Command="{Binding InventoryItems}">
+                <MenuItem  Command="{Binding OpenPageList}" CommandParameter="InventoryItemPage">
                     <MenuItem.Header>
                         <WrapPanel>
                             <TextBlock Text="Элементы инвентаря ("></TextBlock>
@@ -101,11 +101,21 @@
                     </MenuItem.Header>
                 </MenuItem>
                 <Separator></Separator>
-                <MenuItem  Command="{Binding OpenLanguagePacks}">
+                <MenuItem  Command="{Binding OpenPageList}" CommandParameter="LanguagePacksPage">
                     <MenuItem.Header>
                         <WrapPanel>
                             <TextBlock Text="Локализация ("></TextBlock>
                             <TextBlock Text="{ Binding LanguagesList.Count}"></TextBlock>
+                            <TextBlock Text=")"></TextBlock>
+                        </WrapPanel>
+                    </MenuItem.Header>
+                </MenuItem>
+                <Separator></Separator>
+                <MenuItem  Command="{Binding OpenPageList}" CommandParameter="TextStylesPage">
+                    <MenuItem.Header>
+                        <WrapPanel>
+                            <TextBlock Text="Стили текста ("></TextBlock>
+                            <TextBlock Text="{ Binding TextStyleList.Count}"></TextBlock>
                             <TextBlock Text=")"></TextBlock>
                         </WrapPanel>
                     </MenuItem.Header>

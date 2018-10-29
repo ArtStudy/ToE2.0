@@ -14,10 +14,9 @@
 
     <Grid Margin="40">
         <TextBox Height="23" Margin="100,0,0,0" TextWrapping="Wrap" Text="{Binding  CurrentItem.ID, Converter={StaticResource UInt64ToStringConverter}}" IsReadOnly="True" VerticalAlignment="Top"/>
-        <TextBox Height="23" Margin="139,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.Name}"  VerticalAlignment="Top"/>
+        <TextBox Height="23" Margin="100,28,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.Name}"  VerticalAlignment="Top"/>
         <Label Content="ID" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         <Label Content="Name" HorizontalAlignment="Left" Margin="0,28,0,0" VerticalAlignment="Top"/>
-        <TextBlock Text="Quest." HorizontalAlignment="Left" Margin="100,33,0,0" VerticalAlignment="Top" Width="34"/>
         <Label Content="RightAnswer" HorizontalAlignment="Left" Margin="0,87,0,0" VerticalAlignment="Top"/>
         <Label Content="NumberAnswer" HorizontalAlignment="Left" Margin="0,56,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.442,0.218"/>
         <TextBox Height="23" Margin="100,56,0,0" TextWrapping="Wrap" Text="{Binding CurrentItem.NumberAnswer}" VerticalAlignment="Top"/>

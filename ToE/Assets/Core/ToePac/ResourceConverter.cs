@@ -12,9 +12,11 @@ using Assets.Core.Game.Data.Cultures;
 using Assets.Core.Game.Data.Inventor;
 using Assets.Core.Game.Data.Level;
 using Assets.Core.Game.Data.Question;
+using Assets.Core.Game.Data.UI;
 using Assets.Core.LevelsStructureInterfaces;
 
 using Assets.Core.Volutes;
+using UnityEngine;
 
 namespace Assets.Core.ToePac {
     public partial class ResourceConverter {
@@ -25,6 +27,7 @@ namespace Assets.Core.ToePac {
         private static List<ILanguagePack> LanguagePackCashe = new List<ILanguagePack> ();
         private static List<IAge> AgeCashe = new List<IAge> ();
         private static List<IInventoryItem> InventoryItemCashe = new List<IInventoryItem>();
+        private static List<ITextStyle> TextStyleCashe = new List<ITextStyle>();
 
         private static Dictionary<ulong, List<ILevel>> bosslevelcashe = new Dictionary<ulong, List<ILevel>> ();
         private static Dictionary<ulong, List<ILevel>> questionlevelcashe = new Dictionary<ulong, List<ILevel>> ();
@@ -39,9 +42,9 @@ namespace Assets.Core.ToePac {
         private const string StringNameAgeData = "Age.";
         private const string StringNameLevelsAgeData = "LevelsAge.";
         private const string StringNameInventoryItemData = "InvIt.";
+        private const string StringNameTextStyleData = "TxSt.";
 
 
-   
 
         /// <summary>
         /// Преобразование ресурса в объект типа уровень
@@ -397,11 +400,37 @@ namespace Assets.Core.ToePac {
 
         }
         /// <summary>
+        /// Преобразование ресурса в объект стиль текста
+        /// </summary>
+        /// <param name="obj">Преобразуемый ресурс</param>
+        /// <param name="lr">список всех ресурсов</param>
+        public static Tuple<ITextStyle, ListResourse> ResourceToTextStyle(ResourceItem obj, ListResourse lr)
+        {
+            obj.Data.Position = 0;
+            ITextStyle result = new TextStyle();
+
+            // SerializableInventoryItem s = new SerializableInventoryItem(obj.Data);
+            using (var data = new BinaryReader(obj.Data, Encoding.UTF8, true))
+            {
+                result.Name = data.ReadString();
+                result.ID = obj.Identifier;
+                result.Font = new Font (data.ReadString());
+                result.FontSize = data.ReadInt32();
+                result.FontStyle = (FontStyle)data.ReadInt32();
+              
+
+            }
+
+            TextStyleCashe.Add(result);
+            return new Tuple<ITextStyle, ListResourse>(result, new ListResourse { obj });
+
+        }
+        /// <summary>
         /// Преобразует ILevel в масив ресуров
         /// </summary>
         /// <param name="level">Объект уровня</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse LevelToResource (ILevel level) {
+        public static ListResourse ToResource (ILevel level) {
 
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
@@ -445,7 +474,7 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="boss">Объект босса</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse BossToResource (IBoss boss) {
+        public static ListResourse ToResource (IBoss boss) {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
@@ -468,7 +497,7 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="questionbase">Объект вопроса</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse QuestionToResource(IQuestion questionbase) {
+        public static ListResourse ToResource(IQuestion questionbase) {
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
             {
@@ -499,7 +528,7 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="languagePack">Объект языкового пакета</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse LanguagePackToResource (ILanguagePack languagePack) {
+        public static ListResourse ToResource (ILanguagePack languagePack) {
 
             ResourceItem resourse = null;
             using (MemoryStream ms = new MemoryStream())
@@ -525,7 +554,7 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="languagePack">Объект эры</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse AgeToResource (IAge age) {
+        public static ListResourse ToResource (IAge age) {
 
             ResourceItem resourse = null;
             ResourceItem resourseLevels = null;
@@ -566,7 +595,7 @@ namespace Assets.Core.ToePac {
         /// </summary>
         /// <param name="languagePack">Объект элемента инвентаря</param>
         /// <returns>Массив русурсов</returns>
-        public static ListResourse InventoryItemToResource(IInventoryItem inventoryItem)
+        public static ListResourse ToResource(IInventoryItem inventoryItem)
         {
 
           
@@ -589,7 +618,35 @@ namespace Assets.Core.ToePac {
      
             return new ListResourse { resourse };
         }
-       
+        /// <summary>
+        /// Преобразует ITextStyle в масив ресуров
+        /// </summary>
+        /// <param name="languagePack">Объект элемента инвентаря</param>
+        /// <returns>Массив русурсов</returns>
+        public static ListResourse ToResource(ITextStyle textStyle)
+        {
+
+
+
+            ResourceItem resourse = null;
+            using (MemoryStream ms = new MemoryStream())
+            {
+                using (var data = new BinaryWriter(ms, Encoding.UTF8, true))
+                {
+                    data.Write(textStyle.Name); //Поле Name
+                
+
+                    data.Write(textStyle.Font.name);
+                    data.Write(textStyle.FontSize); 
+                    data.Write((int)textStyle.FontStyle); //Поле типа улучшения для здоровья
+                 
+                }
+                resourse = CreateItem(textStyle.ID, StringNameTextStyleData + textStyle.Name, FileTypes.TextStyle, ms);
+            }
+
+            return new ListResourse { resourse };
+        }
+
         private static ResourceItem CreateItem(ulong ID, string name, FileTypes type, MemoryStream ms)
         {
             if (ID == 0)
